@@ -30,6 +30,12 @@
 /Assets/Room_Chunks_Assets/*
 /Assets/GS_Material/
 
+/splat_chunking/room_chunks_final/*
+/splat_chunking/room_chunks_final2/*
+/splat_chunking/room_chunks_final3/*
+/splat_chunking/room_chunks_unity/*
+/splat_chunking/room_chunks_4x4/*
+
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
