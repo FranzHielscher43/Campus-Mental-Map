@@ -30,11 +30,17 @@
 /Assets/Room_Chunks_Assets/*
 /Assets/GS_Material/
 
-/splat_chunking/room_chunks_final/*
-/splat_chunking/room_chunks_final2/*
-/splat_chunking/room_chunks_final3/*
-/splat_chunking/room_chunks_unity/*
-/splat_chunking/room_chunks_4x4/*
+# Ignore everything in splat_chunking
+splat_chunking/**/*
+
+# Allow root folder
+!splat_chunking/
+
+# Allow selected files
+!splat_chunking/split_last_monsters.py
+!splat_chunking/split_monsters.py
+!splat_chunking/split_ply.py
+!splat_chunking/split_subchunks.py
 
 [Ll]ibrary/
 [Tt]emp/
