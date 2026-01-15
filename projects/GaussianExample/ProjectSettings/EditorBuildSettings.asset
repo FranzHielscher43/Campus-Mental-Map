@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GSTestScene.unity
     guid: ca13622d0f7f243a3a3020f3b8b0650f
+  - enabled: 1
+    path: Assets/test.unity
+    guid: 197445cc590b3d74eb8c2e9e1d5bc9ba
+  - enabled: 0
+    path: Assets/test1.unity
+    guid: 74506793c5a521f4387dfa76c5bed3c5
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 42450b96456c54e29880acc2759cd27a, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: b5abd0116773243b49b50e03cc383225, type: 2}
