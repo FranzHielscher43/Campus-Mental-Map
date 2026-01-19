@@ -752,7 +752,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Htwk elipzig wallah billa beste dieeggaggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1122,13 +1122,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPlane: {fileID: 835792767}
+  planeRenderer: {fileID: 835792769}
   infoText: {fileID: 861599380}
-  message: "Dies ist ein Beispieltext f\xFCr die Anzeige auf der Plane. Hallo Welt!
-    wie geht's dir heute? gut und du? hallo hallo"
-  fixedScale: {x: 0.1, y: 0.1, z: 0.1}
-  slideHeight: 1.5
-  slideDuration: 0.5
+  screenshot: {fileID: 2800000, guid: 4d2581a19610feb4cb1734b3cbe2831b, type: 3}
+  baseImageHeight: 0.1
+  message: Dies ist ein Beispieltext...
   typeSpeed: 0.05
+  fixedScale: {x: 0.1, y: 0.1, z: 0.1}
+  slideHeight: 1
+  slideDuration: 0.5
 --- !u!1 &2075761896
 GameObject:
   m_ObjectHideFlags: 0

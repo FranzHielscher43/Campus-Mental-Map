@@ -9,18 +9,24 @@ public class UniversalInteraction : MonoBehaviour
 {
     [Header("Ziel-Objekte")]
     public GameObject targetPlane; 
-    public TextMeshPro infoText; // Hier das PlaneText Objekt reinziehen
+    public MeshRenderer planeRenderer; // Der Renderer der Plane (für das Bild)
+    public TextMeshPro infoText; 
 
-    [Header("Inhalt")]
+    [Header("Option A: Bild (Priorität)")]
+    public Texture2D screenshot; 
+    public float baseImageHeight = 0.1f; // Referenzgröße für Bilder
+
+    [Header("Option B: Text (Fallbacks)")]
     [TextArea(3,10)]
-    public string message = "Dies ist ein Beispieltext für die Anzeige auf der Plane. Hallo Welt! wie geht's dir heute? gut und du? hallo hallo";
-    [Header("Feste Größe der Plane")]
-    public Vector3 fixedScale = new Vector3(0.1f, 0.1f, 0.1f);
+    public string message = "Dies ist ein Beispieltext...";
+    public float typeSpeed = 0.05f;
+
+    [Header("Feste Größe (nur für Text)")]
+    public Vector3 fixedScale = new Vector3(0.1f, 1f, 0.1f);
 
     [Header("Animation")]
     public float slideHeight = 1.0f;    
     public float slideDuration = 0.5f; 
-    public float typeSpeed = 0.05f; // Geschwindigkeit des Text-Aufbaus
 
     private XRSimpleInteractable xrInteractable;
     private bool isOpen = false;
@@ -36,14 +42,12 @@ public class UniversalInteraction : MonoBehaviour
 
         if (targetPlane != null)
         {
-            FixScale();
+            PrepareContent(); // Inhalt beim Start prüfen
             closedPos = Vector3.zero; 
             openPos = new Vector3(0, slideHeight, 0.4f);
             targetPlane.transform.localPosition = closedPos;
             targetPlane.SetActive(false);
         }
-
-        if (infoText != null) infoText.text = ""; // Text am Anfang leer
     }
 
     void Update()
@@ -62,7 +66,8 @@ public class UniversalInteraction : MonoBehaviour
     public void ToggleObject(string quelle)
     {
         if (targetPlane == null) return;
-        FixScale();
+        
+        PrepareContent(); // Skalierung/Inhalt vor dem Slide aktualisieren
         isOpen = !isOpen;
 
         if (activeSlide != null) StopCoroutine(activeSlide);
@@ -71,13 +76,62 @@ public class UniversalInteraction : MonoBehaviour
         activeSlide = StartCoroutine(SlideRoutine(isOpen));
     }
 
+    void PrepareContent()
+    {
+        if (screenshot != null)
+        {
+            // BILD-LOGIK
+            if (infoText != null) infoText.text = ""; 
+            
+            // Textur zuweisen
+            planeRenderer.material.mainTexture = screenshot;
+            
+            // WICHTIG: Farbe auf Weiß setzen, damit das Bild nicht blau getönt wird
+            planeRenderer.material.color = Color.white; 
+            if (planeRenderer.material.HasProperty("_BaseColor")) 
+                planeRenderer.material.SetColor("_BaseColor", Color.white);
+
+            // Emission ausschalten (falls vorhanden), damit das Bild nicht überstrahlt
+            if (planeRenderer.material.HasProperty("_EmissionColor"))
+                planeRenderer.material.SetColor("_EmissionColor", Color.black);
+
+            // Seitenverhältnis berechnen
+            float aspectRatio = (float)screenshot.width / screenshot.height;
+            Vector3 parentScale = transform.lossyScale;
+
+            targetPlane.transform.localScale = new Vector3(
+                (baseImageHeight * aspectRatio) / parentScale.x,
+                1f / parentScale.y,
+                baseImageHeight / parentScale.z
+            );
+        }
+        else
+        {
+            // TEXT-LOGIK
+            // Hier kannst du die Farbe wieder auf Blau setzen, wenn du willst:
+            // planeRenderer.material.color = new Color(0, 0.5f, 1f, 0.5f); 
+
+            Vector3 parentScale = transform.lossyScale;
+            targetPlane.transform.localScale = new Vector3(
+                fixedScale.x / parentScale.x, 
+                fixedScale.y / parentScale.y, 
+                fixedScale.z / parentScale.z
+            );
+
+            if (infoText != null)
+            {
+                infoText.transform.localScale = new Vector3(
+                    1f / targetPlane.transform.lossyScale.x, 
+                    1f / targetPlane.transform.lossyScale.y, 
+                    1f / targetPlane.transform.lossyScale.z
+                ) * 0.1f; 
+            }
+        }
+    }
+
     IEnumerator SlideRoutine(bool show)
     {
-        if (show) 
-        {
-            targetPlane.SetActive(true);
-            if (infoText != null) infoText.text = ""; // Text leeren vor neuem Slide
-        }
+        if (show) targetPlane.SetActive(true);
 
         float elapsed = 0;
         Vector3 startPos = targetPlane.transform.localPosition;
@@ -92,8 +146,8 @@ public class UniversalInteraction : MonoBehaviour
 
         targetPlane.transform.localPosition = endPos;
 
-        // Wenn offen: Starte den Schreibmaschinen-Effekt
-        if (show && infoText != null)
+        // Nur wenn KEIN Bild da ist, Text schreiben
+        if (show && screenshot == null && infoText != null)
         {
             activeTypewriter = StartCoroutine(TypeWriterRoutine());
         }
@@ -110,19 +164,4 @@ public class UniversalInteraction : MonoBehaviour
             yield return new WaitForSeconds(typeSpeed);
         }
     }
-
-    void FixScale()
-{
-    if (targetPlane != null)
-    {
-        Vector3 parentScale = transform.lossyScale;
-        // Plane skalieren
-        targetPlane.transform.localScale = new Vector3(fixedScale.x / parentScale.x, fixedScale.y / parentScale.y, fixedScale.z / parentScale.z);
-        
-        if (infoText != null)
-        {
-            infoText.transform.localScale = new Vector3(1f / targetPlane.transform.lossyScale.x, 1f / targetPlane.transform.lossyScale.y, 1f / targetPlane.transform.lossyScale.z) * 0.1f; 
-        }
-    }
-}
 }
