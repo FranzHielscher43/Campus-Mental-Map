@@ -6,16 +6,18 @@ using Unity.XR.CoreUtils;
 public class SeatInteractable : MonoBehaviour
 {
     [Header("Rig")]
-    public Transform xrOrigin;     // XR Origin (XR Rig)
+    public Transform xrOrigin;
     public ScreenFader fader;
 
     [Header("Seat Points")]
     public Transform seatPoint;
     public Transform standPoint;
+    public Transform exitPoint;
 
     [Header("UI")]
-    public GameObject hintPanel;   // Panel mit "Hinsetzen"
-    public GameObject standPanel;  // Panel mit "Aufstehen"
+    public GameObject hintPanel; 
+    public GameObject teleportPanel;  
+    public GameObject standPanel; 
 
     bool inRange;
     bool isSitting;
@@ -24,6 +26,7 @@ public class SeatInteractable : MonoBehaviour
     void Start()
     {
         if (hintPanel) hintPanel.SetActive(false);
+        if (teleportPanel) teleportPanel.SetActive(false);
         if (standPanel) standPanel.SetActive(false);
     }
 
@@ -58,6 +61,12 @@ public class SeatInteractable : MonoBehaviour
         StartCoroutine(StandRoutine());
     }
 
+    public void Teleport() 
+    {
+        if(!isSitting || busy || exitPoint == null) return;
+        StartCoroutine(TeleportRoutine(exitPoint));
+    }
+
     IEnumerator SitRoutine()
     {
         busy = true;
@@ -69,6 +78,7 @@ public class SeatInteractable : MonoBehaviour
 
         isSitting = true;
         if (standPanel) standPanel.SetActive(true);
+        if (teleportPanel) teleportPanel.SetActive(true);
 
         if (fader != null) yield return fader.FadeTo(0f);
 
@@ -86,6 +96,23 @@ public class SeatInteractable : MonoBehaviour
 
         isSitting = false;
         if (inRange && hintPanel) hintPanel.SetActive(true);
+
+        if (fader != null) yield return fader.FadeTo(0f);
+
+        busy = false;
+    }
+
+    IEnumerator TeleportRoutine(Transform target) 
+    {
+        busy = true;
+
+        if(hintPanel) hintPanel.SetActive(false);
+        if(standPanel) standPanel.SetActive(false);
+        if (fader != null) yield return fader.FadeTo(1f);
+
+        MoveRigTo(exitPoint);
+        isSitting = false;
+        inRange = false;
 
         if (fader != null) yield return fader.FadeTo(0f);
 
