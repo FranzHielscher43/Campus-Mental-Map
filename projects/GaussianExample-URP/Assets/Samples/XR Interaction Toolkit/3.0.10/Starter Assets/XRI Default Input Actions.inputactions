@@ -2507,11 +2507,11 @@
                 },
                 {
                     "name": "Click",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "b194cd98-7e4f-457a-a60c-cebc25dc32a2",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": true
                 },
                 {
@@ -2592,6 +2592,17 @@
                     "id": "2740386d-d4b6-4342-903c-d9390783f04a",
                     "path": "<Pen>/tip",
                     "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "56347a98-152d-4d5d-a278-09c07114961c",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Click",

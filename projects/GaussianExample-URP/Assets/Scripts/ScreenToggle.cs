@@ -9,8 +9,16 @@ public class ScreenToggle : MonoBehaviour
     [SerializeField] private float hiddenScale = 0.95f; // leicht kleiner beim Ausblenden
     [SerializeField] private bool startHidden = false;
 
+    [Header("Anti-Flicker")]
+    [SerializeField] private float cooldown = 0.25f;    // NEU: verhindert Mehrfach-Toggles
+    [SerializeField] private bool lockWhileAnimating = true; // NEU: ignoriert Toggles während Fade
+
     Coroutine _anim;
     Vector3 _shownScale;
+
+    // NEU
+    bool _isAnimating;
+    float _nextAllowedToggleTime;
 
     void Awake()
     {
@@ -20,9 +28,10 @@ public class ScreenToggle : MonoBehaviour
 
         _shownScale = panelRoot.transform.localScale;
 
+        panelRoot.SetActive(true); // bleibt aktiv, wir verstecken via CanvasGroup
+
         if (startHidden)
         {
-            panelRoot.SetActive(true); // bleibt aktiv, wir verstecken via CanvasGroup
             canvasGroup.alpha = 0f;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
@@ -30,7 +39,6 @@ public class ScreenToggle : MonoBehaviour
         }
         else
         {
-            panelRoot.SetActive(true);
             canvasGroup.alpha = 1f;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
@@ -40,13 +48,25 @@ public class ScreenToggle : MonoBehaviour
 
     public void Toggle()
     {
-        bool show = canvasGroup.alpha <= 0.01f;
+        // NEU: cooldown
+        if (Time.unscaledTime < _nextAllowedToggleTime) return;
+
+        // NEU: lock während Animation (optional)
+        if (lockWhileAnimating && _isAnimating) return;
+
+        _nextAllowedToggleTime = Time.unscaledTime + cooldown;
+
+        // NEU: Entscheide anhand des ZIELS (nicht alpha), damit Zwischenzustände nicht flippen
+        bool currentlyVisible = canvasGroup.alpha >= 0.5f;
+        bool show = !currentlyVisible;
+
         if (_anim != null) StopCoroutine(_anim);
         _anim = StartCoroutine(Animate(show));
     }
 
     IEnumerator Animate(bool show)
     {
+        _isAnimating = true;
         panelRoot.SetActive(true);
 
         float startA = canvasGroup.alpha;
@@ -55,20 +75,16 @@ public class ScreenToggle : MonoBehaviour
         Vector3 startS = panelRoot.transform.localScale;
         Vector3 endS = show ? _shownScale : _shownScale * hiddenScale;
 
-        // beim Einblenden sofort klickbar, beim Ausblenden erst am Ende deaktivieren
-        if (show)
-        {
-            canvasGroup.interactable = true;
-            canvasGroup.blocksRaycasts = true;
-        }
+        // NEU: Während der Animation NICHT klickbar (verhindert Nachklicks/Spam)
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
 
         float t = 0f;
         while (t < duration)
         {
-            t += Time.unscaledDeltaTime; // unabhängig von TimeScale
+            t += Time.unscaledDeltaTime;
             float k = Mathf.Clamp01(t / duration);
-            // SmoothStep fürs weiche Gefühl
-            k = k * k * (3f - 2f * k);
+            k = k * k * (3f - 2f * k); // SmoothStep
 
             canvasGroup.alpha = Mathf.Lerp(startA, endA, k);
             panelRoot.transform.localScale = Vector3.Lerp(startS, endS, k);
@@ -78,13 +94,19 @@ public class ScreenToggle : MonoBehaviour
         canvasGroup.alpha = endA;
         panelRoot.transform.localScale = endS;
 
-        if (!show)
+        // NEU: erst NACH der Animation wieder klickbar machen (nur wenn sichtbar)
+        if (show)
+        {
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+        }
+        else
         {
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
-            // optional: panelRoot.SetActive(false);  // würde aber wieder "hart" sein
         }
 
         _anim = null;
+        _isAnimating = false;
     }
 }
