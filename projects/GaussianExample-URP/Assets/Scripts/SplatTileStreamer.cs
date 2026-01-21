@@ -6,12 +6,12 @@ using UnityEngine;
 public class SplatTileStreamer : MonoBehaviour
 {
     [Header("References")]
-    public Transform playerHead;   // XR Camera / CenterEyeAnchor
-    public Transform tilesRoot;    // Splat_HQ_Tiles
+    public Transform playerHead;  
+    public Transform tilesRoot;    
 
     [Header("Tiling")]
     public float tileSize = 5f;
-    public int neighborRadius = 0; // 0 => 1 tile, 1 => 3x3
+    public int neighborRadius = 0; 
 
     [Header("Performance")]
     public float keepAliveSeconds = 0.25f;
@@ -21,7 +21,6 @@ public class SplatTileStreamer : MonoBehaviour
     [Tooltip("GENAUER Klassenname der Renderer-Komponente am Leaf-Chunk (wie im Inspector), z.B. GaussianSplatRenderer")]
     public string rendererComponentTypeName = "REPLACE_ME";
 
-    // tileKey -> renderer components in all leaf chunks under that tile
     private readonly Dictionary<(int,int), List<Behaviour>> tileRenderers = new();
     private readonly Dictionary<(int,int), float> lastWantedTime = new();
     private readonly HashSet<(int,int)> activeKeys = new();
@@ -46,7 +45,6 @@ public class SplatTileStreamer : MonoBehaviour
             return;
         }
 
-        // Wir erwarten: tilesRoot hat direkte Kinder tile_-1_0, tile_0_0, ...
         foreach (Transform tileGroup in tilesRoot)
         {
             if (!TryParseTileGroupName(tileGroup.name, out int ix, out int iz))
@@ -54,7 +52,6 @@ public class SplatTileStreamer : MonoBehaviour
 
             var key = (ix, iz);
 
-            // Alle Komponenten dieses Typs in den Kindern (leaf chunks), auch wenn inactive
             var comps = tileGroup.GetComponentsInChildren(rendererType, true);
 
             var list = new List<Behaviour>(comps.Length);
@@ -66,7 +63,6 @@ public class SplatTileStreamer : MonoBehaviour
 
             tileRenderers[key] = list;
 
-            // initial aus (nur Rendering aus, GameObjects bleiben aktiv)
             SetEnabled(list, false);
         }
     }
@@ -83,7 +79,6 @@ public class SplatTileStreamer : MonoBehaviour
         var center = (ix, iz);
         float now = Time.time;
 
-        // wanted markieren
         for (int dx = -neighborRadius; dx <= neighborRadius; dx++)
         for (int dz = -neighborRadius; dz <= neighborRadius; dz++)
         {
@@ -91,7 +86,6 @@ public class SplatTileStreamer : MonoBehaviour
             lastWantedTime[key] = now;
         }
 
-        // bei Tile-Wechsel: neue sofort an
         if (center != lastCenter)
         {
             lastCenter = center;
@@ -110,7 +104,6 @@ public class SplatTileStreamer : MonoBehaviour
             }
         }
 
-        // alte nach keepAlive aus
         if (keepAliveSeconds > 0f)
         {
             tmpKeys.Clear();
@@ -142,7 +135,6 @@ public class SplatTileStreamer : MonoBehaviour
     static bool TryParseTileGroupName(string name, out int ix, out int iz)
     {
         ix = iz = 0;
-        // tile_-1_0
         if (!name.StartsWith("tile_")) return false;
         var parts = name.Split('_');
         if (parts.Length < 3) return false;
@@ -156,19 +148,16 @@ public class SplatTileStreamer : MonoBehaviour
         if (string.IsNullOrWhiteSpace(typeName) || typeName == "REPLACE_ME")
             return null;
 
-        // Suche in allen Assemblies (Editor/Player)
         foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
         {
             var t = asm.GetType(typeName);
             if (t != null) return t;
 
-            // Falls nur Klassenname ohne Namespace angegeben ist:
             foreach (var tt in asm.GetTypes())
                 if (tt.Name == typeName) return tt;
         }
         return null;
     }
 
-    // vermeiden GC
     static readonly List<(int,int)> tmpKeys = new List<(int,int)>(128);
 }

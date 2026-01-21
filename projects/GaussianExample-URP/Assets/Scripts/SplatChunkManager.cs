@@ -82,7 +82,6 @@ public class SplatChunkManager : MonoBehaviour
 
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(vrCamera);
 
-        // 1) Kandidaten: Frustum + Distanz
         var candidates = new List<(Chunk c, float dist)>(chunks.Count);
 
         foreach (var c in chunks)
@@ -98,16 +97,13 @@ public class SplatChunkManager : MonoBehaviour
 
         candidates.Sort((a, b) => a.dist.CompareTo(b.dist));
 
-        // 2) MAIN = Top-N Kandidaten
         int mainCount = Mathf.Min(visibleChunks, candidates.Count);
         var main = new List<Chunk>(mainCount);
         for (int i = 0; i < mainCount; i++)
             main.Add(candidates[i].c);
 
-        // 3) target beginnt strikt mit MAIN
         var target = new HashSet<Chunk>(main);
 
-        // 4) NeighborRing: NUR um MAIN (ein Ring, nicht rekursiv)
         if (loadNeighborRing)
         {
             foreach (var c in main)
@@ -121,7 +117,6 @@ public class SplatChunkManager : MonoBehaviour
             }
         }
 
-        // 5) KeepAlive nur für target
         foreach (var c in target)
             keepAlive[c] = now + keepAliveSeconds;
 
@@ -138,7 +133,6 @@ public class SplatChunkManager : MonoBehaviour
             if (c.renderGO.activeSelf) active++;
         }
 
-        // Cleanup
         var dead = new List<Chunk>();
         foreach (var kv in keepAlive)
             if (kv.Value <= now) dead.Add(kv.Key);
@@ -149,7 +143,6 @@ public class SplatChunkManager : MonoBehaviour
             Debug.Log($"[SplatChunkManager] main {main.Count} | target {target.Count} | active {active}/{chunks.Count} | candidates {candidates.Count}");
         }
 
-        // Einmalige Stats (prüft ob Indizes plausibel sind)
         if (logGridStatsOnce && !loggedStats)
         {
             loggedStats = true;
@@ -172,18 +165,14 @@ public class SplatChunkManager : MonoBehaviour
         chunks.Clear();
         byTile.Clear();
 
-        // Temp sammeln
         var temp = new List<(Transform t, int gx, int gz, int sx, int sz, GameObject go)>();
 
-        // Wir kalibrieren gridOrigin anhand der "kleinsten" Tile-Koordinate (tx/tz)
         int minTX = int.MaxValue, minTZ = int.MaxValue;
         foreach (Transform t in transform)
         {
             var m = rx.Match(t.name);
             if (!m.Success) continue;
 
-            // Wir nutzen das GameObject selbst zum togglen (einfach)
-            // Es reicht, dass irgendwo darunter ein GaussianSplatRenderer existiert
             MonoBehaviour renderer = null;
             foreach (var mb in t.GetComponentsInChildren<MonoBehaviour>(true))
             {
@@ -212,7 +201,6 @@ public class SplatChunkManager : MonoBehaviour
         Debug.Log($"[SplatChunkManager] chunks found: {temp.Count}");
         if (temp.Count == 0) return;
 
-        // Referenz-Chunk (minTX/minTZ) suchen
         Transform refChunk = null;
         int refTX = 0, refTZ = 0;
 
@@ -237,9 +225,6 @@ public class SplatChunkManager : MonoBehaviour
             refTZ = temp[0].gz * subDiv + temp[0].sz;
         }
 
-        // Auto-Origin kalibrieren:
-        // center = gridOrigin + (tx + 0.5) * cellSize
-        // => gridOrigin = refPos - (refTX+0.5)*cellSize
         gridOrigin = new Vector2(
             refChunk.position.x - (refTX + 0.5f) * cellSize,
             refChunk.position.z - (refTZ + 0.5f) * cellSize
@@ -247,7 +232,6 @@ public class SplatChunkManager : MonoBehaviour
 
         Debug.Log($"[SplatChunkManager] AUTO gridOrigin=({gridOrigin.x:F2}, {gridOrigin.y:F2}) (minTX={minTX}, minTZ={minTZ})");
 
-        // Chunks bauen + byTile füllen
         foreach (var e in temp)
         {
             int tx = e.gx * subDiv + e.sx;
@@ -275,7 +259,6 @@ public class SplatChunkManager : MonoBehaviour
 
             chunks.Add(c);
 
-            // Wichtig: byTile muss 1:1 sein. Wenn du Dopplungen hast, loggen.
             var key = (c.tx, c.tz);
             if (byTile.ContainsKey(key))
             {
