@@ -85,3 +85,6 @@ projects/GaussianExample-URP/.utmp/
 **/CMakeCache.txt
 **/cmake-build-*/
 **/build/
+
+projects/GaussianExample-URP/.utmp/
+**/.utmp/
