@@ -30,17 +30,13 @@
 /Assets/Room_Chunks_Assets/*
 /Assets/GS_Material/
 
-# Ignore everything in splat_chunking
-splat_chunking/**/*
-
 # Allow root folder
-!splat_chunking/
+splat_chunking/*
 
 # Allow selected files
-!splat_chunking/split_last_monsters.py
-!splat_chunking/split_monsters.py
-!splat_chunking/split_ply.py
-!splat_chunking/split_subchunks.py
+!splat_chunking/chunk_by_tiles.py
+!splat_chunking/meta_to_csv.py
+
 
 [Ll]ibrary/
 [Tt]emp/
@@ -73,3 +69,9 @@ sysinfo.txt
 # Reports
 crashlytics-build.properties
 
+projects/GaussianExample-URP/Assets/SplatChunks/Assets/*
+projects/GaussianExample-URP/Assets/SplatChunks/PLY/*
+projects/GaussianExample-URP/Assets/GS_Material/*
+projects/GaussianExample-URP/Assets/chunks_assets/*
+projects/GaussianExample-URP/Assets/Room_Chunks_Assets/*
+projects/GaussianExample-URP/Assets/SplatChunks/*
