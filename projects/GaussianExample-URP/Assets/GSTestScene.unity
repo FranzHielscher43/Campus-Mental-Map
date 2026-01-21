@@ -191,7 +191,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_b_a_a_b.ply
 --- !u!1 &83742857
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +263,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_a_b_b_b.ply
 --- !u!1 &97294028
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,10 +292,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12d929a7f62c48adbe9ff45c9a33ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Asset: {fileID: 11400000, guid: 8af14a88e21684d60a02a46f407c715a, type: 2}
+  m_Asset: {fileID: 11400000, guid: ee68802ae40f7465782d72d6bb998490, type: 2}
   m_RenderOrder: 0
   m_SplatScale: 1
-  m_OpacityScale: 0.75
+  m_OpacityScale: 1
   m_SHOrder: 1
   m_SHOnly: 0
   m_SortNthFrame: 10
@@ -405,7 +403,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_a_b_a_a.ply
 --- !u!1 &136905637
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +447,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_b_b_a_a.ply
 --- !u!1 &148952294
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,7 +519,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_a_a_b_b.ply
 --- !u!1 &159086897
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +563,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_a_b_b_b.ply
 --- !u!1 &171884257
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,7 +635,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_a_b_a_b.ply
 --- !u!1 &178632321
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,7 +977,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_a_a_b_a.ply
 --- !u!1 &293139023
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,7 +1108,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_b_a_b_b.ply
 --- !u!4 &339862054 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
@@ -1225,7 +1216,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_b_b_b_b.ply
 --- !u!1 &401841827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1270,7 +1260,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_a_b_a_a.ply
 --- !u!1 &442725368
 GameObject:
   m_ObjectHideFlags: 0
@@ -1343,7 +1332,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_b_a_b_a.ply
 --- !u!1 &452989417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,7 +1376,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_b_a_b_a.ply
 --- !u!1 &479103658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1461,7 +1448,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_a_b_a_a.ply
 --- !u!1 &483143556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,7 +1571,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_b_b_b_a.ply
 --- !u!1 &507601413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,7 +1615,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_b_a_a_b.ply
 --- !u!1 &525320509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1794,7 +1778,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_a_a_a_b.ply
 --- !u!1 &561083504
 GameObject:
   m_ObjectHideFlags: 0
@@ -1898,7 +1881,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_a_b_a_b.ply
 --- !u!1 &615077567
 GameObject:
   m_ObjectHideFlags: 0
@@ -1943,7 +1925,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_a_a_b_a.ply
 --- !u!1 &622266217
 GameObject:
   m_ObjectHideFlags: 0
@@ -2016,7 +1997,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_a_b_b_a.ply
 --- !u!1 &633408184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2089,7 +2069,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_b_a_a_a.ply
 --- !u!1 &654832084
 GameObject:
   m_ObjectHideFlags: 0
@@ -2162,7 +2141,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_a_b_a_a.ply
 --- !u!1 &675461291
 GameObject:
   m_ObjectHideFlags: 0
@@ -2656,7 +2634,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_b_a_a_b.ply
 --- !u!1 &772691758
 GameObject:
   m_ObjectHideFlags: 0
@@ -2729,7 +2706,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_b_b_b_a.ply
 --- !u!1 &784140346
 GameObject:
   m_ObjectHideFlags: 0
@@ -2774,7 +2750,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_b_b_b_b.ply
 --- !u!1 &791856840
 GameObject:
   m_ObjectHideFlags: 0
@@ -2956,7 +2931,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_a_a_a_b.ply
 --- !u!1 &807756266
 GameObject:
   m_ObjectHideFlags: 0
@@ -3001,7 +2975,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_b_b_b_b.ply
 --- !u!1 &810357776
 GameObject:
   m_ObjectHideFlags: 0
@@ -3105,7 +3078,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_b_b_a_a.ply
 --- !u!1 &840019498
 GameObject:
   m_ObjectHideFlags: 0
@@ -3150,7 +3122,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_a_b_a_a.ply
 --- !u!1 &863409770
 GameObject:
   m_ObjectHideFlags: 0
@@ -3195,7 +3166,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_b_a_b_b.ply
 --- !u!1 &873119442
 GameObject:
   m_ObjectHideFlags: 0
@@ -3325,7 +3295,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_a_a_a_a.ply
 --- !u!1 &923116021
 GameObject:
   m_ObjectHideFlags: 0
@@ -3429,7 +3398,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_a_b_b_a.ply
 --- !u!1 &933068189
 GameObject:
   m_ObjectHideFlags: 0
@@ -3489,6 +3457,147 @@ MonoBehaviour:
   m_ShaderDebugPoints: {fileID: 4800000, guid: b44409fc67214394f8f47e4e2648425e, type: 3}
   m_ShaderDebugBoxes: {fileID: 4800000, guid: 4006f2680fd7c8b4cbcb881454c782be, type: 3}
   m_CSSplatUtilities: {fileID: 7200000, guid: ec84f78b836bd4f96a105d6b804f08bd, type: 3}
+--- !u!143 &936441913 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: 6232745470614056090, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 1965060732}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &936441914 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 1965060732}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &936441915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936441914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88100afe1a6524682aa6cc463d404531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Move
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 0f99ec59-76a2-40fa-aa1c-d0734fdb3ad9
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 6972639530819350904, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  moveThreshold: 0.12
+  editorKeyboardFallback: 1
+  audioSource: {fileID: 936441916}
+  footstepLoop: {fileID: 8300000, guid: 87f41a03764ae4e6da183e442f7e779c, type: 3}
+  targetVolume: 0.7
+  fadeSpeed: 3
+  randomStartTime: 1
+  randomPitchOnStart: 1
+  pitchJitter: 0.02
+  characterController: {fileID: 936441913}
+--- !u!82 &936441916
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936441914}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 87f41a03764ae4e6da183e442f7e779c, type: 3}
+  m_Resource: {fileID: 8300000, guid: 87f41a03764ae4e6da183e442f7e779c, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.114
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &976797641
 GameObject:
   m_ObjectHideFlags: 0
@@ -3561,7 +3670,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_a_b_b_a.ply
 --- !u!1 &985074724
 GameObject:
   m_ObjectHideFlags: 0
@@ -3752,7 +3860,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_a_b_b_b.ply
 --- !u!1 &1030953044
 GameObject:
   m_ObjectHideFlags: 0
@@ -3797,7 +3904,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_b_a_a_a.ply
 --- !u!1 &1032029146
 GameObject:
   m_ObjectHideFlags: 0
@@ -3870,7 +3976,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_b_a_b_b.ply
 --- !u!1 &1103378825
 GameObject:
   m_ObjectHideFlags: 0
@@ -3915,7 +4020,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_a_b_a_b.ply
 --- !u!1 &1131574671
 GameObject:
   m_ObjectHideFlags: 0
@@ -3988,7 +4092,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_b_b_a_a.ply
 --- !u!1 &1145125842
 GameObject:
   m_ObjectHideFlags: 0
@@ -4033,7 +4136,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_a_a_a_b.ply
 --- !u!1 &1197674920
 GameObject:
   m_ObjectHideFlags: 0
@@ -4078,7 +4180,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_a_a_b_b.ply
 --- !u!1 &1205636066
 GameObject:
   m_ObjectHideFlags: 0
@@ -4288,7 +4389,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_b_a_b_b.ply
 --- !u!1 &1230243577
 GameObject:
   m_ObjectHideFlags: 0
@@ -4333,7 +4433,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_a_a_a_a.ply
 --- !u!1 &1234510290
 GameObject:
   m_ObjectHideFlags: 0
@@ -4406,7 +4505,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_a_a_a_a.ply
 --- !u!1 &1242793806
 GameObject:
   m_ObjectHideFlags: 0
@@ -4479,7 +4577,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_a_b_a_b.ply
 --- !u!1 &1255738618
 GameObject:
   m_ObjectHideFlags: 0
@@ -4583,7 +4680,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_b_b_b_a.ply
 --- !u!1 &1282337605
 GameObject:
   m_ObjectHideFlags: 0
@@ -4688,7 +4784,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_b_b_b_a.ply
 --- !u!1 &1301550117
 GameObject:
   m_ObjectHideFlags: 0
@@ -4761,7 +4856,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_a_a_b_b.ply
 --- !u!1 &1330426751
 GameObject:
   m_ObjectHideFlags: 0
@@ -4806,7 +4900,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_a_a_a_a.ply
 --- !u!1 &1344630449
 GameObject:
   m_ObjectHideFlags: 0
@@ -4879,7 +4972,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_a_a_b_a.ply
 --- !u!1 &1359035681
 GameObject:
   m_ObjectHideFlags: 0
@@ -4953,7 +5045,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_b_b_b_b.ply
 --- !u!1 &1389476004
 GameObject:
   m_ObjectHideFlags: 0
@@ -5085,7 +5176,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_b_a_a_a.ply
 --- !u!1 &1405946694
 GameObject:
   m_ObjectHideFlags: 0
@@ -5130,7 +5220,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_b_b_a_a.ply
 --- !u!1 &1427165589
 GameObject:
   m_ObjectHideFlags: 0
@@ -5175,7 +5264,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_a_a_b_b.ply
 --- !u!1 &1427682052
 GameObject:
   m_ObjectHideFlags: 0
@@ -5338,7 +5426,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_a_a_b_b.ply
 --- !u!1 &1470728943
 GameObject:
   m_ObjectHideFlags: 0
@@ -5383,7 +5470,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_b_a_b_a.ply
 --- !u!1 &1511961361
 GameObject:
   m_ObjectHideFlags: 0
@@ -5456,7 +5542,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_b_a_a_b.ply
 --- !u!1 &1515899244
 GameObject:
   m_ObjectHideFlags: 0
@@ -5635,7 +5720,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_b_b_a_b.ply
 --- !u!1 &1570250068
 GameObject:
   m_ObjectHideFlags: 0
@@ -5767,7 +5851,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_b_b_a_b.ply
 --- !u!1 &1609782478
 GameObject:
   m_ObjectHideFlags: 0
@@ -5812,7 +5895,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_b_a_a_a.ply
 --- !u!1 &1619802907
 GameObject:
   m_ObjectHideFlags: 0
@@ -5857,7 +5939,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_a_a_a_b.ply
 --- !u!1 &1638113958
 GameObject:
   m_ObjectHideFlags: 0
@@ -5902,7 +5983,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_b_b_a_b.ply
 --- !u!1 &1639565264
 GameObject:
   m_ObjectHideFlags: 0
@@ -6034,7 +6114,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_b_a_b_a.ply
 --- !u!1 &1667930219
 GameObject:
   m_ObjectHideFlags: 0
@@ -6079,7 +6158,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_a_a_a_a.ply
 --- !u!1 &1684005944
 GameObject:
   m_ObjectHideFlags: 0
@@ -6124,7 +6202,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_b_a_a_b.ply
 --- !u!1 &1690260340
 GameObject:
   m_ObjectHideFlags: 0
@@ -6224,7 +6301,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_b_b_a_b.ply
 --- !u!1 &1703335231
 GameObject:
   m_ObjectHideFlags: 0
@@ -6269,7 +6345,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_b_b_b_a.ply
 --- !u!1 &1706250872
 GameObject:
   m_ObjectHideFlags: 0
@@ -6342,7 +6417,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_0_b_b_a_a.ply
 --- !u!1 &1709455024
 GameObject:
   m_ObjectHideFlags: 0
@@ -6446,7 +6520,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_a_a_b_a.ply
 --- !u!1 &1716216661
 GameObject:
   m_ObjectHideFlags: 0
@@ -6609,7 +6682,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_b_a_a_a.ply
 --- !u!1 &1817550866
 GameObject:
   m_ObjectHideFlags: 0
@@ -6654,7 +6726,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_a_b_b_b.ply
 --- !u!1 &1818527408
 GameObject:
   m_ObjectHideFlags: 0
@@ -6699,7 +6770,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_a_b_b_a.ply
 --- !u!1 &1889851383
 GameObject:
   m_ObjectHideFlags: 0
@@ -6818,7 +6888,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_b_b_b_b.ply
 --- !u!1 &1916983288
 GameObject:
   m_ObjectHideFlags: 0
@@ -6863,7 +6932,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_b_b_a_b.ply
 --- !u!1 &1957787695
 GameObject:
   m_ObjectHideFlags: 0
@@ -6979,7 +7047,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 683063085}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 936441916}
+    - targetCorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 936441915}
   m_SourcePrefab: {fileID: 100100000, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
 --- !u!4 &1965060733 stripped
 Transform:
@@ -7236,7 +7310,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_a_a_a_b.ply
 --- !u!1 &1982349953
 GameObject:
   m_ObjectHideFlags: 0
@@ -7281,7 +7354,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_b_a_b_b.ply
 --- !u!1 &1996603680
 GameObject:
   m_ObjectHideFlags: 0
@@ -7326,7 +7398,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_a_b_a_b.ply
 --- !u!1 &2003853038
 GameObject:
   m_ObjectHideFlags: 0
@@ -7371,7 +7442,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_a_a_b_b_b.ply
 --- !u!1 &2008068485
 GameObject:
   m_ObjectHideFlags: 0
@@ -7416,7 +7486,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_0_a_b_b_a.ply
 --- !u!1 &2010768580
 GameObject:
   m_ObjectHideFlags: 0
@@ -7489,7 +7558,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_-1_-1_a_a_b_a.ply
 --- !u!1 &2061010865
 GameObject:
   m_ObjectHideFlags: 0
@@ -7534,7 +7602,6 @@ MonoBehaviour:
   m_Script: {fileID: 692943850}
   m_Name: 
   m_EditorClassIdentifier: 
-  plyAssetPath: Assets/SplatChunks/PLY//tile_0_-1_b_b_a_b_a.ply
 --- !u!1 &2124610676
 GameObject:
   m_ObjectHideFlags: 0
