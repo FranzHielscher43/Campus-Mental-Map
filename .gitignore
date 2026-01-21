@@ -75,3 +75,13 @@ projects/GaussianExample-URP/Assets/GS_Material/*
 projects/GaussianExample-URP/Assets/chunks_assets/*
 projects/GaussianExample-URP/Assets/Room_Chunks_Assets/*
 projects/GaussianExample-URP/Assets/SplatChunks/*
+
+# generated build artifacts (DO NOT COMMIT)
+projects/GaussianExample-URP/.utmp/
+**/.utmp/
+**/.cxx/
+**/CMakeFiles/
+**/*.ninja_*
+**/CMakeCache.txt
+**/cmake-build-*/
+**/build/
