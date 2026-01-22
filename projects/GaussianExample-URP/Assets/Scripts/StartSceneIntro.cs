@@ -106,7 +106,11 @@ public class StartSceneIntro : MonoBehaviour
             }
             else
             {
-                if (!hitPlaneOnDown) ClosePlane(); 
+                // ÄNDERUNG HIER: Klick außerhalb schließt nur, wenn wir beim letzten Slide sind
+                if (!hitPlaneOnDown && currentSlideIndex == targetPlanes.Length - 1) 
+                {
+                    ClosePlane(); 
+                }
             }
         }
     }
@@ -120,13 +124,8 @@ public class StartSceneIntro : MonoBehaviour
 
     IEnumerator NextSlideRoutine()
     {
-        // 1. Die alte Slide runterfahren (ohne 'yield return', also läuft sie im Hintergrund)
         StartCoroutine(SlideRoutine(currentSlideIndex, false));
-        
-        // Index erhöhen
         currentSlideIndex++;
-        
-        // 2. Die neue Slide hochfahren (mit 'yield return', damit die Routine hier wartet)
         yield return StartCoroutine(SlideRoutine(currentSlideIndex, true));
     }
 
