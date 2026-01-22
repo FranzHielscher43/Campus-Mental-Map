@@ -19,15 +19,20 @@ public class StartSceneIntro : MonoBehaviour
     [Tooltip("Mindestdistanz in Pixeln für eine Wischbewegung")]
     public float swipeThreshold = 50f; 
 
+    [Header("VR Support (Optional)")]
+    public InputActionProperty vrClickAction; 
+    public Transform vrPointerTransform;    
+
     private bool isOpen = false;
     private int currentSlideIndex = 0;
     private Vector3 closedPos;
     private Vector3 openPos;
     private Coroutine activeSlide;
 
-    // Variablen für die Wisch-Logik
     private Vector2 startMousePos;
+    private Vector3 startVRDir; 
     private bool hitPlaneOnDown = false;
+    private bool usedVRThisFrame = false;
 
     void Start()
     {
@@ -53,48 +58,55 @@ public class StartSceneIntro : MonoBehaviour
 
     void Update()
     {
-        if (!isOpen || Mouse.current == null) return;
+        if (!isOpen) return;
 
-        // 1. Drücken (Start des Klicks oder Swipes)
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        bool mousePressed = Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame;
+        bool vrPressed = vrClickAction.action != null && vrClickAction.action.WasPressedThisFrame();
+
+        if (mousePressed || vrPressed)
         {
-            startMousePos = Mouse.current.position.ReadValue();
-            
-            Ray ray = Camera.main.ScreenPointToRay(startMousePos);
+            Ray ray;
+            if (vrPressed && vrPointerTransform != null)
+            {
+                ray = new Ray(vrPointerTransform.position, vrPointerTransform.forward);
+                startVRDir = vrPointerTransform.forward;
+                usedVRThisFrame = true;
+            }
+            else if (Mouse.current != null)
+            {
+                startMousePos = Mouse.current.position.ReadValue();
+                ray = Camera.main.ScreenPointToRay(startMousePos);
+                usedVRThisFrame = false;
+            }
+            else return;
+
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
                 GameObject current = targetPlanes[currentSlideIndex];
-                // Haben wir die Plane am Anfang berührt?
                 hitPlaneOnDown = (hit.transform == current.transform || hit.transform.IsChildOf(current.transform));
             }
-            else
-            {
-                hitPlaneOnDown = false;
-            }
+            else hitPlaneOnDown = false;
         }
 
-        // 2. Loslassen (Check: War es ein Swipe oder nur ein Klick?)
-        if (Mouse.current.leftButton.wasReleasedThisFrame)
-        {
-            Vector2 endMousePos = Mouse.current.position.ReadValue();
-            float distance = Vector2.Distance(startMousePos, endMousePos);
+        bool mouseReleased = Mouse.current != null && Mouse.current.leftButton.wasReleasedThisFrame;
+        bool vrReleased = vrClickAction.action != null && vrClickAction.action.WasReleasedThisFrame();
 
-            if (distance > swipeThreshold)
+        if (mouseReleased || vrReleased)
+        {
+            float moveValue = 0;
+            if (usedVRThisFrame && vrPointerTransform != null)
+                moveValue = Vector3.Angle(startVRDir, vrPointerTransform.forward) * 10f; 
+            else if (Mouse.current != null)
+                moveValue = Vector2.Distance(startMousePos, Mouse.current.position.ReadValue());
+
+            if (moveValue > swipeThreshold)
             {
-                // ES WAR EIN WISCHEN
-                if (hitPlaneOnDown)
-                {
-                    NextSlide(); // Auf der Plane gewischt -> Weiter
-                }
+                if (hitPlaneOnDown) NextSlide(); 
             }
             else
             {
-                // ES WAR EIN KLICK
-                if (!hitPlaneOnDown)
-                {
-                    ClosePlane(); // Außerhalb geklickt -> Runterfahren
-                }
+                if (!hitPlaneOnDown) ClosePlane(); 
             }
         }
     }
@@ -102,21 +114,19 @@ public class StartSceneIntro : MonoBehaviour
     public void NextSlide()
     {
         if (!isOpen) return;
-
-        if (currentSlideIndex < targetPlanes.Length - 1) 
-        {
-            StartCoroutine(NextSlideRoutine());
-        } 
-        else 
-        {
-            ClosePlane();
-        }
+        if (currentSlideIndex < targetPlanes.Length - 1) StartCoroutine(NextSlideRoutine());
+        else ClosePlane();
     }
 
     IEnumerator NextSlideRoutine()
     {
-        yield return StartCoroutine(SlideRoutine(currentSlideIndex, false));
+        // 1. Die alte Slide runterfahren (ohne 'yield return', also läuft sie im Hintergrund)
+        StartCoroutine(SlideRoutine(currentSlideIndex, false));
+        
+        // Index erhöhen
         currentSlideIndex++;
+        
+        // 2. Die neue Slide hochfahren (mit 'yield return', damit die Routine hier wartet)
         yield return StartCoroutine(SlideRoutine(currentSlideIndex, true));
     }
 
@@ -144,7 +154,9 @@ public class StartSceneIntro : MonoBehaviour
     {
         GameObject target = targetPlanes[index];
         GameObject textObj = (index < infoTexts.Length && infoTexts[index] != null) ? infoTexts[index].gameObject : null;
-        planeRenderer = target.GetComponent<MeshRenderer>();
+        
+        MeshRenderer mr = target.GetComponent<MeshRenderer>();
+        if (mr != null) planeRenderer = mr;
 
         if (show) {
             target.SetActive(true);
