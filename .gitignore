@@ -76,6 +76,7 @@ projects/GaussianExample-URP/Assets/chunks_assets/*
 projects/GaussianExample-URP/Assets/Room_Chunks_Assets/*
 projects/GaussianExample-URP/Assets/SplatChunks/*
 
+# Native/CMake/Ninja temp (Unity/Android)
 # generated build artifacts (DO NOT COMMIT)
 projects/GaussianExample-URP/.utmp/
 **/.utmp/
