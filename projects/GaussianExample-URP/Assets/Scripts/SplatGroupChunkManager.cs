@@ -24,7 +24,6 @@ public class SplatGroupChunkManager : MonoBehaviour
         foreach (Transform child in transform)
             _groups.Add(child);
 
-        // Start: alles aus
         foreach (var g in _groups)
             g.gameObject.SetActive(false);
     }
@@ -39,14 +38,12 @@ public class SplatGroupChunkManager : MonoBehaviour
         if (fwd.sqrMagnitude < 0.0001f) return;
         fwd.Normalize();
 
-        // Score pro Gruppe: Blickwinkel + Distanz
         var scored = new List<(Transform g, float score, float dist)>(_groups.Count);
         foreach (var g in _groups)
         {
             if (g == null) continue;
 
-            Vector3 c = g.position; // Gruppen liegen bei (0,0,0) -> besser Center aus Kindern holen
-            // Quick & dirty: nimm Position des ersten Kindes als Näherung
+            Vector3 c = g.position;
             if (g.childCount > 0) c = g.GetChild(0).position;
 
             Vector3 to = c - headPos;
