@@ -162,6 +162,10 @@ MonoBehaviour:
   teleportGroup: {fileID: 2092347907}
   postActionInputBlock: 0.3
   confirmWindow: 3
+  teleportLoadsScene: 1
+  targetSceneName: PC_Pool
+  keepXROriginPositionAfterLoad: 0
+  spawnPointNameInTargetScene: Spawnpoint
 --- !u!135 &2824775
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2798,6 +2802,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1033498282}
   m_CullTransparentMesh: 1
+--- !u!1 &1074914441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1074914442}
+  m_Layer: 0
+  m_Name: Spawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1074914442
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074914441}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.8088405, y: -1.567, z: -0.09179211}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1114600159
 GameObject:
   m_ObjectHideFlags: 0
@@ -6551,3 +6586,4 @@ SceneRoots:
   - {fileID: 1772475562}
   - {fileID: 118539894}
   - {fileID: 1115937330}
+  - {fileID: 1074914442}

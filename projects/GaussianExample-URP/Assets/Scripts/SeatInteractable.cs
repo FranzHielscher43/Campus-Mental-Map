@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using Unity.XR.CoreUtils;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class SeatInteractable : MonoBehaviour
 {
@@ -30,6 +31,12 @@ public class SeatInteractable : MonoBehaviour
 
     [Header("Teleport Confirm")]
     [SerializeField] private float confirmWindow = 3f;
+
+    [Header("Scene Teleport")]
+    [SerializeField] private bool teleportLoadsScene = true;
+    [SerializeField] private string targetSceneName = "PC_Pool";
+    [SerializeField] private bool keepXROriginPositionAfterLoad = false;
+    [SerializeField] private string spawnPointNameInTargetScene = "Spawnpoint";
 
     bool inRange;
     bool isSitting;
@@ -102,7 +109,6 @@ public class SeatInteractable : MonoBehaviour
         StartCoroutine(StandRoutine());
     }
 
-    // STEP 1: Teleport ARMEN
     public void Teleport()
     {
         if (!isSitting || busy || exitPoint == null) return;
@@ -116,17 +122,19 @@ public class SeatInteractable : MonoBehaviour
         EventSystem.current?.SetSelectedGameObject(null);
     }
 
-    // STEP 2: Teleport BESTÄTIGEN
     public void TeleportConfirm()
     {
-        if (!isSitting || busy || exitPoint == null) return;
+        if (!isSitting || busy) return;
         if (!teleportArmed || Time.unscaledTime > teleportArmedUntil) return;
 
         teleportArmed = false;
         if (teleportConfirmButton)
             teleportConfirmButton.SetActive(false);
 
-        StartCoroutine(TeleportRoutine(exitPoint));
+        if (teleportLoadsScene)
+            StartCoroutine(LoadSceneRoutine());
+        else
+            StartCoroutine(TeleportRoutine(exitPoint));
     }
 
     // --------------------------------------------------------
@@ -210,6 +218,50 @@ public class SeatInteractable : MonoBehaviour
 
         isSitting = false;
         inRange = false;
+
+        if (fader != null) yield return fader.FadeTo(0f);
+
+        yield return new WaitForSecondsRealtime(postActionInputBlock);
+
+        busy = false;
+    }
+
+    IEnumerator LoadSceneRoutine()
+    {
+        busy = true;
+
+        DisableGroups();
+        EventSystem.current?.SetSelectedGameObject(null);
+
+        if (hintPanel) hintPanel.SetActive(false);
+        if (standPanel) standPanel.SetActive(false);
+        if (teleportPanel) teleportPanel.SetActive(false);
+
+        if (fader != null) yield return fader.FadeTo(1f);
+
+        // Optional: XR Origin Position merken
+        Vector3 savedPos = xrOrigin ? xrOrigin.position : Vector3.zero;
+        Quaternion savedRot = xrOrigin ? xrOrigin.rotation : Quaternion.identity;
+
+        // Scene laden
+        AsyncOperation op = SceneManager.LoadSceneAsync(targetSceneName, LoadSceneMode.Single);
+        while (!op.isDone) yield return null;
+
+        // Nach dem Laden: optional an SpawnPoint setzen
+        if (xrOrigin != null)
+        {
+            if (keepXROriginPositionAfterLoad)
+            {
+                xrOrigin.position = savedPos;
+                xrOrigin.rotation = savedRot;
+            }
+            else if (!string.IsNullOrEmpty(spawnPointNameInTargetScene))
+            {
+                var sp = GameObject.Find(spawnPointNameInTargetScene);
+                if (sp != null)
+                    MoveRigTo(sp.transform);
+            }
+        }
 
         if (fader != null) yield return fader.FadeTo(0f);
 
