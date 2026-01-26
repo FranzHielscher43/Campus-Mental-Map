@@ -65,13 +65,11 @@ public class FootstepController : MonoBehaviour
 
         if (force2DForTest) audioSource.spatialBlend = 0f;
 
-        // XR move
         Vector2 move = Vector2.zero;
         if (moveAction.action != null)
             move = moveAction.action.ReadValue<Vector2>();
 
 #if UNITY_EDITOR
-        // Keyboard fallback (Input System)
         if (editorKeyboardFallback && move.magnitude < 0.01f)
         {
             var kb = Keyboard.current;
