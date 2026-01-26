@@ -18,7 +18,7 @@ public class UniversalInteraction : MonoBehaviour
 
     [Header("Option B: Text (Fallbacks)")]
     [TextArea(3,10)]
-    public string message = "Dies ist ein Beispieltext...";
+    public string message = "•Die Meta Quest 3 ist das aktuelle Standard-Headset in unserem VR-Labor und ermöglicht dir dank hochauflösender Displays ein völlig kabelloses Eintauchen in virtuelle Welten. Durch ihre integrierten Kameras unterstützt sie zudem Mixed Reality, wodurch digitale Objekte nahtlos mit deiner realen Umgebung verschmelzen.";
     public float typeSpeed = 0.05f;
 
     [Header("Feste Größe (nur für Text)")]

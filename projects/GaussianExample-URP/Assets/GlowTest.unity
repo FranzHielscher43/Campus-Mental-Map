@@ -2280,7 +2280,7 @@ GameObject:
   - component: {fileID: 861599381}
   - component: {fileID: 861599380}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: objectText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2325,7 +2325,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "\u2022Die Meta Quest 3 ist das aktuelle Standard-Headset in unserem VR-Labor
+    und erm\xF6glicht dir dank hochaufl\xF6sender Displays ein v\xF6llig kabelloses
+    Eintauchen in virtuelle Welten. Durch ihre integrierten Kameras unterst\xFCtzt
+    sie zudem Mixed Reality, wodurch digitale Objekte nahtlos mit deiner realen Umgebung
+    verschmelzen.\";\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2352,7 +2356,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
+  m_fontSize: 6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3502,7 +3506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1765761784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3626,10 +3630,14 @@ MonoBehaviour:
   infoText: {fileID: 861599380}
   screenshot: {fileID: 0}
   baseImageHeight: 0.1
-  message: Dies ist ein Beispieltext...
+  message: "\u2022Die Meta Quest 3 ist das aktuelle Standard-Headset in unserem VR-Labor
+    und erm\xF6glicht dir dank hochaufl\xF6sender Displays ein v\xF6llig kabelloses
+    Eintauchen in virtuelle Welten. Durch ihre integrierten Kameras unterst\xFCtzt
+    sie zudem Mixed Reality, wodurch digitale Objekte nahtlos mit deiner realen Umgebung
+    verschmelzen.\";\r"
   typeSpeed: 0.05
   fixedScale: {x: 0.1, y: 0.1, z: 0.1}
-  slideHeight: 1
+  slideHeight: 1.5
   slideDuration: 0.5
 --- !u!1 &1816306671
 GameObject:
