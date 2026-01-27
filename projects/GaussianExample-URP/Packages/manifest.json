@@ -6,7 +6,7 @@
     "com.unity.render-pipelines.universal": "17.0.3",
     "com.unity.xr.interaction.toolkit": "3.0.10",
     "com.unity.xr.management": "4.5.4",
-    "com.unity.xr.openxr": "1.12.1",
+    "com.unity.xr.openxr": "1.16.1",
     "org.khronos.unitygltf": "https://github.com/KhronosGroup/UnityGLTF.git",
     "org.nesnausk.gaussian-splatting": "file:../../../package",
     "com.unity.modules.accessibility": "1.0.0",
