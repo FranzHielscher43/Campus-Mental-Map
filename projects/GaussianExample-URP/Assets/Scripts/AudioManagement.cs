@@ -7,7 +7,7 @@ public class AudioManagement : MonoBehaviour
     public AudioMixer mixer;
     public string volumeParameter = "MasterVolume";
 
-    public Slider volumeSlider;          // <-- im Inspector setzen
+    public Slider volumeSlider;          
     public float defaultVolume = 1f;
 
     public float minSliderValue = 0.25f;
@@ -20,7 +20,6 @@ public class AudioManagement : MonoBehaviour
     {
         float saved = PlayerPrefs.GetFloat("master_volume", defaultVolume);
 
-        // Slider initialisieren OHNE Event
         if (volumeSlider)
         {
             volumeSlider.minValue = minSliderValue;

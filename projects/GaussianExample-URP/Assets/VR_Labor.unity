@@ -7024,8 +7024,8 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings:
       - m_Name: 
-        m_Id: 7d0b354b-2cfc-43c8-b9bd-2386a8ea8070
-        m_Path: <XRController>{RightHand}/menu
+        m_Id: e30ce72f-b984-4ee2-b05d-0fdd2bd7ef45
+        m_Path: <XRController>{LeftHand}/primaryButton
         m_Interactions: 
         m_Processors: 
         m_Groups: 
@@ -7039,7 +7039,7 @@ MonoBehaviour:
   mainPanel: {fileID: 1307518278}
   optionsPanel: {fileID: 13685337}
   head: {fileID: 62877378}
-  distance: 2
+  distance: 3
   heightOffset: -0.1
   pauseTime: 1
   toggleCooldown: 0.25
@@ -7273,7 +7273,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 2
@@ -7286,7 +7286,7 @@ Transform:
   m_GameObject: {fileID: 1566976515}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.757449, z: -0, w: 0.6528945}
-  m_LocalPosition: {x: 0.167, y: -0.594, z: 3.21}
+  m_LocalPosition: {x: 0.167, y: -0.594, z: 3.277}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
