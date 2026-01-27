@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ScreenFader : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private CanvasGroup group;
     [SerializeField] private float duration = 0.25f;
 
