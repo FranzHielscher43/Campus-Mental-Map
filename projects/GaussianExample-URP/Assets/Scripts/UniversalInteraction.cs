@@ -1,32 +1,37 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
-using UnityEngine.InputSystem; 
 using TMPro;
 using System.Collections;
 
-public class UniversalInteraction : MonoBehaviour
+[RequireComponent(typeof(XRSimpleInteractable))]
+public class UniversalInteractionVR : MonoBehaviour
 {
     [Header("Ziel-Objekte")]
     public GameObject targetPlane; 
-    public MeshRenderer planeRenderer; // Der Renderer der Plane (für das Bild)
+    public MeshRenderer planeRenderer; 
     public TextMeshPro infoText; 
 
-    [Header("Option A: Bild (Priorität)")]
+    [Header("Inhalt")]
     public Texture2D screenshot; 
-    public float baseImageHeight = 0.1f; // Referenzgröße für Bilder
-
-    [Header("Option B: Text (Fallbacks)")]
+    public float baseImageHeight = 0.1f; 
+    
+    [Tooltip("Text hier eintippen, wenn das TextMeshPro Feld leer ist.")]
     [TextArea(3,10)]
-    public string message = "•Die Meta Quest 3 ist das aktuelle Standard-Headset in unserem VR-Labor und ermöglicht dir dank hochauflösender Displays ein völlig kabelloses Eintauchen in virtuelle Welten. Durch ihre integrierten Kameras unterstützt sie zudem Mixed Reality, wodurch digitale Objekte nahtlos mit deiner realen Umgebung verschmelzen.";
+    public string fallbackMessage = "Fallback Text..."; 
     public float typeSpeed = 0.05f;
 
-    [Header("Feste Größe (nur für Text)")]
+    [Header("Größen & Layout (Hier reparierst du den Overflow!)")]
     public Vector3 fixedScale = new Vector3(0.1f, 1f, 0.1f);
-
-    [Header("Animation")]
-    public float slideHeight = 1.0f;    
+    // NEU: Damit kannst du die Text-Breite manuell anpassen
+    public Vector2 textAreaSize = new Vector2(5.0f, 5.0f); 
+    public float slideHeight = 0.5f;    
     public float slideDuration = 0.5f; 
+    
+    [Header("Hover Feedback")]
+    public Color hoverColor = Color.cyan;
+    private Color originalObjectColor;
+    private Material objectMaterial;
 
     private XRSimpleInteractable xrInteractable;
     private bool isOpen = false;
@@ -34,17 +39,40 @@ public class UniversalInteraction : MonoBehaviour
     private Vector3 openPos;
     private Coroutine activeSlide;
     private Coroutine activeTypewriter;
+    private string finalContentText; 
+
+    private float lastClickTime = 0f;
+    private float clickCooldown = 0.5f;
 
     void Start()
     {
-        xrInteractable = GetComponent<XRSimpleInteractable>() ?? gameObject.AddComponent<XRSimpleInteractable>();
-        xrInteractable.selectEntered.AddListener((args) => ToggleObject("VR-Controller"));
+        xrInteractable = GetComponent<XRSimpleInteractable>();
+        xrInteractable.selectEntered.AddListener(OnSelect);
+        xrInteractable.hoverEntered.AddListener(OnHoverEnter);
+        xrInteractable.hoverExited.AddListener(OnHoverExit);
+
+        Renderer rend = GetComponent<Renderer>();
+        if (rend != null)
+        {
+            objectMaterial = rend.material;
+            originalObjectColor = objectMaterial.color;
+        }
+
+        if (infoText != null)
+        {
+            if (!string.IsNullOrWhiteSpace(infoText.text) && infoText.text != "New Text")
+                finalContentText = infoText.text;
+            else
+                finalContentText = fallbackMessage;
+            
+            infoText.text = ""; 
+        }
 
         if (targetPlane != null)
         {
-            PrepareContent(); // Inhalt beim Start prüfen
+            PrepareContent(); 
             closedPos = Vector3.zero; 
-            openPos = new Vector3(0, slideHeight, 0.4f);
+            openPos = new Vector3(0, slideHeight, 0); 
             targetPlane.transform.localPosition = closedPos;
             targetPlane.SetActive(false);
         }
@@ -52,22 +80,42 @@ public class UniversalInteraction : MonoBehaviour
 
     void Update()
     {
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        if (isOpen && targetPlane != null && Camera.main != null)
         {
-            Vector2 mousePos = Mouse.current.position.ReadValue();
-            Ray ray = Camera.main.ScreenPointToRay(mousePos);
-            if (Physics.Raycast(ray, out RaycastHit hit) && hit.transform == this.transform)
-            {
-                ToggleObject("Maus");
-            }
+            RotatePanelToPlayer();
+        }
+        
+        // DEBUG-HILFE: Erlaubt dir, die Größe LIVE im Play-Mode zu ändern!
+        if (isOpen && infoText != null && screenshot == null)
+        {
+             RectTransform textRect = infoText.GetComponent<RectTransform>();
+             if (textRect.sizeDelta != textAreaSize)
+             {
+                 textRect.sizeDelta = textAreaSize;
+             }
         }
     }
 
-    public void ToggleObject(string quelle)
+    private void OnSelect(SelectEnterEventArgs args) => ToggleObject();
+    
+    private void OnHoverEnter(HoverEnterEventArgs args)
     {
+        if (objectMaterial != null) objectMaterial.color = hoverColor;
+    }
+
+    private void OnHoverExit(HoverExitEventArgs args)
+    {
+        if (objectMaterial != null) objectMaterial.color = originalObjectColor;
+    }
+
+    public void ToggleObject()
+    {
+        if (Time.time - lastClickTime < clickCooldown) return;
+        lastClickTime = Time.time;
+
         if (targetPlane == null) return;
         
-        PrepareContent(); // Skalierung/Inhalt vor dem Slide aktualisieren
+        PrepareContent(); 
         isOpen = !isOpen;
 
         if (activeSlide != null) StopCoroutine(activeSlide);
@@ -76,26 +124,26 @@ public class UniversalInteraction : MonoBehaviour
         activeSlide = StartCoroutine(SlideRoutine(isOpen));
     }
 
+    private void RotatePanelToPlayer()
+    {
+        Vector3 direction = Camera.main.transform.position - targetPlane.transform.position;
+        direction.y = 0; 
+        if (direction != Vector3.zero)
+        {
+            targetPlane.transform.rotation = Quaternion.LookRotation(direction);
+        }
+    }
+
     void PrepareContent()
     {
         if (screenshot != null)
         {
-            // BILD-LOGIK
             if (infoText != null) infoText.text = ""; 
-            
-            // Textur zuweisen
             planeRenderer.material.mainTexture = screenshot;
-            
-            // WICHTIG: Farbe auf Weiß setzen, damit das Bild nicht blau getönt wird
             planeRenderer.material.color = Color.white; 
             if (planeRenderer.material.HasProperty("_BaseColor")) 
                 planeRenderer.material.SetColor("_BaseColor", Color.white);
 
-            // Emission ausschalten (falls vorhanden), damit das Bild nicht überstrahlt
-            if (planeRenderer.material.HasProperty("_EmissionColor"))
-                planeRenderer.material.SetColor("_EmissionColor", Color.black);
-
-            // Seitenverhältnis berechnen
             float aspectRatio = (float)screenshot.width / screenshot.height;
             Vector3 parentScale = transform.lossyScale;
 
@@ -107,10 +155,6 @@ public class UniversalInteraction : MonoBehaviour
         }
         else
         {
-            // TEXT-LOGIK
-            // Hier kannst du die Farbe wieder auf Blau setzen, wenn du willst:
-            // planeRenderer.material.color = new Color(0, 0.5f, 1f, 0.5f); 
-
             Vector3 parentScale = transform.lossyScale;
             targetPlane.transform.localScale = new Vector3(
                 fixedScale.x / parentScale.x, 
@@ -121,10 +165,21 @@ public class UniversalInteraction : MonoBehaviour
             if (infoText != null)
             {
                 infoText.transform.localScale = new Vector3(
-                    1f / targetPlane.transform.lossyScale.x, 
-                    1f / targetPlane.transform.lossyScale.y, 
-                    1f / targetPlane.transform.lossyScale.z
-                ) * 0.1f; 
+                    0.2f / targetPlane.transform.localScale.x, 
+                    0.2f / targetPlane.transform.localScale.y, 
+                    0.2f / targetPlane.transform.localScale.z
+                );
+
+                RectTransform textRect = infoText.GetComponent<RectTransform>();
+                if (textRect != null)
+                {
+                    // HIER WIRD DEIN WERT GENUTZT
+                    textRect.sizeDelta = textAreaSize; 
+                }
+                
+                infoText.enableWordWrapping = true;
+                infoText.alignment = TextAlignmentOptions.Center;
+                infoText.enableAutoSizing = true;
             }
         }
     }
@@ -146,7 +201,6 @@ public class UniversalInteraction : MonoBehaviour
 
         targetPlane.transform.localPosition = endPos;
 
-        // Nur wenn KEIN Bild da ist, Text schreiben
         if (show && screenshot == null && infoText != null)
         {
             activeTypewriter = StartCoroutine(TypeWriterRoutine());
@@ -158,7 +212,7 @@ public class UniversalInteraction : MonoBehaviour
     IEnumerator TypeWriterRoutine()
     {
         infoText.text = "";
-        foreach (char c in message.ToCharArray())
+        foreach (char c in finalContentText.ToCharArray()) 
         {
             infoText.text += c;
             yield return new WaitForSeconds(typeSpeed);
