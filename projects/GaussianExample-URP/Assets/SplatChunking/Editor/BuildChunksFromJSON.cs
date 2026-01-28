@@ -1,6 +1,5 @@
 #if UNITY_EDITOR
 using System;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -9,22 +8,43 @@ using UnityEditor;
 using UnityEngine;
 using GaussianSplatting.Runtime;
 
-public static class BuildChunksFromCsv
+public static class BuildChunksFromJson
 {
     // === ANPASSEN ===
-    const string MetaCsvPath   = "Assets/SplatChunks/chunks_meta.csv"; // name,minx,miny,minz,maxx,maxy,maxz,count
-    const string AssetsFolder  = "Assets/SplatChunks/Assets";          // hier liegen die chunk_*.asset
+    const string MetaJsonPath  = "Assets/SplatChunks/chunks_meta.json";
+    const string AssetsFolder  = "Assets/SplatChunks/Assets"; // chunk_*.asset
     const string RootName      = "GS_Chunks";
-    const bool   AddBoxCollider = true;
-    const bool   MoveWrapperToBoundsCenter = true; // wichtig!
+
+    const bool AddBoxCollider  = true;
+    const bool ColliderIsTrigger = true;
+
+    // WICHTIG bei Chunk-PLYs: i.d.R. FALSE!
+    const bool MoveWrapperToBoundsCenter = false;
+
+    // ✅ Collider Padding (damit Trigger früher reagiert)
+    // Erhöht die BoxCollider-Größe. Startwert: 1.0f, ggf. 1.5f–2.0f.
+    const float ColliderPadXZ = 1.0f; // +1 Einheit auf X und Z (gesamt)
+    const float ColliderPadY  = 0.0f; // optional
     // =================
 
-    [MenuItem("Tools/Gaussian Splats/Build Chunks From CSV (Fixed)")]
+    [Serializable] class MetaRoot { public List<MetaChunk> chunks; }
+    [Serializable] class MetaChunk
+    {
+        public string name;
+        public float[] aabb_min; // [x,y,z]
+        public float[] aabb_max;
+        public float[] center;
+        public float radius;
+        public int count;
+        public int ix, iz, sub;
+    }
+
+    [MenuItem("Tools/Gaussian Splats/Build Chunks From JSON (aras-p)")]
     public static void Build()
     {
-        if (!File.Exists(MetaCsvPath))
+        if (!File.Exists(MetaJsonPath))
         {
-            Debug.LogError($"CSV not found: {MetaCsvPath}");
+            Debug.LogError($"JSON not found: {MetaJsonPath}");
             return;
         }
 
@@ -46,7 +66,7 @@ public static class BuildChunksFromCsv
             return;
         }
 
-        // Assets indexieren: key = Dateiname ohne Extension (stabiler als a.name)
+        // Assets indexieren: key = Dateiname ohne Extension
         var guids = AssetDatabase.FindAssets("t:GaussianSplatAsset", new[] { AssetsFolder });
         var assetByKey = new Dictionary<string, GaussianSplatAsset>(StringComparer.Ordinal);
         foreach (var g in guids)
@@ -55,50 +75,27 @@ public static class BuildChunksFromCsv
             var asset = AssetDatabase.LoadAssetAtPath<GaussianSplatAsset>(path);
             if (!asset) continue;
 
-            var key = Path.GetFileNameWithoutExtension(path); // z.B. tile_0_0_a_b
+            var key = Path.GetFileNameWithoutExtension(path);
             if (!assetByKey.ContainsKey(key))
                 assetByKey[key] = asset;
         }
 
         Debug.Log($"Found {assetByKey.Count} GaussianSplatAssets in {AssetsFolder}");
 
-        var lines = File.ReadAllLines(MetaCsvPath);
-        if (lines.Length < 2)
+        var json = File.ReadAllText(MetaJsonPath);
+        var meta = JsonUtility.FromJson<MetaRoot>(json);
+        if (meta?.chunks == null || meta.chunks.Count == 0)
         {
-            Debug.LogError("CSV has no rows.");
+            Debug.LogError("JSON parse failed or 'chunks' is empty.");
             return;
         }
 
-        int createdWrappers = 0, wired = 0, missingAssets = 0, badRows = 0;
-        int loggedMissing = 0;
+        int createdWrappers = 0, wired = 0, missingAssets = 0;
 
-        for (int i = 1; i < lines.Length; i++)
+        foreach (var c in meta.chunks)
         {
-            var line = lines[i].Trim();
-            if (string.IsNullOrWhiteSpace(line)) continue;
+            string name = Path.GetFileNameWithoutExtension(c.name); // "chunk_x.._z.._s.."
 
-            var c = line.Split(',');
-            if (c.Length < 8)
-            {
-                badRows++;
-                continue;
-            }
-
-            string name = c[0];
-
-            float minx = ParseF(c[1]);
-            float miny = ParseF(c[2]);
-            float minz = ParseF(c[3]);
-            float maxx = ParseF(c[4]);
-            float maxy = ParseF(c[5]);
-            float maxz = ParseF(c[6]);
-
-            Vector3 bmin = new Vector3(minx, miny, minz);
-            Vector3 bmax = new Vector3(maxx, maxy, maxz);
-            Vector3 center = (bmin + bmax) * 0.5f;
-            Vector3 size   = (bmax - bmin);
-
-            // Wrapper
             var wrapperT = root.transform.Find(name);
             GameObject wrapper;
             if (!wrapperT)
@@ -109,39 +106,40 @@ public static class BuildChunksFromCsv
             }
             else wrapper = wrapperT.gameObject;
 
-            // Wrapper zentrieren (Collider lokal korrekt)
+            Vector3 bmin = new Vector3(c.aabb_min[0], c.aabb_min[1], c.aabb_min[2]);
+            Vector3 bmax = new Vector3(c.aabb_max[0], c.aabb_max[1], c.aabb_max[2]);
+            Vector3 center = (bmin + bmax) * 0.5f;
+            Vector3 size = (bmax - bmin);
+
+            // ✅ Padding hinzufügen (früher reagieren)
+            size.x += ColliderPadXZ;
+            size.z += ColliderPadXZ;
+            size.y += ColliderPadY;
+
+            // Wrapper verschieben? In den meisten Chunk-Setups NICHT!
             if (MoveWrapperToBoundsCenter)
                 wrapper.transform.localPosition = center;
+            else
+                wrapper.transform.localPosition = Vector3.zero;
 
             if (AddBoxCollider)
             {
                 var bc = wrapper.GetComponent<BoxCollider>();
                 if (!bc) bc = wrapper.AddComponent<BoxCollider>();
-                bc.isTrigger = true;
+                bc.isTrigger = ColliderIsTrigger;
+                bc.size = size;
+
+                // Wenn Wrapper nicht verschoben wird, muss Collider auf Center sitzen
                 bc.center = MoveWrapperToBoundsCenter ? Vector3.zero : center;
-                bc.size   = size;
             }
 
-            // Asset finden: exakter key = name
             if (!assetByKey.TryGetValue(name, out var asset))
             {
-                // fallback: manche Assets heißen leicht anders (z.B. name + ".asset" ist egal, aber key ist ohne ext)
-                // optional: Contains match
-                var hit = assetByKey.Keys.FirstOrDefault(k => k.Equals(name, StringComparison.Ordinal));
-                if (hit == null)
-                {
-                    missingAssets++;
-                    if (loggedMissing < 10)
-                    {
-                        Debug.LogWarning($"Missing asset for '{name}'. Example existing key: {(assetByKey.Count>0 ? assetByKey.Keys.First() : "<none>")}");
-                        loggedMissing++;
-                    }
-                    continue;
-                }
-                asset = assetByKey[hit];
+                missingAssets++;
+                continue;
             }
 
-            // Child mit Renderer
+            // Child "Splat"
             var child = wrapper.transform.Find("Splat");
             if (!child)
             {
@@ -149,6 +147,9 @@ public static class BuildChunksFromCsv
                 go.transform.SetParent(wrapper.transform, false);
                 child = go.transform;
             }
+            child.localPosition = Vector3.zero;
+            child.localRotation = Quaternion.identity;
+            child.localScale = Vector3.one;
 
             var rend = child.GetComponent(rendererType);
             if (!rend) rend = child.gameObject.AddComponent(rendererType);
@@ -156,18 +157,14 @@ public static class BuildChunksFromCsv
             if (assetField != null) assetField.SetValue(rend, asset);
             else assetProp.SetValue(rend, asset);
 
+            // Start disabled -> Trigger-Culler schaltet an
+            ((Behaviour)rend).enabled = false;
+
             wired++;
         }
 
-        Debug.Log($"Done. createdWrappers={createdWrappers}, wired={wired}, missingAssets={missingAssets}, badRows={badRows}");
+        Debug.Log($"Done. createdWrappers={createdWrappers}, wired={wired}, missingAssets={missingAssets}");
         Selection.activeGameObject = root;
-    }
-
-    static float ParseF(string s)
-    {
-        if (float.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out var v))
-            return v;
-        return 0f;
     }
 
     static Type FindType(string fullName)
