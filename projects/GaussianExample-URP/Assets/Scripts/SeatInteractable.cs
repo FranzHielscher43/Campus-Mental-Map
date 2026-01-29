@@ -102,6 +102,7 @@ public class SeatInteractable : MonoBehaviour
         StartCoroutine(StandRoutine());
     }
 
+    // STEP 1: Teleport ARMEN
     public void Teleport()
     {
         if (!isSitting || busy || exitPoint == null) return;
@@ -115,6 +116,7 @@ public class SeatInteractable : MonoBehaviour
         EventSystem.current?.SetSelectedGameObject(null);
     }
 
+    // STEP 2: Teleport BESTÄTIGEN
     public void TeleportConfirm()
     {
         if (!isSitting || busy || exitPoint == null) return;
