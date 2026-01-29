@@ -7637,7 +7637,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u2022 Sch\xF6n, das"
+  m_text: "\u2022 Was erwartet dich? In diesem fotorealistischen Nachbau unserer
+    Hochschule begibst du dich auf eine interaktive Schnitzeljagd. Du wirst strategisch
+    wichtige Orte erkunden und dabei praktisches Wissen sammeln, das dir den Start
+    in den Studienalltag erleichtert"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7664,12 +7667,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
+  m_fontSize: 8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 10
-  m_fontSizeMax: 23
+  m_fontSizeMin: 8
+  m_fontSizeMax: 8
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
