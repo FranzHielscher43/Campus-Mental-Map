@@ -6636,14 +6636,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u2022Die Meta Quest 3 ist das aktuelle Standard-Headset in unserem VR-Labor
+  m_text: "Die Meta Quest 3 ist das aktuelle Standard-Headset in unserem VR-Labor
     und erm\xF6glicht dir dank hochaufl\xF6sender Displays ein v\xF6llig kabelloses
     Eintauchen in virtuelle Welten. Durch ihre integrierten Kameras unterst\xFCtzt
     sie zudem Mixed Reality, wodurch digitale Objekte nahtlos mit deiner realen Umgebung
     verschmelzen.\";\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6737,7 +6737,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7771,13 +7771,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u2022 Was erwartet dich? In diesem fotorealistischen Nachbau unserer
-    Hochschule begibst du dich auf eine interaktive Schnitzeljagd. Du wirst strategisch
-    wichtige Orte erkunden und dabei praktisches Wissen sammeln, das dir den Start
-    in den Studienalltag erleichtert"
+  m_text: Was erwartet dich? In diesem fotorealistischen Nachbau unserer Hochschule
+    begibst du dich auf eine interaktive Schnitzeljagd. Du wirst strategisch wichtige
+    Orte erkunden und dabei praktisches Wissen sammeln, das dir den Start in den
+    Studienalltag erleichtert
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9222,8 +9222,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.08245964, y: 0.19084357, z: 0.8467459}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1858178750}
+  m_Children: []
   m_Father: {fileID: 2002331507}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -9681,11 +9680,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u2022 Sch\xF6n, dass du da bist! Du befindest dich in einem innovativen
-    VR-Erlebnis, das dir dabei hilft, die HTWK Leipzig auf eine ganz neue Art kennenzulernen."
+  m_text: "Sch\xF6n, dass du da bist! Du befindest dich in einem innovativen VR-Erlebnis,
+    das dir dabei hilft, die HTWK Leipzig auf eine ganz neue Art kennenzulernen."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11436,7 +11435,7 @@ MonoBehaviour:
     VR-Erlebnis, das dir dabei hilft, die HTWK Leipzig auf eine ganz neue Art kennenzulernen."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
