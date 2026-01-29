@@ -8004,8 +8004,8 @@ MonoBehaviour:
   baseImageHeight: 0.1
   fallbackMessage: Fallback Text...
   typeSpeed: 0.05
-  fixedScale: {x: 0.1, y: 0.1, z: 0.1}
-  textAreaSize: {x: 3, y: 2}
+  fixedScale: {x: 0.15, y: 0.15, z: 0.15}
+  textAreaSize: {x: 3, y: 3}
   slideHeight: 0.5
   slideDuration: 0.5
   hoverColor: {r: 0, g: 1, b: 1, a: 1}
@@ -8021,7 +8021,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e81a08497dcb56449b8f883044d7991e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glowColor: {r: 0.8773585, g: 0.7490655, b: 0.7490655, a: 1}
+  targetPlane: {fileID: 569174830}
+  glowColor: {r: 0.990566, g: 0.7245741, b: 0.4438857, a: 1}
   maxDistance: 5
   minDistance: 1.5
   pulseSpeed: 2
