@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33b71fae31e6c7d438e8566dc713e666, type: 3}
+  m_Name: gs_VR_Labor_10
+  m_EditorClassIdentifier: 
+  m_FormatVersion: 20231020
+  m_SplatCount: 108193
+  m_BoundsMin: {x: -99.359276, y: -99.19024, z: -99.371155}
+  m_BoundsMax: {x: 99.65983, y: 99.49344, z: 99.58382}
+  m_DataHash:
+    serializedVersion: 2
+    Hash: dfa9fe8e313185ab26243c9953f24fee
+  m_PosFormat: 0
+  m_ScaleFormat: 0
+  m_SHFormat: 0
+  m_ColorFormat: 0
+  m_PosData: {fileID: 4900000, guid: fbccbfab44cfe4852b696e9ef87d8266, type: 3}
+  m_ColorData: {fileID: 4900000, guid: 86dc7b210931f4dc58fe60ef34074c40, type: 3}
+  m_OtherData: {fileID: 4900000, guid: 88120844270844c5f9e12755cdd96151, type: 3}
+  m_SHData: {fileID: 4900000, guid: 561815659da6c4677ac0346528c80c9b, type: 3}
+  m_ChunkData: {fileID: 0}
+  m_Cameras: []

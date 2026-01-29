@@ -18,12 +18,10 @@ public static class BuildChunksFromJson
     const bool AddBoxCollider  = true;
     const bool ColliderIsTrigger = true;
 
-    // WICHTIG bei Chunk-PLYs: i.d.R. FALSE!
     const bool MoveWrapperToBoundsCenter = false;
 
     // ✅ Collider Padding (damit Trigger früher reagiert)
-    // Erhöht die BoxCollider-Größe. Startwert: 1.0f, ggf. 1.5f–2.0f.
-    const float ColliderPadXZ = 1.0f; // +1 Einheit auf X und Z (gesamt)
+    const float ColliderPadXZ = 2.0f; // +1 Einheit auf X und Z (gesamt)
     const float ColliderPadY  = 0.0f; // optional
     // =================
 

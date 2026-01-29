@@ -28,7 +28,6 @@
 
 /Assets/Room_Chunks/*
 /Assets/Room_Chunks_Assets/*
-/Assets/GS_Material/
 
 # Allow root folder
 splat_chunking/*
@@ -69,12 +68,8 @@ sysinfo.txt
 # Reports
 crashlytics-build.properties
 
-projects/GaussianExample-URP/Assets/SplatChunks/Assets/*
-projects/GaussianExample-URP/Assets/SplatChunks/PLY/*
-projects/GaussianExample-URP/Assets/GS_Material/*
 projects/GaussianExample-URP/Assets/chunks_assets/*
 projects/GaussianExample-URP/Assets/Room_Chunks_Assets/*
-projects/GaussianExample-URP/Assets/SplatChunks/*
 !projects/GaussianExample-URP/Assets/SplatChunks/Test/
 
 # Native/CMake/Ninja temp (Unity/Android)

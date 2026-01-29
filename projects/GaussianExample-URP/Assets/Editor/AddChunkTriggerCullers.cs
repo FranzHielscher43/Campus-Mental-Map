@@ -34,7 +34,6 @@ public static class AddChunkTriggerCullers
 
             col.isTrigger = true;
 
-            // ✅ richtig typisiert
             if (!c.splatRenderer)
                 c.splatRenderer = child.GetComponentInChildren<GaussianSplatRenderer>(true);
         }

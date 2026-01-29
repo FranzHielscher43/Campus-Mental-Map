@@ -5,15 +5,13 @@ using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using GaussianSplatting.Runtime; // GaussianSplatAsset
+using GaussianSplatting.Runtime;
 
 public static class BatchGaussianSplatAssetCreator
 {
     // ================== PATHS ==================
-    // Lege deine chunk_*.ply hier rein:
     const string InputPlyFolder = "Assets/SplatChunks/PLY";
 
-    // Hier kommen .asset + *_pos/_oth/_col/_shs/_chk.bytes hin:
     const string OutputFolder   = "Assets/SplatChunks/Assets";
     // ===========================================
 
@@ -27,7 +25,6 @@ public static class BatchGaussianSplatAssetCreator
         }
         Directory.CreateDirectory(OutputFolder);
 
-        // Wichtig: deterministische Reihenfolge
         var plyAbsPaths = Directory.GetFiles(InputPlyFolder, "*.ply", SearchOption.TopDirectoryOnly)
                                    .Select(p => p.Replace("\\", "/"))
                                    .OrderBy(p => p, StringComparer.OrdinalIgnoreCase)
@@ -39,7 +36,6 @@ public static class BatchGaussianSplatAssetCreator
             return;
         }
 
-        // Creator finden (aras-p / GaussianSplatting package)
         var creatorType = FindType("GaussianSplatting.Editor.GaussianSplatAssetCreator");
         if (creatorType == null)
         {
