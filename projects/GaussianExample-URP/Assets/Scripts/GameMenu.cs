@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class GameMenu : MonoBehaviour
 {
@@ -10,12 +8,7 @@ public class GameMenu : MonoBehaviour
     public bool enableInEditorKeyboard = true;
 
     [Header("Fader")]
-    public MenuFader menuFader;
-    public ScreenFader titleFader;
-    bool busy;
-
-    [Header("Last Scene")]
-    public string lastScene = "Titlescreen";
+    public MenuFader fader;
 
     [Header("UI")]
     public GameObject menuRoot;
@@ -44,9 +37,9 @@ public class GameMenu : MonoBehaviour
         if (!head && Camera.main) head = Camera.main.transform;
 
         if (optionsPanel) optionsPanel.SetActive(false);
-        if (menuFader == null && menuRoot) menuFader = menuRoot.GetComponent<MenuFader>();
+        if (fader == null && menuRoot) fader = menuRoot.GetComponent<MenuFader>();
         if (mainPanel) mainPanel.SetActive(true);
-        if (menuFader != null) menuFader.Hide();
+        if (fader != null) fader.Hide();
         else if (menuRoot) menuRoot.SetActive(false);
 
         if (pauseTime) Time.timeScale = 1f;
@@ -96,7 +89,7 @@ public class GameMenu : MonoBehaviour
 
         if(optionsPanel) optionsPanel.SetActive(false);
         if (mainPanel) mainPanel.SetActive(true);
-        if (menuFader != null) menuFader.Show();
+        if (fader != null) fader.Show();
         else if (menuRoot) menuRoot.SetActive(true);
 
         if (pauseTime) Time.timeScale = 0f;
@@ -108,7 +101,7 @@ public class GameMenu : MonoBehaviour
 
         if (mainPanel) mainPanel.SetActive(false);
         if (optionsPanel) optionsPanel.SetActive(false);
-        if (menuFader != null) menuFader.Hide();
+        if (fader != null) fader.Hide();
         else if (menuRoot) menuRoot.SetActive(false);
 
         if (pauseTime) Time.timeScale = 1f;
@@ -145,22 +138,6 @@ public class GameMenu : MonoBehaviour
         optionsPanel.SetActive(false);
         mainPanel.SetActive(true);
         Debug.Log("Back to mainpanel");
-    }
-
-    public void BackToTitlescreen()
-    {
-        Debug.Log("Back to Titlescree");
-        if (busy) return;
-        StartCoroutine(Titlescreen());
-    }
-
-    IEnumerator Titlescreen()
-    {
-        busy = true;
-        if (titleFader != null)
-            yield return titleFader.FadeTo(1f);
-
-        SceneManager.LoadScene(lastScene);
     }
 
     public void Quit()
