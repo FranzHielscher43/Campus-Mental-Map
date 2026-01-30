@@ -4,9 +4,9 @@ using UnityEngine;
 public class HintLine : MonoBehaviour
 {
     [Header("Endpoints")]
-    public Transform start;   // z.B. Text / Hint
-    public Transform end;     // z.B. Button
-    public Transform head;    // XR Camera (wichtig!)
+    public Transform start;   
+    public Transform end;     
+    public Transform head;    
 
     [Header("Curve Shape")]
     [Tooltip("+1 = nach oben, -1 = nach unten")]
@@ -69,7 +69,6 @@ public class HintLine : MonoBehaviour
 
         float dist = Vector3.Distance(p0, p2);
 
-        // Kopf-Richtungen
         Vector3 headRight = head ? head.right : Vector3.right;
         Vector3 headForward = head
             ? Vector3.ProjectOnPlane(head.forward, Vector3.up).normalized
