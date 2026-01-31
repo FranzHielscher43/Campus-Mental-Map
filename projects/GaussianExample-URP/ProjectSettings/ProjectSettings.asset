@@ -164,7 +164,7 @@ PlayerSettings:
   androidMinAspectRatio: 1
   applicationIdentifier:
     Android: com.DefaultCompany.UnityGaussianSplatting
-    Standalone: com.DefaultCompany.UnityGaussianSplatting
+    Standalone: com.CMM-Team.Campus-Mental-Map
   buildNumber:
     Bratwurst: 0
     Standalone: 0
