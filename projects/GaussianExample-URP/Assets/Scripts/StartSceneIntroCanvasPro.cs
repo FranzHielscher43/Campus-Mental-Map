@@ -87,8 +87,22 @@ public class StartSceneIntroButtonsOnly : MonoBehaviour
         Debug.Log("<color=red>Nav:</color> Intro beendet");
         if (!isOpen) return;
         isOpen = false;
+
+        // Intro schließen Animation
         StartCoroutine(SlideRoutine(currentSlideIndex, false));
         if (navigationParent != null) navigationParent.SetActive(false);
+
+        // --- NEU: HIER SUCHEN WIR DEN MANAGER UND STARTEN DAS SPIEL ---
+        TitleScreenManager manager = FindObjectOfType<TitleScreenManager>();
+        if (manager != null)
+        {
+            manager.FinalStartGame();
+        }
+        else
+        {
+            Debug.LogError("Fehler: Kein TitleScreenManager in der Szene gefunden!");
+        }
+        // -------------------------------------------------------------
     }
 
     IEnumerator SwitchRoutine(int newIndex)
