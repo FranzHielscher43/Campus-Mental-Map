@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
@@ -9,6 +8,7 @@ public class TitleScreenManager : MonoBehaviour
     public GameObject titlescreenRoot;
     public GameObject titlescreenPanel;
     public GameObject aboutUsPanel;
+    public GameObject introCanvas; // Dein Slide-Popup
     public Transform head;
 
     [Header("Fade")]
@@ -28,13 +28,41 @@ public class TitleScreenManager : MonoBehaviour
     void Start ()
     {
         if (aboutUsPanel) aboutUsPanel.SetActive(false);
+        if (introCanvas) introCanvas.SetActive(false); 
+        
         if (!head && Camera.main) head = Camera.main.transform;
         if (titlescreenPanel) titlescreenPanel.SetActive(true);
     }
 
     public void StartApplication()
     {
-        Debug.Log("Application started");
+        Debug.Log("Start gedrückt");
+        
+        // 1. Menü ausblenden
+        if (titlescreenPanel) titlescreenPanel.SetActive(false);
+        
+        // 2. Intro Canvas aktivieren
+        if (introCanvas) 
+        {
+            introCanvas.SetActive(true);
+
+            // --- REPARATUR ---
+            // Wir suchen das Skript auf dem Canvas und zwingen es, SOFORT zu starten!
+            // Sonst sind die Panels erst mal unsichtbar.
+            var introScript = introCanvas.GetComponent<StartSceneIntroButtonsOnly>();
+            if (introScript != null)
+            {
+                introScript.OpenIntro(); // "Zeig dich sofort!"
+            }
+        }
+        else 
+        {
+            FinalStartGame();
+        }
+    }
+
+    public void FinalStartGame()
+    {
         if (busy) return;
         StartCoroutine(StartRoutine());
     }
@@ -42,6 +70,9 @@ public class TitleScreenManager : MonoBehaviour
     IEnumerator StartRoutine()
     {
         busy = true;
+        
+        if (introCanvas) introCanvas.SetActive(false);
+
         if (fader != null)
             yield return fader.FadeTo(1f);
         
@@ -53,7 +84,6 @@ public class TitleScreenManager : MonoBehaviour
         if (!titlescreenPanel || !aboutUsPanel) return;
         aboutUsPanel.SetActive(true);
         titlescreenPanel.SetActive(false);
-        Debug.Log("About us opened");
     }
 
     public void BackFromAboutUs()
@@ -61,7 +91,6 @@ public class TitleScreenManager : MonoBehaviour
         if (!titlescreenPanel || !aboutUsPanel) return;
         aboutUsPanel.SetActive(false);
         titlescreenPanel.SetActive(true);
-        Debug.Log("Back to Titlescreen");
     }
 
     public void QuitApplication()
