@@ -2482,7 +2482,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "eba98c2e-6268-4233-bb88-946287bc753c",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -2910,7 +2910,7 @@
                     "name": "",
                     "id": "9f2a7c29-a588-4b6a-a966-955eb408c526",
                     "path": "*/{Submit}",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Submit",
