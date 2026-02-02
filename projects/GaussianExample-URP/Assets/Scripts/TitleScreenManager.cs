@@ -8,7 +8,7 @@ public class TitleScreenManager : MonoBehaviour
     public GameObject titlescreenRoot;
     public GameObject titlescreenPanel;
     public GameObject aboutUsPanel;
-    public GameObject introCanvas; // Dein Slide-Popup
+    public GameObject introCanvas; 
     public Transform head;
 
     [Header("Fade")]
@@ -25,6 +25,15 @@ public class TitleScreenManager : MonoBehaviour
     [Header("Anti-Spam")]
     public float toggleCooldown = 0.25f;
 
+    private static bool hasSeenIntro = false; 
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetIntroStatus()
+    {
+        hasSeenIntro = false;
+        Debug.Log("Intro-Status wurde zurückgesetzt!");
+    }
+
     void Start ()
     {
         if (aboutUsPanel) aboutUsPanel.SetActive(false);
@@ -37,30 +46,30 @@ public class TitleScreenManager : MonoBehaviour
     public void StartApplication()
     {
         Debug.Log("Start gedrückt");
-        
+
         // 1. Menü ausblenden
         if (titlescreenPanel) titlescreenPanel.SetActive(false);
-        
-        // 2. Intro Canvas aktivieren
-        if (introCanvas) 
-        {
-            introCanvas.SetActive(true);
 
-            // --- REPARATUR ---
-            // Wir suchen das Skript auf dem Canvas und zwingen es, SOFORT zu starten!
-            // Sonst sind die Panels erst mal unsichtbar.
-            var introScript = introCanvas.GetComponent<StartSceneIntroButtonsOnly>();
-            if (introScript != null)
-            {
-                introScript.OpenIntro(); // "Zeig dich sofort!"
-            }
+        // --- HIER IST DIE LOGIK FÜR "NUR 1x ANZEIGEN" ---
+        
+        // Wenn wir ein Intro haben UND es noch NICHT gesehen haben:
+        if (introCanvas != null && !hasSeenIntro)
+        {
+            // Merken, dass wir es jetzt sehen
+            hasSeenIntro = true;
+
+            // Intro Canvas anschalten -> Das aktiviert automatisch den Timer im anderen Skript
+            introCanvas.SetActive(true);
         }
         else 
         {
+            // Wenn wir es schon gesehen haben (oder keins da ist):
+            // Sofort starten!
             FinalStartGame();
         }
     }
 
+    // Wird vom Intro-Skript (beim Schließen) ODER direkt von oben aufgerufen
     public void FinalStartGame()
     {
         if (busy) return;
@@ -79,6 +88,7 @@ public class TitleScreenManager : MonoBehaviour
         SceneManager.LoadScene(nextScene);
     }
 
+    // --- Standard UI ---
     public void AboutUs()
     {
         if (!titlescreenPanel || !aboutUsPanel) return;
