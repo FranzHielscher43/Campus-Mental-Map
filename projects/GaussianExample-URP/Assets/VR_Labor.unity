@@ -1318,7 +1318,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &126887613
 Transform:
@@ -3041,11 +3041,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6557319881323677167, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
       propertyPath: targetSceneName
-      value: TestScene
+      value: Mocap_Labor_Pult
       objectReference: {fileID: 0}
     - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.636
+      value: 0.833
       objectReference: {fileID: 0}
     - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3053,7 +3053,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.553
+      value: 3.213
       objectReference: {fileID: 0}
     - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3645,6 +3645,7 @@ RectTransform:
   m_Children:
   - {fileID: 2109221840}
   - {fileID: 684517111}
+  - {fileID: 1394434491}
   m_Father: {fileID: 13685338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -14515,3 +14516,4 @@ SceneRoots:
   - {fileID: 138165515970168230}
   - {fileID: 2553026918368195967}
   - {fileID: 1131686495}
+  - {fileID: 490275181}
