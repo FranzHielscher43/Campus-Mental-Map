@@ -1728,6 +1728,9 @@ MonoBehaviour:
   teleportConfirmButton: {fileID: 758116236}
   standGroup: {fileID: 1106164303}
   teleportGroup: {fileID: 1855140038}
+  locomotionToDisable:
+  - {fileID: 62877384}
+  behavioursToDisable: []
   postActionInputBlock: 0.3
   confirmWindow: 3
 --- !u!135 &126887612
