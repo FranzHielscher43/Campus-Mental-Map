@@ -1287,13 +1287,16 @@ MonoBehaviour:
   fader: {fileID: 824661731}
   seatPoint: {fileID: 1070983336}
   standPoint: {fileID: 1220015206}
-  exitPoint: {fileID: 494433068}
+  teleportSceneName: Mocap_Labor_Pult
   hintPanel: {fileID: 1477112415}
   standPanel: {fileID: 439563583}
   teleportPanel: {fileID: 1043166959}
   teleportConfirmButton: {fileID: 758116236}
   standGroup: {fileID: 1106164303}
   teleportGroup: {fileID: 1855140038}
+  locomotionToDisable:
+  - {fileID: 62877384}
+  behavioursToDisable: []
   postActionInputBlock: 0.3
   confirmWindow: 3
 --- !u!135 &126887612
@@ -1315,7 +1318,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.5
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &126887613
 Transform:
