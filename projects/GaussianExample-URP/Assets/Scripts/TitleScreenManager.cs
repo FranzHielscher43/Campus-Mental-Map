@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
@@ -9,6 +8,7 @@ public class TitleScreenManager : MonoBehaviour
     public GameObject titlescreenRoot;
     public GameObject titlescreenPanel;
     public GameObject aboutUsPanel;
+    public GameObject introCanvas; 
     public Transform head;
 
     [Header("Fade")]
@@ -25,16 +25,53 @@ public class TitleScreenManager : MonoBehaviour
     [Header("Anti-Spam")]
     public float toggleCooldown = 0.25f;
 
+    private static bool hasSeenIntro = false; 
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetIntroStatus()
+    {
+        hasSeenIntro = false;
+        Debug.Log("Intro-Status wurde zurückgesetzt!");
+    }
+
     void Start ()
     {
         if (aboutUsPanel) aboutUsPanel.SetActive(false);
+        if (introCanvas) introCanvas.SetActive(false); 
+        
         if (!head && Camera.main) head = Camera.main.transform;
         if (titlescreenPanel) titlescreenPanel.SetActive(true);
     }
 
     public void StartApplication()
     {
-        Debug.Log("Application started");
+        Debug.Log("Start gedrückt");
+
+        // 1. Menü ausblenden
+        if (titlescreenPanel) titlescreenPanel.SetActive(false);
+
+        // --- HIER IST DIE LOGIK FÜR "NUR 1x ANZEIGEN" ---
+        
+        // Wenn wir ein Intro haben UND es noch NICHT gesehen haben:
+        if (introCanvas != null && !hasSeenIntro)
+        {
+            // Merken, dass wir es jetzt sehen
+            hasSeenIntro = true;
+
+            // Intro Canvas anschalten -> Das aktiviert automatisch den Timer im anderen Skript
+            introCanvas.SetActive(true);
+        }
+        else 
+        {
+            // Wenn wir es schon gesehen haben (oder keins da ist):
+            // Sofort starten!
+            FinalStartGame();
+        }
+    }
+
+    // Wird vom Intro-Skript (beim Schließen) ODER direkt von oben aufgerufen
+    public void FinalStartGame()
+    {
         if (busy) return;
         StartCoroutine(StartRoutine());
     }
@@ -42,18 +79,21 @@ public class TitleScreenManager : MonoBehaviour
     IEnumerator StartRoutine()
     {
         busy = true;
+        
+        if (introCanvas) introCanvas.SetActive(false);
+
         if (fader != null)
             yield return fader.FadeTo(1f);
         
         SceneManager.LoadScene(nextScene);
     }
 
+    // --- Standard UI ---
     public void AboutUs()
     {
         if (!titlescreenPanel || !aboutUsPanel) return;
         aboutUsPanel.SetActive(true);
         titlescreenPanel.SetActive(false);
-        Debug.Log("About us opened");
     }
 
     public void BackFromAboutUs()
@@ -61,7 +101,6 @@ public class TitleScreenManager : MonoBehaviour
         if (!titlescreenPanel || !aboutUsPanel) return;
         aboutUsPanel.SetActive(false);
         titlescreenPanel.SetActive(true);
-        Debug.Log("Back to Titlescreen");
     }
 
     public void QuitApplication()
