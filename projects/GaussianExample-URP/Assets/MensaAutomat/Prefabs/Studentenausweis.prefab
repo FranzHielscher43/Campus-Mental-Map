@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2114332154719969397}
   - component: {fileID: 3099895472492977602}
   - component: {fileID: 4598205193816162885}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Studentenausweis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
