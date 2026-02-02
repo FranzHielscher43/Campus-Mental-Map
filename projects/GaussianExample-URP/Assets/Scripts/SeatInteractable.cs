@@ -1,8 +1,8 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
-using Unity.XR.CoreUtils;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using Unity.XR.CoreUtils;
 
 public class SeatInteractable : MonoBehaviour
 {
@@ -13,13 +13,16 @@ public class SeatInteractable : MonoBehaviour
     [Header("Seat Points")]
     public Transform seatPoint;
     public Transform standPoint;
-    public Transform exitPoint;
+
+    [Header("Teleport Target (Scene)")]
+    [Tooltip("Name der Scene, die beim Teleport geladen werden soll (muss in Build Settings sein).")]
+    public string teleportSceneName = "Mocap_Labor_Pult";
 
     [Header("UI Panels")]
-    public GameObject hintPanel;        // "Hinsetzen"
-    public GameObject standPanel;       // "Aufstehen"
-    public GameObject teleportPanel;    // "Teleport"
-    public GameObject teleportConfirmButton; // "Bestätigen"
+    public GameObject hintPanel;              // "Hinsetzen"
+    public GameObject standPanel;             // "Aufstehen"
+    public GameObject teleportPanel;          // "Teleport"
+    public GameObject teleportConfirmButton;  // "Bestätigen"
 
     [Header("UI Groups (CanvasGroup!)")]
     [SerializeField] private CanvasGroup standGroup;
@@ -38,8 +41,6 @@ public class SeatInteractable : MonoBehaviour
     bool teleportArmed;
     float teleportArmedUntil;
 
-    // --------------------------------------------------------
-
     void Start()
     {
         if (hintPanel) hintPanel.SetActive(false);
@@ -54,8 +55,7 @@ public class SeatInteractable : MonoBehaviour
         if (teleportArmed && Time.unscaledTime > teleportArmedUntil)
         {
             teleportArmed = false;
-            if (teleportConfirmButton)
-                teleportConfirmButton.SetActive(false);
+            if (teleportConfirmButton) teleportConfirmButton.SetActive(false);
         }
     }
 
@@ -104,7 +104,8 @@ public class SeatInteractable : MonoBehaviour
 
     public void Teleport()
     {
-        if (!isSitting || busy || exitPoint == null) return;
+        // Teleport ist nur erlaubt, wenn man sitzt
+        if (!isSitting || busy) return;
 
         teleportArmed = true;
         teleportArmedUntil = Time.unscaledTime + confirmWindow;
@@ -117,14 +118,15 @@ public class SeatInteractable : MonoBehaviour
 
     public void TeleportConfirm()
     {
-        if (!isSitting || busy || exitPoint == null) return;
+        if (!isSitting || busy) return;
         if (!teleportArmed || Time.unscaledTime > teleportArmedUntil) return;
 
         teleportArmed = false;
         if (teleportConfirmButton)
             teleportConfirmButton.SetActive(false);
 
-        StartCoroutine(TeleportRoutine(exitPoint));
+        // Jetzt Scene laden (statt MoveRigTo)
+        StartCoroutine(TeleportToSceneRoutine(teleportSceneName));
     }
 
     // --------------------------------------------------------
@@ -188,7 +190,7 @@ public class SeatInteractable : MonoBehaviour
         busy = false;
     }
 
-    IEnumerator TeleportRoutine(Transform target)
+    IEnumerator TeleportToSceneRoutine(string sceneName)
     {
         busy = true;
 
@@ -202,16 +204,25 @@ public class SeatInteractable : MonoBehaviour
         if (standPanel) standPanel.SetActive(false);
         if (teleportPanel) teleportPanel.SetActive(false);
 
+        // Fade to black
         if (fader != null) yield return fader.FadeTo(1f);
 
-        MoveRigTo(target);
-
-        isSitting = false;
-        inRange = false;
-
-        if (fader != null) yield return fader.FadeTo(0f);
-
+        // Kleiner Ghost-Click-Block bevor wir die Szene wechseln
         yield return new WaitForSecondsRealtime(postActionInputBlock);
+
+        // Safety: Scene muss existieren (optional Log)
+        if (string.IsNullOrWhiteSpace(sceneName))
+        {
+            Debug.LogError("[SeatInteractable] teleportSceneName ist leer!");
+            if (fader != null) yield return fader.FadeTo(0f);
+            busy = false;
+            yield break;
+        }
+
+        // Scene laden
+        SceneManager.LoadScene(sceneName);
+        // Hinweis: ab hier läuft das Script nur weiter, wenn es in der neuen Scene noch existiert.
+        // Meistens hast du in der neuen Scene auch einen Fader, der beim Start wieder einblendet.
 
         busy = false;
     }
