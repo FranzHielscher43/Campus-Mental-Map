@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro; 
 using UnityEngine.UI; 
 using System.Collections.Generic;
+using System.Collections; 
 
 public class SimpleVRQuiz : MonoBehaviour
 {
@@ -13,26 +14,80 @@ public class SimpleVRQuiz : MonoBehaviour
         public int correctAnswerIndex;         
     }
 
+    [Header("Audio Einstellungen")]
+    public AudioSource audioSource;   
+    public AudioClip correctSound;    
+    public AudioClip wrongSound;      
+    public AudioClip winFanfareSound; 
+
     [Header("UI Zuweisungen")]
-    public TextMeshProUGUI questionDisplay;
-    public TextMeshProUGUI feedbackDisplay;
-    public Button[] answerButtons; // Hier Button_0, Button_1, Button_2 reinziehen
+    public GameObject backgroundPanel; 
+    public TextMeshProUGUI questionDisplay; // Der Text für die Fragen
+    public TextMeshProUGUI resultDisplay;   // --- NEU: Der Text für das Ergebnis ---
+    public TextMeshProUGUI feedbackDisplay; // "Richtig/Falsch" Anzeige
+    public Button[] answerButtons; 
     public GameObject nextButtonObj; 
 
+    [Header("Einstellungen")]
+    public float autoCloseDelay = 5.0f; // Etwas länger lassen, damit man lesen kann
+
+    // INTERNE VARIABLEN
+    private Renderer targetCubeRenderer;
+    private Material originalMaterial;
+    private Material successMaterial; 
+    
     [Header("Fragen Konfiguration")]
     public List<Question> allQuestions; 
 
     private int currentQuestionIndex = 0;
     private bool quizFinished = false;
-    private List<string> wrongQuestionsLog = new List<string>(); // Merkzettel für Fehler
+    private List<string> wrongQuestionsLog = new List<string>(); 
 
-    void OnEnable() // Startet jedes Mal neu, wenn das Panel geöffnet wird
+    void Awake()
     {
+        // Würfel finden
+        SpawnQuiz foundScript = FindAnyObjectByType<SpawnQuiz>(); 
+        if (foundScript != null)
+        {
+            targetCubeRenderer = foundScript.GetComponent<Renderer>();
+            if (targetCubeRenderer != null) originalMaterial = targetCubeRenderer.material;
+        }
+
+        // Shader suchen
+        Shader shaderToUse = Shader.Find("Universal Render Pipeline/Lit");
+        if (shaderToUse == null) shaderToUse = Shader.Find("Standard");
+
+        // Material erstellen
+        if (shaderToUse != null)
+        {
+            successMaterial = new Material(shaderToUse);
+            successMaterial.color = Color.green;
+            successMaterial.EnableKeyword("_EMISSION");
+            successMaterial.SetColor("_EmissionColor", Color.green * 2.0f); 
+            successMaterial.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
+        }
+    }
+
+    void OnEnable() 
+    {
+        if (backgroundPanel != null)
+        {
+            RectTransform rt = backgroundPanel.GetComponent<RectTransform>();
+            if (rt != null) { rt.offsetMin = Vector2.zero; rt.offsetMax = Vector2.zero; rt.localScale = Vector3.one; }
+        }
+
         currentQuestionIndex = 0;
         quizFinished = false;
         wrongQuestionsLog.Clear();
         
-        ShuffleQuestions(); // Mischen!
+        if (targetCubeRenderer != null && originalMaterial != null)
+            targetCubeRenderer.material = originalMaterial;
+
+        // --- NEU: ZUSTAND ZURÜCKSETZEN ---
+        if (questionDisplay != null) questionDisplay.gameObject.SetActive(true); // Frage an
+        if (resultDisplay != null) resultDisplay.gameObject.SetActive(false);   // Ergebnis aus
+
+        ShuffleQuestions(); 
         
         nextButtonObj.SetActive(false);
         feedbackDisplay.text = "";
@@ -64,7 +119,6 @@ public class SimpleVRQuiz : MonoBehaviour
         for (int i = 0; i < answerButtons.Length; i++)
         {
             TextMeshProUGUI btnText = answerButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-            
             if (i < q.answers.Length)
             {
                 answerButtons[i].gameObject.SetActive(true);
@@ -72,10 +126,7 @@ public class SimpleVRQuiz : MonoBehaviour
                 answerButtons[i].interactable = true;
                 answerButtons[i].image.color = Color.white; 
             }
-            else
-            {
-                answerButtons[i].gameObject.SetActive(false); // Verstecke ungenutzte Buttons
-            }
+            else answerButtons[i].gameObject.SetActive(false); 
         }
     }
 
@@ -84,24 +135,22 @@ public class SimpleVRQuiz : MonoBehaviour
         if (quizFinished) return;
 
         Question currentQ = allQuestions[currentQuestionIndex];
-        int correctIndex = currentQ.correctAnswerIndex;
-
-        if (buttonIndex == correctIndex)
+        
+        if (buttonIndex == currentQ.correctAnswerIndex)
         {
             feedbackDisplay.text = "<color=green>RICHTIG!</color>";
             answerButtons[buttonIndex].image.color = Color.green;
+            if (audioSource != null && correctSound != null) audioSource.PlayOneShot(correctSound);
         }
         else
         {
             feedbackDisplay.text = "<color=red>FALSCH!</color>";
             answerButtons[buttonIndex].image.color = Color.red;
-            answerButtons[correctIndex].image.color = Color.green; // Zeige richtige Lösung
-            
-            // Fehler protokollieren
+            answerButtons[currentQ.correctAnswerIndex].image.color = Color.green; 
             wrongQuestionsLog.Add(currentQ.questionText);
+            if (audioSource != null && wrongSound != null) audioSource.PlayOneShot(wrongSound);
         }
 
-        // Alle Buttons sperren
         foreach(Button btn in answerButtons) btn.interactable = false;
         nextButtonObj.SetActive(true);
     }
@@ -117,15 +166,30 @@ public class SimpleVRQuiz : MonoBehaviour
     void EndQuiz()
     {
         quizFinished = true;
+        
+        // Buttons verstecken
         foreach(Button btn in answerButtons) btn.gameObject.SetActive(false);
         nextButtonObj.SetActive(false);
         feedbackDisplay.text = "";
+
+        // --- NEU: UI UMRAÜMEN ---
+        // Frage ausblenden
+        if (questionDisplay != null) questionDisplay.gameObject.SetActive(false);
+        
+        // Ergebnis einblenden
+        if (resultDisplay != null) resultDisplay.gameObject.SetActive(true);
 
         string resultText = "<b>Quiz beendet!</b>\n\n";
 
         if (wrongQuestionsLog.Count == 0)
         {
             resultText += "<color=green>Perfekt! Alles richtig.</color>";
+            
+            if (targetCubeRenderer != null && successMaterial != null)
+                targetCubeRenderer.material = successMaterial;
+
+            if (audioSource != null && winFanfareSound != null)
+                audioSource.PlayOneShot(winFanfareSound);
         }
         else
         {
@@ -135,6 +199,27 @@ public class SimpleVRQuiz : MonoBehaviour
                 resultText += $"<color=#FF5555>- {qText}</color>\n";
             }
         }
-        questionDisplay.text = resultText;
+
+        // Text in das NEUE Feld schreiben
+        if (resultDisplay != null)
+        {
+            resultDisplay.text = resultText;
+        }
+        else
+        {
+            // Fallback, falls du vergisst das Feld zuzuweisen
+            if(questionDisplay != null) {
+                questionDisplay.gameObject.SetActive(true);
+                questionDisplay.text = resultText;
+            }
+        }
+
+        StartCoroutine(CloseCanvasRoutine());
+    }
+
+    IEnumerator CloseCanvasRoutine()
+    {
+        yield return new WaitForSeconds(autoCloseDelay);
+        gameObject.SetActive(false);
     }
 }
