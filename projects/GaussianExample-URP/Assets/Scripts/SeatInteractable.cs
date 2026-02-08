@@ -21,12 +21,14 @@ public class SeatInteractable : MonoBehaviour
 
     [Header("UI Panels")]
     public GameObject hintPanel;              
-    public GameObject standPanel;             
+    public GameObject standPanel;           
+    public GameObject animationPanel;  
     public GameObject teleportPanel;          
     public GameObject teleportConfirmButton;  
 
     [Header("UI Groups (CanvasGroup!)")]
     [SerializeField] private CanvasGroup standGroup;
+    [SerializeField] private CanvasGroup animationGroup;
     [SerializeField] private CanvasGroup teleportGroup;
 
     [Header("Locomotion (disable while sitting)")]
@@ -53,6 +55,7 @@ public class SeatInteractable : MonoBehaviour
     {
         if (hintPanel) hintPanel.SetActive(false);
         if (standPanel) standPanel.SetActive(false);
+        if (animationPanel) animationPanel.SetActive(false);
         if (teleportPanel) teleportPanel.SetActive(false);
         if (teleportConfirmButton) teleportConfirmButton.SetActive(false);
     }
@@ -148,12 +151,12 @@ public class SeatInteractable : MonoBehaviour
 
         MoveRigTo(seatPoint);
 
-        // ✅ Bewegung sperren – Umschauen bleibt
         SetSittingLock(true);
 
         isSitting = true;
 
         if (standPanel) standPanel.SetActive(true);
+        if (animationPanel) animationPanel.SetActive(true);
         if (teleportPanel) teleportPanel.SetActive(true);
 
         EventSystem.current?.SetSelectedGameObject(null);
@@ -180,13 +183,13 @@ public class SeatInteractable : MonoBehaviour
         EventSystem.current?.SetSelectedGameObject(null);
 
         if (standPanel) standPanel.SetActive(false);
+        if (animationPanel) animationPanel.SetActive(false);
         if (teleportPanel) teleportPanel.SetActive(false);
 
         if (fader != null) yield return fader.FadeTo(1f);
 
         MoveRigTo(standPoint);
 
-        // ✅ Bewegung wieder erlauben
         SetSittingLock(false);
 
         isSitting = false;
@@ -241,6 +244,12 @@ public class SeatInteractable : MonoBehaviour
             standGroup.blocksRaycasts = false;
         }
 
+          if (animationGroup)
+        {
+            animationGroup.interactable = false;
+            animationGroup.blocksRaycasts = false;
+        }
+
         if (teleportGroup)
         {
             teleportGroup.interactable = false;
@@ -254,6 +263,12 @@ public class SeatInteractable : MonoBehaviour
         {
             standGroup.interactable = true;
             standGroup.blocksRaycasts = true;
+        }
+
+          if (animationGroup)
+        {
+            animationGroup.interactable = true;
+            animationGroup.blocksRaycasts = true;
         }
 
         if (teleportGroup)

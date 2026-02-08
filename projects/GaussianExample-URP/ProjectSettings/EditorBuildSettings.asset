@@ -6,16 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Titlescreen.unity
+    path: Assets/Scenes/Titlescreen.unity
     guid: 7e6ebc5c5a88547c3b6069f3eb5a82f6
   - enabled: 1
-    path: Assets/VR_Labor.unity
+    path: Assets/Scenes/VR_Labor.unity
     guid: 9d69c988f1ec74bc2aaed0acef817d02
   - enabled: 1
-    path: Assets/Mocap_Labor_Pult.unity
+    path: Assets/Scenes/Mocap_Labor_Pult.unity
     guid: 7002cf6015083f448947f531c02d34be
   - enabled: 1
-    path: Assets/Mensa_Automat.unity
+    path: Assets/Scenes/Mensa_Automat.unity
     guid: 8726a96523b5349618191913840f707c
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 0396f18bbeee64367af33d0ea1541275, type: 2}
