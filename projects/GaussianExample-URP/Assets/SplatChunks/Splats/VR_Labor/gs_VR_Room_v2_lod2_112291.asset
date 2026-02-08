@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33b71fae31e6c7d438e8566dc713e666, type: 3}
+  m_Name: gs_VR_Room_v2_lod2_112291
+  m_EditorClassIdentifier: 
+  m_FormatVersion: 20231020
+  m_SplatCount: 112291
+  m_BoundsMin: {x: -99.12259, y: -99.19025, z: -99.44802}
+  m_BoundsMax: {x: 99.698685, y: 99.20542, z: 99.426094}
+  m_DataHash:
+    serializedVersion: 2
+    Hash: bb25554f157c256f9b22f4985e6128ac
+  m_PosFormat: 0
+  m_ScaleFormat: 0
+  m_SHFormat: 0
+  m_ColorFormat: 0
+  m_PosData: {fileID: 4900000, guid: f6c7e93b1c0084d0a89b269fdca1c8e3, type: 3}
+  m_ColorData: {fileID: 4900000, guid: 8fcca5ba653b9434a8edace841054041, type: 3}
+  m_OtherData: {fileID: 4900000, guid: 6aea7434ea4cb478180adcdb83aa3913, type: 3}
+  m_SHData: {fileID: 4900000, guid: ca9ab2f47e4824f6da33ac3c0a2a1e5a, type: 3}
+  m_ChunkData: {fileID: 0}
+  m_Cameras: []
