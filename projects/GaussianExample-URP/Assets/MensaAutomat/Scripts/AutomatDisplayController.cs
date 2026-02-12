@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class MensaManager : MonoBehaviour
 {
@@ -65,6 +66,15 @@ public class MensaManager : MonoBehaviour
     public void ConfirmTopUp()
     {
         StartCoroutine(TopUpSequence());
+    }
+
+    public void OnMoneySocketEntered(SelectEnterEventArgs args)
+    {
+        // Wir holen uns das Objekt, das gerade in den Socket gesteckt wurde
+        GameObject insertedObject = args.interactableObject.transform.gameObject;
+
+        // Wir rufen deine vorhandene Funktion auf
+        OnMoneyInserted(insertedObject);
     }
 
     private IEnumerator TopUpSequence()
