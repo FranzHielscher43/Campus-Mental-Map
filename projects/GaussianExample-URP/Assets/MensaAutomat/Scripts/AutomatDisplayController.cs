@@ -13,14 +13,15 @@ public class MensaManager : MonoBehaviour
     public GameObject successPanel;
 
     [Header("Text Fields")]
-    public TextMeshProUGUI balanceText;
-    public TextMeshProUGUI topUpInfoText;
+    public TextMeshProUGUI balanceText;        // Feld im BalanceScreen
+    public TextMeshProUGUI approveBalanceText; // Feld im ApproveScreen (der neue Wert)
+    public TextMeshProUGUI successBalanceText; // Feld im SuccessScreen (der finale Wert)
+    public TextMeshProUGUI newBalanceText;   // NEU: Nur der Zielbetrag im ApproveScreen
 
-    private float currentBalance = 12.50f; // Beispielwert
+    private float currentBalance = 0f;
     private float insertedMoney = 0f;
 
     // --- WORKFLOW: KARTE ---
-
     public void OnCardInserted()
     {
         StartCoroutine(CardLoadingSequence());
@@ -29,37 +30,41 @@ public class MensaManager : MonoBehaviour
     private IEnumerator CardLoadingSequence()
     {
         ShowPanel(loadingPanel);
-        yield return new WaitForSeconds(2.0f); // Ladezeit
-        balanceText.text = currentBalance.ToString("F2") + " €";
+        yield return new WaitForSeconds(2.0f);
+
+        string balanceString = currentBalance.ToString("F2") + " €";
+        if (balanceText != null) balanceText.text = balanceString;
+
         ShowPanel(balancePanel);
     }
 
     public void OnCardEjectRequested()
     {
-        // Hier Befehl an den Socket senden: Eject()
         ShowPanel(idlePanel);
     }
 
     // --- WORKFLOW: GELD ---
+    // Diese Version nutzt die Dynamic-Event-Anpassung für den XR Socket
+    public void OnMoneySocketEntered(SelectEnterEventArgs args)
+    {
+        GameObject insertedObject = args.interactableObject.transform.gameObject;
+        OnMoneyInserted(insertedObject);
+    }
 
     public void OnMoneyInserted(GameObject insertedObject)
     {
         MoneyNote note = insertedObject.GetComponent<MoneyNote>();
-
         if (note != null)
         {
             insertedMoney = note.value;
             float newTotal = currentBalance + insertedMoney;
 
-            topUpInfoText.text = $"Alt: {currentBalance:F2}€\nNeu: {newTotal:F2}€";
-            ShowPanel(topUpPanel);
+            // Hier wird das Feld im ApproveScreen gefüllt
+            if (approveBalanceText != null) approveBalanceText.text = currentBalance.ToString("F2") + " €";
+            if (newBalanceText != null) newBalanceText.text = newTotal.ToString("F2") + " €";
 
-            // Optional: Zerstöre den Geldschein (er wird "eingezogen")
+            ShowPanel(topUpPanel);
             Destroy(insertedObject, 0.5f);
-        }
-        else
-        {
-            Debug.LogWarning("Objekt im Geld-Slot hat keine MoneyNote-Komponente!");
         }
     }
 
@@ -68,29 +73,23 @@ public class MensaManager : MonoBehaviour
         StartCoroutine(TopUpSequence());
     }
 
-    public void OnMoneySocketEntered(SelectEnterEventArgs args)
-    {
-        // Wir holen uns das Objekt, das gerade in den Socket gesteckt wurde
-        GameObject insertedObject = args.interactableObject.transform.gameObject;
-
-        // Wir rufen deine vorhandene Funktion auf
-        OnMoneyInserted(insertedObject);
-    }
-
     private IEnumerator TopUpSequence()
     {
         ShowPanel(loadingPanel);
         yield return new WaitForSeconds(1.5f);
         currentBalance += insertedMoney;
-        balanceText.text = currentBalance.ToString("F2") + " €";
-        ShowPanel(successPanel);
 
-        // Automatisch Karte auswerfen nach 3 Sekunden Erfolg
+        string finalBalance = currentBalance.ToString("F2") + " €";
+
+        // Alle relevanten Felder aktualisieren
+        if (balanceText != null) balanceText.text = finalBalance;
+        if (successBalanceText != null) successBalanceText.text = finalBalance;
+
+        ShowPanel(successPanel);
         yield return new WaitForSeconds(3.0f);
         OnCardEjectRequested();
     }
 
-    // Hilfsfunktion zum Umschalten
     private void ShowPanel(GameObject activePanel)
     {
         idlePanel.SetActive(activePanel == idlePanel);
