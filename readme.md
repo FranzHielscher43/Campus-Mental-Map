@@ -9,3 +9,6 @@ Dieses Projekt basiert auf dem Github-Projekt von aras-p (https://github.com/ara
 - https://radiancefields.com/gaussian-splatting-unity-plugin-gets-vr-support
 - https://github.com/ninjamode/Unity-VR-Gaussian-Splatting
 - https://www.youtube.com/watch?v=H0CPckNo6dI
+
+**Verwendete Assets:**
+- https://assetstore.unity.com/packages/2d/gui/icons/2d-ranks-icon-set-handpainted-210730
