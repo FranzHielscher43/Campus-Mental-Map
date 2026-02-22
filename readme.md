@@ -12,3 +12,7 @@ Dieses Projekt basiert auf dem Github-Projekt von aras-p (https://github.com/ara
 
 **Verwendete Assets:**
 - https://assetstore.unity.com/packages/2d/gui/icons/2d-ranks-icon-set-handpainted-210730
+
+**Sounds:**
+- https://pixabay.com/sound-effects/search/
+
