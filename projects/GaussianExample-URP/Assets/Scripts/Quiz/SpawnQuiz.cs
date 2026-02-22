@@ -36,11 +36,30 @@ public class SpawnQuiz : MonoBehaviour
             infoCanvas.transform.SetParent(null); 
         }
 
-        reward_ui_1.SetActive(false);
-        reward_ui_2.SetActive(false);
-        reward_ui_3.SetActive(false);
-        fallbackText.SetActive(true);
-        doorTeleporter.SetActive(false);
+        if (scene == "VR_Labor")
+        {
+            reward_ui_1.SetActive(false);
+            reward_ui_2.SetActive(false);
+            reward_ui_3.SetActive(false);
+            fallbackText.SetActive(true);
+            doorTeleporter.SetActive(false);
+        }
+        else if (scene == "Mocap_Labor")
+        {
+            reward_ui_1.SetActive(true);
+            reward_ui_2.SetActive(false);
+            reward_ui_3.SetActive(false);
+            fallbackText.SetActive(false);
+            doorTeleporter.SetActive(false);    
+        }
+        else if (scene == "Mensa_Automat")
+        {
+            reward_ui_1.SetActive(true);
+            reward_ui_2.SetActive(true);
+            reward_ui_3.SetActive(false);
+            fallbackText.SetActive(false);
+            doorTeleporter.SetActive(false);
+        }
     }
 
     void OnEnable()
