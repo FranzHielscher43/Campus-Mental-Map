@@ -4,7 +4,10 @@ public class AnimationToggler : MonoBehaviour
 {
     [Header("3D Objekt Einstellungen")]
     public GameObject animationParent; 
-    public Animator mainAnimator;      
+    public Animator mainAnimator;
+
+    [Header("Sound")]
+    public GameObject sound;      
 
     private bool isVisible = false;
 
@@ -13,6 +16,7 @@ public class AnimationToggler : MonoBehaviour
         if (animationParent != null)
         {
             animationParent.SetActive(false);
+            sound.SetActive(false);
         }
     }
 
@@ -23,6 +27,7 @@ public class AnimationToggler : MonoBehaviour
         isVisible = !isVisible;
         
         animationParent.SetActive(isVisible);
+        sound.SetActive(isVisible);
 
         if (isVisible && mainAnimator != null)
         {
