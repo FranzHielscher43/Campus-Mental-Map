@@ -1,18 +1,17 @@
 using UnityEngine;
-using TMPro;
 using System.Collections;
-using UnityEngine.UI;
+using UnityEngine.UI; // Wichtig für Button-Referenzen
 
 public class StartSceneIntroButtonsOnly : MonoBehaviour
 {
     [Header("UI-Struktur")]
-    public RectTransform[] targetPanels; // Deine Slides (slide1, slide1 (1), etc.)
+    public RectTransform[] targetPanels; 
     
     [Header("Navigation Group")]
-    public GameObject navigationParent;  // Das Objekt "NavigationUI"
-    public GameObject backButton;        // Knopf "Zurück"
-    public GameObject nextButton;        // Knopf "weiter"
-    public GameObject closeButton;       // Knopf "Close" (erscheint am Ende)
+    public GameObject navigationParent;  
+    public GameObject backButton;        
+    public GameObject nextButton;        
+    public GameObject closeButton;       
 
     [Header("Auto-Start")]
     public float autoStartDelay = 3.0f; 
@@ -21,6 +20,10 @@ public class StartSceneIntroButtonsOnly : MonoBehaviour
     public Vector2 hiddenOffset = new Vector2(0, -1000); 
     public Vector2 visiblePosition = Vector2.zero;      
     public float slideDuration = 0.5f; 
+
+    [Header("Anti-Doppelklick (WICHTIG)")]
+    public float clickCooldown = 0.5f; // Wartezeit nach Klick
+    private float lastClickTime = 0f;  // Wann wurde zuletzt geklickt?
 
     private bool isOpen = false;
     private int currentSlideIndex = 0;
@@ -35,7 +38,6 @@ public class StartSceneIntroButtonsOnly : MonoBehaviour
                 targetPanels[i].gameObject.SetActive(false);
             }
             
-            // NavigationUI am Anfang aus
             if (navigationParent != null) navigationParent.SetActive(false);
             
             isOpen = false;
@@ -49,36 +51,67 @@ public class StartSceneIntroButtonsOnly : MonoBehaviour
         if (!isOpen) OpenIntro();
     }
 
-    // --- NAVIGATION (Wird nur über UI-Buttons aufgerufen) ---
+    // --- NAVIGATION MIT COOLDOWN ---
 
     public void NextSlide()
     {
+        // 1. NEU: Prüfen, ob wir warten müssen
+        if (Time.time - lastClickTime < clickCooldown) return;
+        lastClickTime = Time.time; // Zeit merken
+
         Debug.Log("<color=green>Nav:</color> Nächster Slide");
+        
+        // Normale Logik weiter...
         if (!isOpen || currentSlideIndex >= targetPanels.Length - 1) return;
         StartCoroutine(SwitchRoutine(currentSlideIndex + 1));
     }
 
     public void PreviousSlide()
     {
+        // 1. NEU: Auch hier die Bremse rein
+        if (Time.time - lastClickTime < clickCooldown) return;
+        lastClickTime = Time.time;
+
         Debug.Log("<color=yellow>Nav:</color> Vorheriger Slide");
+        
         if (!isOpen || currentSlideIndex <= 0) return;
         StartCoroutine(SwitchRoutine(currentSlideIndex - 1));
     }
 
     public void CloseIntro()
     {
+        // Auch beim Schließen kurz warten, damit man nicht aus Versehen was dahinter anklickt
+        if (Time.time - lastClickTime < clickCooldown) return;
+        lastClickTime = Time.time;
+
         Debug.Log("<color=red>Nav:</color> Intro beendet");
         if (!isOpen) return;
         isOpen = false;
+
+        // Intro schließen Animation
         StartCoroutine(SlideRoutine(currentSlideIndex, false));
         if (navigationParent != null) navigationParent.SetActive(false);
+
+        // --- NEU: HIER SUCHEN WIR DEN MANAGER UND STARTEN DAS SPIEL ---
+        TitleScreenManager manager = FindObjectOfType<TitleScreenManager>();
+        if (manager != null)
+        {
+            manager.FinalStartGame();
+        }
+        else
+        {
+            Debug.LogError("Fehler: Kein TitleScreenManager in der Szene gefunden!");
+        }
+        // -------------------------------------------------------------
     }
 
     IEnumerator SwitchRoutine(int newIndex)
     {
         // Altes Panel raus
         StartCoroutine(SlideRoutine(currentSlideIndex, false));
+        
         currentSlideIndex = newIndex;
+        
         // Neues Panel rein
         yield return StartCoroutine(SlideRoutine(currentSlideIndex, true));
         
@@ -92,7 +125,6 @@ public class StartSceneIntroButtonsOnly : MonoBehaviour
         bool isLast = (currentSlideIndex == targetPanels.Length - 1);
         if (nextButton != null) nextButton.SetActive(!isLast);
         
-        // Der Beenden-Button kommt NUR beim letzten Panel
         if (closeButton != null) closeButton.SetActive(isLast);
     }
 

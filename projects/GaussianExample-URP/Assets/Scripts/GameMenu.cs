@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameMenu : MonoBehaviour
 {
@@ -8,12 +10,18 @@ public class GameMenu : MonoBehaviour
     public bool enableInEditorKeyboard = true;
 
     [Header("Fader")]
-    public MenuFader fader;
+    public MenuFader menuFader;
+    public ScreenFader titleFader;
+    bool busy;
+
+    [Header("Last Scene")]
+    public string lastScene = "";
 
     [Header("UI")]
     public GameObject menuRoot;
     public GameObject mainPanel;
     public GameObject optionsPanel;
+    public GameObject rewardsPanel;
     public Transform head;
 
     [Header("Placement")]
@@ -37,9 +45,10 @@ public class GameMenu : MonoBehaviour
         if (!head && Camera.main) head = Camera.main.transform;
 
         if (optionsPanel) optionsPanel.SetActive(false);
-        if (fader == null && menuRoot) fader = menuRoot.GetComponent<MenuFader>();
+        if (rewardsPanel) rewardsPanel.SetActive(false);
+        if (menuFader == null && menuRoot) menuFader = menuRoot.GetComponent<MenuFader>();
         if (mainPanel) mainPanel.SetActive(true);
-        if (fader != null) fader.Hide();
+        if (menuFader != null) menuFader.Hide();
         else if (menuRoot) menuRoot.SetActive(false);
 
         if (pauseTime) Time.timeScale = 1f;
@@ -88,8 +97,9 @@ public class GameMenu : MonoBehaviour
         }
 
         if(optionsPanel) optionsPanel.SetActive(false);
+        if (rewardsPanel) rewardsPanel.SetActive(false);
         if (mainPanel) mainPanel.SetActive(true);
-        if (fader != null) fader.Show();
+        if (menuFader != null) menuFader.Show();
         else if (menuRoot) menuRoot.SetActive(true);
 
         if (pauseTime) Time.timeScale = 0f;
@@ -101,7 +111,8 @@ public class GameMenu : MonoBehaviour
 
         if (mainPanel) mainPanel.SetActive(false);
         if (optionsPanel) optionsPanel.SetActive(false);
-        if (fader != null) fader.Hide();
+        if (rewardsPanel) rewardsPanel.SetActive(false);
+        if (menuFader != null) menuFader.Hide();
         else if (menuRoot) menuRoot.SetActive(false);
 
         if (pauseTime) Time.timeScale = 1f;
@@ -138,6 +149,38 @@ public class GameMenu : MonoBehaviour
         optionsPanel.SetActive(false);
         mainPanel.SetActive(true);
         Debug.Log("Back to mainpanel");
+    }
+
+    public void BackFromRewards()
+    {
+        if (!mainPanel || !rewardsPanel) return;
+        rewardsPanel.SetActive(false);
+        mainPanel.SetActive(true);
+        Debug.Log("Back to mainpanel");
+    }
+
+    public void Rewards()
+    {
+        if (!mainPanel || !rewardsPanel) return;
+        rewardsPanel.SetActive(true);
+        mainPanel.SetActive(false);
+        Debug.Log("Rewards opened");
+    }
+
+    public void BackToTitlescreen()
+    {
+        Debug.Log("Back to Titlescree");
+        if (busy) return;
+        StartCoroutine(Titlescreen());
+    }
+
+    IEnumerator Titlescreen()
+    {
+        busy = true;
+        if (titleFader != null)
+            yield return titleFader.FadeTo(1f);
+
+        SceneManager.LoadScene(lastScene);
     }
 
     public void Quit()

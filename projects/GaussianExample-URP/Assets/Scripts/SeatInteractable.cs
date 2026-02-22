@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
-using Unity.XR.CoreUtils;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using Unity.XR.CoreUtils;
+
 
 public class SeatInteractable : MonoBehaviour
 {
@@ -13,17 +14,29 @@ public class SeatInteractable : MonoBehaviour
     [Header("Seat Points")]
     public Transform seatPoint;
     public Transform standPoint;
-    public Transform exitPoint;
+
+    [Header("Teleport Target (Scene)")]
+    [Tooltip("Name der Scene, die beim Teleport geladen werden soll (muss in Build Settings sein).")]
+    public string teleportSceneName = "Mocap_Labor_Pult";
 
     [Header("UI Panels")]
-    public GameObject hintPanel;        // "Hinsetzen"
-    public GameObject standPanel;       // "Aufstehen"
-    public GameObject teleportPanel;    // "Teleport"
-    public GameObject teleportConfirmButton; // "Bestätigen"
+    public GameObject hintPanel;              
+    public GameObject standPanel;           
+    public GameObject animationPanel;  
+    public GameObject teleportPanel;          
+    public GameObject teleportConfirmButton;  
 
     [Header("UI Groups (CanvasGroup!)")]
     [SerializeField] private CanvasGroup standGroup;
+    [SerializeField] private CanvasGroup animationGroup;
     [SerializeField] private CanvasGroup teleportGroup;
+
+    [Header("Locomotion (disable while sitting)")]
+    [Tooltip("Move / Turn / Teleport Provider")]
+    [SerializeField] private UnityEngine.XR.Interaction.Toolkit.Locomotion.LocomotionProvider[] locomotionToDisable;
+
+    [Tooltip("Ray Interactors, Line Visuals, etc.")]
+    [SerializeField] private Behaviour[] behavioursToDisable;
 
     [Header("Anti Ghost-Click")]
     [SerializeField] private float postActionInputBlock = 0.3f;
@@ -38,24 +51,21 @@ public class SeatInteractable : MonoBehaviour
     bool teleportArmed;
     float teleportArmedUntil;
 
-    // --------------------------------------------------------
-
     void Start()
     {
         if (hintPanel) hintPanel.SetActive(false);
         if (standPanel) standPanel.SetActive(false);
+        if (animationPanel) animationPanel.SetActive(false);
         if (teleportPanel) teleportPanel.SetActive(false);
         if (teleportConfirmButton) teleportConfirmButton.SetActive(false);
     }
 
     void Update()
     {
-        // Bestätigung läuft ab
         if (teleportArmed && Time.unscaledTime > teleportArmedUntil)
         {
             teleportArmed = false;
-            if (teleportConfirmButton)
-                teleportConfirmButton.SetActive(false);
+            if (teleportConfirmButton) teleportConfirmButton.SetActive(false);
         }
     }
 
@@ -102,10 +112,9 @@ public class SeatInteractable : MonoBehaviour
         StartCoroutine(StandRoutine());
     }
 
-    // STEP 1: Teleport ARMEN
     public void Teleport()
     {
-        if (!isSitting || busy || exitPoint == null) return;
+        if (!isSitting || busy) return;
 
         teleportArmed = true;
         teleportArmedUntil = Time.unscaledTime + confirmWindow;
@@ -116,17 +125,16 @@ public class SeatInteractable : MonoBehaviour
         EventSystem.current?.SetSelectedGameObject(null);
     }
 
-    // STEP 2: Teleport BESTÄTIGEN
     public void TeleportConfirm()
     {
-        if (!isSitting || busy || exitPoint == null) return;
+        if (!isSitting || busy) return;
         if (!teleportArmed || Time.unscaledTime > teleportArmedUntil) return;
 
         teleportArmed = false;
         if (teleportConfirmButton)
             teleportConfirmButton.SetActive(false);
 
-        StartCoroutine(TeleportRoutine(exitPoint));
+        StartCoroutine(TeleportToSceneRoutine(teleportSceneName));
     }
 
     // --------------------------------------------------------
@@ -143,9 +151,12 @@ public class SeatInteractable : MonoBehaviour
 
         MoveRigTo(seatPoint);
 
+        SetSittingLock(true);
+
         isSitting = true;
 
         if (standPanel) standPanel.SetActive(true);
+        if (animationPanel) animationPanel.SetActive(true);
         if (teleportPanel) teleportPanel.SetActive(true);
 
         EventSystem.current?.SetSelectedGameObject(null);
@@ -172,11 +183,14 @@ public class SeatInteractable : MonoBehaviour
         EventSystem.current?.SetSelectedGameObject(null);
 
         if (standPanel) standPanel.SetActive(false);
+        if (animationPanel) animationPanel.SetActive(false);
         if (teleportPanel) teleportPanel.SetActive(false);
 
         if (fader != null) yield return fader.FadeTo(1f);
 
         MoveRigTo(standPoint);
+
+        SetSittingLock(false);
 
         isSitting = false;
 
@@ -190,37 +204,37 @@ public class SeatInteractable : MonoBehaviour
         busy = false;
     }
 
-    IEnumerator TeleportRoutine(Transform target)
+    IEnumerator TeleportToSceneRoutine(string sceneName)
     {
         busy = true;
 
-        teleportArmed = false;
-        if (teleportConfirmButton) teleportConfirmButton.SetActive(false);
-
         DisableGroups();
-        EventSystem.current?.SetSelectedGameObject(null);
-
-        if (hintPanel) hintPanel.SetActive(false);
-        if (standPanel) standPanel.SetActive(false);
-        if (teleportPanel) teleportPanel.SetActive(false);
+        SetSittingLock(true);
 
         if (fader != null) yield return fader.FadeTo(1f);
-
-        MoveRigTo(target);
-
-        isSitting = false;
-        inRange = false;
-
-        if (fader != null) yield return fader.FadeTo(0f);
-
         yield return new WaitForSecondsRealtime(postActionInputBlock);
 
-        busy = false;
+        SceneManager.LoadScene(sceneName);
     }
 
     // --------------------------------------------------------
     // Helpers
     // --------------------------------------------------------
+
+    void SetSittingLock(bool locked)
+    {
+        if (locomotionToDisable != null)
+        {
+            foreach (var lp in locomotionToDisable)
+                if (lp) lp.enabled = !locked;
+        }
+
+        if (behavioursToDisable != null)
+        {
+            foreach (var b in behavioursToDisable)
+                if (b) b.enabled = !locked;
+        }
+    }
 
     void DisableGroups()
     {
@@ -228,6 +242,12 @@ public class SeatInteractable : MonoBehaviour
         {
             standGroup.interactable = false;
             standGroup.blocksRaycasts = false;
+        }
+
+          if (animationGroup)
+        {
+            animationGroup.interactable = false;
+            animationGroup.blocksRaycasts = false;
         }
 
         if (teleportGroup)
@@ -243,6 +263,12 @@ public class SeatInteractable : MonoBehaviour
         {
             standGroup.interactable = true;
             standGroup.blocksRaycasts = true;
+        }
+
+          if (animationGroup)
+        {
+            animationGroup.interactable = true;
+            animationGroup.blocksRaycasts = true;
         }
 
         if (teleportGroup)
