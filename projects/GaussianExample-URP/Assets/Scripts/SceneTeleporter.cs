@@ -13,7 +13,7 @@ public class SceneTeleporter : MonoBehaviour
         if (!string.IsNullOrEmpty(targetSceneName))
         {
             Debug.Log("Szenenwechsel gestartet: Lade " + targetSceneName);
-            SceneTransition.I.LoadScene(targetSceneName);
+            SceneManager.LoadScene(targetSceneName);
         }
         else
         {
