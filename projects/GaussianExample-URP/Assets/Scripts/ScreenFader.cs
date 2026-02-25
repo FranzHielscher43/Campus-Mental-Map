@@ -5,7 +5,17 @@ public class ScreenFader : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private CanvasGroup group;
+
+    [Header("Timing")]
     [SerializeField] private float duration = 0.25f;
+
+    [Header("Startup")]
+    [Tooltip("Wenn true: startet die Szene schwarz und blendet automatisch ein.")]
+    [SerializeField] private bool fadeInOnStart = true;
+
+    [Tooltip("Start-Alpha (1 = schwarz, 0 = transparent). Für Auto-FadeIn meist 1.")]
+    [Range(0f, 1f)]
+    [SerializeField] private float startAlpha = 1f;
 
     private Coroutine _co;
 
@@ -27,9 +37,16 @@ public class ScreenFader : MonoBehaviour
             return;
         }
 
-        group.alpha = 0f;
+        // Startzustand setzen
+        group.alpha = startAlpha;
         group.blocksRaycasts = false;
         group.interactable = false;
+    }
+
+    void Start()
+    {
+        if (fadeInOnStart)
+            FadeIn();
     }
 
     public void FadeOut() => StartFade(1f);

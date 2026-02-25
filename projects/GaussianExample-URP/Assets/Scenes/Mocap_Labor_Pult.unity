@@ -10502,7 +10502,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   group: {fileID: 548922821}
-  duration: 0.25
+  duration: 5
+  fadeInOnStart: 1
+  startAlpha: 1
 --- !u!114 &1320476175
 MonoBehaviour:
   m_ObjectHideFlags: 0
