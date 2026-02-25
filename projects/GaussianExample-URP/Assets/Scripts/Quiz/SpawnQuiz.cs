@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-// Falls du Unity 6 / Toolkit 3.x nutzt:
 using UnityEngine.XR.Interaction.Toolkit.Interactables; 
 
 [RequireComponent(typeof(XRSimpleInteractable))]
@@ -8,7 +7,22 @@ public class SpawnQuiz : MonoBehaviour
 {
     [Header("UI & Position")]
     public GameObject infoCanvas; 
-    public float heightAboveCube = 0.6f; // Wie hoch über dem Würfel soll es schweben?
+    public float heightAboveCube = 0.6f; 
+
+    [Header("Rewards UI")]
+    public GameObject reward_ui_1;
+    public GameObject reward_ui_2;
+    public GameObject reward_ui_3;
+    public GameObject fallbackText;
+
+    [Header("Reward Object")]
+    public GameObject reward;
+
+    [Header("Door Teleporter")]
+    public GameObject doorTeleporter;
+
+    [Header("Current Scene")]
+    public string scene;
     
     private XRSimpleInteractable simpleInteractable;
 
@@ -16,12 +30,35 @@ public class SpawnQuiz : MonoBehaviour
     {
         simpleInteractable = GetComponent<XRSimpleInteractable>();
         
-        // Canvas am Start ausblenden und entkoppeln
         if (infoCanvas != null) 
         {
             infoCanvas.SetActive(false);
-            // WICHTIG: Canvas aus dem Cube rausholen, damit es nicht mit skaliert
             infoCanvas.transform.SetParent(null); 
+        }
+
+        if (scene == "VR_Labor")
+        {
+            reward_ui_1.SetActive(false);
+            reward_ui_2.SetActive(false);
+            reward_ui_3.SetActive(false);
+            fallbackText.SetActive(true);
+            doorTeleporter.SetActive(false);
+        }
+        else if (scene == "Mocap_Labor")
+        {
+            reward_ui_1.SetActive(true);
+            reward_ui_2.SetActive(false);
+            reward_ui_3.SetActive(false);
+            fallbackText.SetActive(false);
+            doorTeleporter.SetActive(false);    
+        }
+        else if (scene == "Mensa_Automat")
+        {
+            reward_ui_1.SetActive(true);
+            reward_ui_2.SetActive(true);
+            reward_ui_3.SetActive(false);
+            fallbackText.SetActive(false);
+            doorTeleporter.SetActive(false);
         }
     }
 
@@ -29,7 +66,6 @@ public class SpawnQuiz : MonoBehaviour
     {
         if (simpleInteractable != null)
         {
-            // Nur noch auf das Klicken (Select) hören
             simpleInteractable.selectEntered.AddListener(OnSelect); 
         }
     }
@@ -42,36 +78,58 @@ public class SpawnQuiz : MonoBehaviour
         }
     }
 
-    // --- Logik ---
-
-    // Wenn geklickt wird (Trigger)
     private void OnSelect(SelectEnterEventArgs args)
     {
         if (infoCanvas == null) return;
 
         bool neuerStatus = !infoCanvas.activeSelf;
         
-        if (neuerStatus == true) // Wenn wir es gerade ÖFFNEN
+        if (neuerStatus == true) 
         {
-            // 1. Position setzen: Genau über dem Würfel
             Vector3 spawnPos = transform.position + (Vector3.up * heightAboveCube);
             infoCanvas.transform.position = spawnPos;
 
-            // 2. Rotation setzen: Canvas soll den Spieler anschauen
             if (Camera.main != null)
             {
-                // Richtung zum Kopf des Spielers berechnen
                 Vector3 directionToHead = Camera.main.transform.position - spawnPos;
-                directionToHead.y = 0; // Wir wollen nicht nach oben/unten kippen
+                directionToHead.y = 0; 
                 
                 if (directionToHead != Vector3.zero)
                 {
-                    infoCanvas.transform.rotation = Quaternion.LookRotation(directionToHead);
+                    infoCanvas.transform.rotation = Quaternion.LookRotation(directionToHead) * Quaternion.Euler(0f, 180f, 0f);
                 }
             }
         }
-
-        // 3. An/Aus schalten
         infoCanvas.SetActive(neuerStatus);
+    }
+
+    public void UnlockRewardForThisScene()
+    {
+        Debug.Log("[SpawnQuiz] Reward freischalten!");
+
+        if (scene == "VR_Labor")
+        {
+            reward_ui_1.SetActive(true);
+            reward.SetActive(false);
+            fallbackText.SetActive(false);
+            doorTeleporter.SetActive(true);
+        }
+        else if (scene == "Mocap_Labor")
+        {
+            reward_ui_1.SetActive(true);
+            reward_ui_2.SetActive(true);
+            reward.SetActive(false);
+            fallbackText.SetActive(false);
+            doorTeleporter.SetActive(true);            
+        }
+        else if (scene == "Mensa_Automat")
+        {
+            reward_ui_1.SetActive(true);
+            reward_ui_2.SetActive(true);
+            reward_ui_3.SetActive(true);
+            reward.SetActive(false);
+            fallbackText.SetActive(false);
+            doorTeleporter.SetActive(true);
+        }
     }
 }

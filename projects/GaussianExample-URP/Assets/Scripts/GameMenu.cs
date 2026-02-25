@@ -15,12 +15,13 @@ public class GameMenu : MonoBehaviour
     bool busy;
 
     [Header("Last Scene")]
-    public string lastScene = "Titlescreen";
+    public string lastScene = "";
 
     [Header("UI")]
     public GameObject menuRoot;
     public GameObject mainPanel;
     public GameObject optionsPanel;
+    public GameObject rewardsPanel;
     public Transform head;
 
     [Header("Placement")]
@@ -44,6 +45,7 @@ public class GameMenu : MonoBehaviour
         if (!head && Camera.main) head = Camera.main.transform;
 
         if (optionsPanel) optionsPanel.SetActive(false);
+        if (rewardsPanel) rewardsPanel.SetActive(false);
         if (menuFader == null && menuRoot) menuFader = menuRoot.GetComponent<MenuFader>();
         if (mainPanel) mainPanel.SetActive(true);
         if (menuFader != null) menuFader.Hide();
@@ -95,6 +97,7 @@ public class GameMenu : MonoBehaviour
         }
 
         if(optionsPanel) optionsPanel.SetActive(false);
+        if (rewardsPanel) rewardsPanel.SetActive(false);
         if (mainPanel) mainPanel.SetActive(true);
         if (menuFader != null) menuFader.Show();
         else if (menuRoot) menuRoot.SetActive(true);
@@ -108,6 +111,7 @@ public class GameMenu : MonoBehaviour
 
         if (mainPanel) mainPanel.SetActive(false);
         if (optionsPanel) optionsPanel.SetActive(false);
+        if (rewardsPanel) rewardsPanel.SetActive(false);
         if (menuFader != null) menuFader.Hide();
         else if (menuRoot) menuRoot.SetActive(false);
 
@@ -145,6 +149,22 @@ public class GameMenu : MonoBehaviour
         optionsPanel.SetActive(false);
         mainPanel.SetActive(true);
         Debug.Log("Back to mainpanel");
+    }
+
+    public void BackFromRewards()
+    {
+        if (!mainPanel || !rewardsPanel) return;
+        rewardsPanel.SetActive(false);
+        mainPanel.SetActive(true);
+        Debug.Log("Back to mainpanel");
+    }
+
+    public void Rewards()
+    {
+        if (!mainPanel || !rewardsPanel) return;
+        rewardsPanel.SetActive(true);
+        mainPanel.SetActive(false);
+        Debug.Log("Rewards opened");
     }
 
     public void BackToTitlescreen()

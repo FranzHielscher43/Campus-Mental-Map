@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro; 
-using UnityEngine.UI; // Wichtig für Slider
+using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections; 
 
@@ -13,6 +13,9 @@ public class SimpleVRQuiz : MonoBehaviour
         public string[] answers;               
         public int correctAnswerIndex;         
     }
+
+    [Header("SpawnQuiz")]
+    public SpawnQuiz spawner;
 
     [Header("Audio Einstellungen")]
     public AudioSource audioSource;   
@@ -250,6 +253,8 @@ public class SimpleVRQuiz : MonoBehaviour
             resultText += "<color=green>Perfekt! Alles richtig.</color>";
             if (targetCubeRenderer != null && successMaterial != null) targetCubeRenderer.material = successMaterial;
             if (audioSource != null && winFanfareSound != null) audioSource.PlayOneShot(winFanfareSound);
+            if (spawner != null) spawner.UnlockRewardForThisScene();
+            else Debug.LogWarning("[SimpleVRQuiz] Spawner nicht gesetzt!");
         }
         else
         {
