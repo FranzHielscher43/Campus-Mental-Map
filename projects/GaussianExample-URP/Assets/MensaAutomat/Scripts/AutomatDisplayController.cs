@@ -5,46 +5,82 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class MensaManager : MonoBehaviour
 {
-    [Header("UI Panels")]
-    public GameObject idlePanel;
-    public GameObject loadingPanel;
-    public GameObject balancePanel;
-    public GameObject topUpPanel;
-    public GameObject successPanel;
+    [Header("UI Screens")]
+    public GameObject idleScreen;
+    public GameObject loadingScreen;
+    public GameObject balanceScreen;
+    public GameObject ApproveScreen;
+    public GameObject successScreen;
+    public GameObject ejectScreen;
 
     [Header("Text Fields")]
-    public TextMeshProUGUI balanceText;        // Feld im BalanceScreen
-    public TextMeshProUGUI approveBalanceText; // Feld im ApproveScreen (der neue Wert)
-    public TextMeshProUGUI successBalanceText; // Feld im SuccessScreen (der finale Wert)
-    public TextMeshProUGUI newBalanceText;   // NEU: Nur der Zielbetrag im ApproveScreen
+    public TextMeshProUGUI balanceScreenBalanceText;
+    public TextMeshProUGUI approveScreenOldBalanceText;
+    public TextMeshProUGUI approveScreenNewBalanceText;
+    public TextMeshProUGUI successScreenBalanceText;
+
+    [Header("Card Socket Settings")]
+    public UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor cardSocket;
+    public Transform pointIn;
+    public Transform pointOut;
+
+    [Header("Money Socket Settings")]
+    public UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor moneySocket;
+    public Transform pointIn;
+    public Transform pointOut;
 
     private float currentBalance = 0f;
     private float insertedMoney = 0f;
+    private bool isProcessFinished = false;
 
     // --- WORKFLOW: KARTE ---
     public void OnCardInserted()
     {
+        cardSocket.attachTransform = pointIn;
+        isProcessFinished = false;
         StartCoroutine(CardLoadingSequence());
     }
 
     private IEnumerator CardLoadingSequence()
     {
-        ShowPanel(loadingPanel);
+        ShowPanel(loadingScreen);
         yield return new WaitForSeconds(2.0f);
 
-        string balanceString = currentBalance.ToString("F2") + " €";
-        if (balanceText != null) balanceText.text = balanceString;
+        string balanceString = currentBalance.ToString("F2") + " â‚¬";
+        if (balanceScreenBalanceText != null)
+        {
+            balanceScreenBalanceText.text = balanceString;
+        }
 
-        ShowPanel(balancePanel);
+        ShowPanel(balanceScreen);
+    }
+
+    public void OnCardRemoved()
+    {
+        if (isProcessFinished)
+        {
+            isProcessFinished = false;
+            cardSocket.attachTransform = pointIn;
+            ShowPanel(idleScreen);
+        }
     }
 
     public void OnCardEjectRequested()
     {
-        ShowPanel(idlePanel);
+        StartCoroutine(OnCardEjectRequestedSequence());
+    }
+
+    private IEnumerator OnCardEjectRequestedSequence()
+    {
+        ShowPanel(loadingScreen);
+        yield return new WaitForSeconds(2.0f);
+        ShowPanel(ejectScreen);
+
+        cardSocket.attachTransform = pointOut;
+        isProcessFinished = true;
     }
 
     // --- WORKFLOW: GELD ---
-    // Diese Version nutzt die Dynamic-Event-Anpassung für den XR Socket
     public void OnMoneySocketEntered(SelectEnterEventArgs args)
     {
         GameObject insertedObject = args.interactableObject.transform.gameObject;
@@ -59,43 +95,50 @@ public class MensaManager : MonoBehaviour
             insertedMoney = note.value;
             float newTotal = currentBalance + insertedMoney;
 
-            // Hier wird das Feld im ApproveScreen gefüllt
-            if (approveBalanceText != null) approveBalanceText.text = currentBalance.ToString("F2") + " €";
-            if (newBalanceText != null) newBalanceText.text = newTotal.ToString("F2") + " €";
+            if (approveScreenOldBalanceText != null)
+            {
+                approveScreenOldBalanceText.text = currentBalance.ToString("F2") + " â‚¬";
+            }
+            if (approveScreenNewBalanceText != null)
+            {
+                approveScreenNewBalanceText.text = newTotal.ToString("F2") + " â‚¬";
+            }
 
-            ShowPanel(topUpPanel);
+            ShowPanel(ApproveScreen);
             Destroy(insertedObject, 0.5f);
         }
     }
 
-    public void ConfirmTopUp()
+    public void ConfirmApproveScreen()
     {
-        StartCoroutine(TopUpSequence());
+        Debug.Log("Button am ApproveScreen wurde gedrÃ¼ckt!");
+        StartCoroutine(ConfirmApproveScreenSequence());
     }
 
-    private IEnumerator TopUpSequence()
+    private IEnumerator ConfirmApproveScreenSequence()
     {
-        ShowPanel(loadingPanel);
-        yield return new WaitForSeconds(1.5f);
+        ShowPanel(loadingScreen);
+        yield return new WaitForSeconds(2.0f);
         currentBalance += insertedMoney;
 
-        string finalBalance = currentBalance.ToString("F2") + " €";
+        string finalBalance = currentBalance.ToString("F2") + " â‚¬";
 
         // Alle relevanten Felder aktualisieren
-        if (balanceText != null) balanceText.text = finalBalance;
-        if (successBalanceText != null) successBalanceText.text = finalBalance;
+        if (balanceScreenBalanceText != null) balanceScreenBalanceText.text = finalBalance;
+        if (successScreenBalanceText != null) successScreenBalanceText.text = finalBalance;
 
-        ShowPanel(successPanel);
-        yield return new WaitForSeconds(3.0f);
+        ShowPanel(successScreen);
+        yield return new WaitForSeconds(2.0f);
         OnCardEjectRequested();
     }
 
     private void ShowPanel(GameObject activePanel)
     {
-        idlePanel.SetActive(activePanel == idlePanel);
-        loadingPanel.SetActive(activePanel == loadingPanel);
-        balancePanel.SetActive(activePanel == balancePanel);
-        topUpPanel.SetActive(activePanel == topUpPanel);
-        successPanel.SetActive(activePanel == successPanel);
+        idleScreen.SetActive(activePanel == idleScreen);
+        loadingScreen.SetActive(activePanel == loadingScreen);
+        balanceScreen.SetActive(activePanel == balanceScreen);
+        ApproveScreen.SetActive(activePanel == ApproveScreen);
+        successScreen.SetActive(activePanel == successScreen);
+        ejectScreen.SetActive(activePanel == ejectScreen);
     }
 }
