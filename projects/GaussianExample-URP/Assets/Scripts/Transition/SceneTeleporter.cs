@@ -21,6 +21,7 @@ public class SceneTeleporter : MonoBehaviour
 
     public void Interact()
     {
+        Debug.Log($"[SceneTeleporter] Interact called on {name} | target={targetSceneName} | busy={busy} | fader={(fader?fader.name:"null")}");
         if (busy) return;
         if (string.IsNullOrEmpty(targetSceneName))
         {
@@ -42,25 +43,43 @@ public class SceneTeleporter : MonoBehaviour
     }
 
     private IEnumerator Transition(string sceneName)
-    {
-        busy = true;
+{
+    busy = true;
 
+    try
+    {
         if (fader != null)
         {
+            Debug.Log("[SceneTeleporter] FadeOut");
             fader.FadeOut();
             yield return new WaitForSecondsRealtime(0.5f);
         }
 
         float blackStart = Time.unscaledTime;
-        AsyncOperation op = null;
+
+        Debug.Log($"[SceneTeleporter] LoadSceneAsync('{sceneName}')");
+        var op = SceneManager.LoadSceneAsync(sceneName);
+
+        if (op == null)
+        {
+            Debug.LogError($"[SceneTeleporter] LoadSceneAsync returned null. Scene '{sceneName}' exists & is in Build Settings?");
+            yield break;
+        }
 
         if (preloadInBackground)
         {
-            op = SceneManager.LoadSceneAsync(sceneName);
             op.allowSceneActivation = false;
 
+            float timeoutAt = Time.unscaledTime + 20f; // failsafe
             while (op.progress < 0.9f)
+            {
+                if (Time.unscaledTime > timeoutAt)
+                {
+                    Debug.LogError("[SceneTeleporter] Loading timed out (progress < 0.9). Check scene name/build settings.");
+                    yield break;
+                }
                 yield return null;
+            }
 
             while (Time.unscaledTime - blackStart < minBlackTime)
                 yield return null;
@@ -71,19 +90,22 @@ public class SceneTeleporter : MonoBehaviour
         }
         else
         {
-            op = SceneManager.LoadSceneAsync(sceneName);
             while (!op.isDone)
                 yield return null;
         }
 
-        yield return new WaitForSecondsRealtime(1f);
+        Debug.Log("[SceneTeleporter] Scene load done");
 
-        if(fader != null)
+        if (fader != null)
         {
+            Debug.Log("[SceneTeleporter] FadeIn");
             fader.FadeIn();
             yield return new WaitForSecondsRealtime(0.5f);
         }
-
+    }
+    finally
+    {
         busy = false;
     }
+}
 }
