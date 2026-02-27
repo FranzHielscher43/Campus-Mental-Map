@@ -108,6 +108,8 @@ public class MensaManager : MonoBehaviour
 
         cardSocket.attachTransform = pointOutCardSocket;
         moneySocket.attachTransform = pointOutMoneySocket;
+        insertedMoney = 0;
+        currentInsertedNote = null;
         isProcessFinished = true;
     }
 
@@ -120,36 +122,40 @@ public class MensaManager : MonoBehaviour
 
     public void OnMoneyInserted(GameObject insertedObject)
     {
-        MoneyNote note = insertedObject.GetComponent<MoneyNote>();
-        if (note != null)
+        if (cardSocket.attachTransform == pointInCardSocket)
         {
-            currentInsertedNote = insertedObject;
-            insertedMoney = note.value;
-            moneySocket.attachTransform = pointInMoneySocket;
-
-            float newTotal = currentBalance + insertedMoney;
-            if (approveScreenOldBalanceText != null)
+            MoneyNote note = insertedObject.GetComponent<MoneyNote>();
+            if (note != null)
             {
-                approveScreenOldBalanceText.text = currentBalance.ToString("F2") + " €";
-            }
-            if (approveScreenNewBalanceText != null)
-            {
-                approveScreenNewBalanceText.text = newTotal.ToString("F2") + " €";
-            }
+                currentInsertedNote = insertedObject;
+                insertedMoney = note.value;
+                moneySocket.attachTransform = pointInMoneySocket;
 
-            ShowPanel(ApproveScreen);
+                float newTotal = currentBalance + insertedMoney;
+                if (approveScreenOldBalanceText != null)
+                {
+                    approveScreenOldBalanceText.text = currentBalance.ToString("F2") + " €";
+                }
+                if (approveScreenNewBalanceText != null)
+                {
+                    approveScreenNewBalanceText.text = newTotal.ToString("F2") + " €";
+                }
+
+                ShowPanel(ApproveScreen);
+            }
+        }
+        else
+        {
+            moneySocket.enabled = false;
         }
     }
 
     public void CancelTransaction()
     {
-        if (moneySocket != null)
-        {
-            moneySocket.enabled = false;
-        }
-        moneySocket.attachTransform = pointOutMoneySocket;
-        insertedMoney = 0;
-        currentInsertedNote = null;
+        //if (moneySocket != null)
+        //{
+        //    moneySocket.enabled = false;
+        //}
         OnCardEjectRequested();
     }
 
