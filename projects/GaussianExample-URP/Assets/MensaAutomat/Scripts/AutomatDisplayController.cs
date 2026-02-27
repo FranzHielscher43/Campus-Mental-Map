@@ -21,22 +21,32 @@ public class MensaManager : MonoBehaviour
 
     [Header("Card Socket Settings")]
     public UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor cardSocket;
-    public Transform pointIn;
-    public Transform pointOut;
+    public Transform pointInCardSocket;
+    public Transform pointOutCardSocket;
 
     [Header("Money Socket Settings")]
     public UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor moneySocket;
-    public Transform pointIn;
-    public Transform pointOut;
+    public Transform pointInMoneySocket;
+    public Transform pointOutMoneySocket;
 
+    private GameObject currentInsertedNote;
     private float currentBalance = 0f;
     private float insertedMoney = 0f;
     private bool isProcessFinished = false;
 
+    // --- Initialize ---
+    private void start()
+    {
+        if (moneySocket != null)
+        {
+            moneySocket.enabled = false;
+        }
+    }
+
     // --- WORKFLOW: KARTE ---
     public void OnCardInserted()
     {
-        cardSocket.attachTransform = pointIn;
+        cardSocket.attachTransform = pointInCardSocket;
         isProcessFinished = false;
         StartCoroutine(CardLoadingSequence());
     }
@@ -53,16 +63,36 @@ public class MensaManager : MonoBehaviour
         }
 
         ShowPanel(balanceScreen);
+
+        if (moneySocket != null)
+        {
+            moneySocket.enabled = true;
+        }
     }
 
-    public void OnCardRemoved()
+    private void CheckAndResetToIdle()
     {
-        if (isProcessFinished)
+        bool cardIsGone = !cardSocket.hasSelection;
+        bool moneyIsGone = !moneySocket.hasSelection;
+
+        if (cardIsGone && moneyIsGone && isProcessFinished)
         {
             isProcessFinished = false;
-            cardSocket.attachTransform = pointIn;
+            cardSocket.attachTransform = pointInCardSocket;
+            moneySocket.attachTransform = pointInMoneySocket;
+
+            if (moneySocket != null)
+            {
+                moneySocket.enabled = false;
+            }
+
             ShowPanel(idleScreen);
         }
+    }
+
+    public void OnObjectRemoved()
+    {
+        CheckAndResetToIdle();
     }
 
     public void OnCardEjectRequested()
@@ -76,7 +106,8 @@ public class MensaManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         ShowPanel(ejectScreen);
 
-        cardSocket.attachTransform = pointOut;
+        cardSocket.attachTransform = pointOutCardSocket;
+        moneySocket.attachTransform = pointOutMoneySocket;
         isProcessFinished = true;
     }
 
@@ -92,9 +123,11 @@ public class MensaManager : MonoBehaviour
         MoneyNote note = insertedObject.GetComponent<MoneyNote>();
         if (note != null)
         {
+            currentInsertedNote = insertedObject;
             insertedMoney = note.value;
-            float newTotal = currentBalance + insertedMoney;
+            moneySocket.attachTransform = pointInMoneySocket;
 
+            float newTotal = currentBalance + insertedMoney;
             if (approveScreenOldBalanceText != null)
             {
                 approveScreenOldBalanceText.text = currentBalance.ToString("F2") + " €";
@@ -105,13 +138,33 @@ public class MensaManager : MonoBehaviour
             }
 
             ShowPanel(ApproveScreen);
-            Destroy(insertedObject, 0.5f);
         }
+    }
+
+    public void CancelTransaction()
+    {
+        if (moneySocket != null)
+        {
+            moneySocket.enabled = false;
+        }
+        moneySocket.attachTransform = pointOutMoneySocket;
+        insertedMoney = 0;
+        currentInsertedNote = null;
+        OnCardEjectRequested();
     }
 
     public void ConfirmApproveScreen()
     {
-        Debug.Log("Button am ApproveScreen wurde gedrückt!");
+        if (moneySocket != null)
+        {
+            moneySocket.enabled = false;
+        }
+        if (currentInsertedNote != null)
+        {
+            Destroy(currentInsertedNote, 0.5f);
+            currentInsertedNote = null;
+        }
+        moneySocket.attachTransform = pointInMoneySocket;
         StartCoroutine(ConfirmApproveScreenSequence());
     }
 
