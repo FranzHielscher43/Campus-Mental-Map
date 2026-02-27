@@ -89,6 +89,8 @@ public class ScreenFader : MonoBehaviour
 
     public void FadeOut()
     {
+        Debug.Log($"[FaderAudio] src={(fadeAudio?fadeAudio.name:"null")} clip={(fadeAudio && fadeAudio.clip ? fadeAudio.clip.name:"null")} vol={(fadeAudio?fadeAudio.volume:-1)} playing={(fadeAudio?fadeAudio.isPlaying:false)} spatial={(fadeAudio?fadeAudio.spatialBlend:-1)}");
+        Debug.Log($"[ScreenFader] FadeOut called | audio={(fadeAudio?fadeAudio.name:"null")} clip={(fadeAudio && fadeAudio.clip ? fadeAudio.clip.name:"null")} playing={(fadeAudio?fadeAudio.isPlaying:false)} vol={(fadeAudio?fadeAudio.volume:-1)}");
         var settings = FindFirstObjectByType<SceneSettings>();
         if (fadeText)
             fadeText.text = (settings != null && !string.IsNullOrEmpty(settings.fadeOutText)) ? settings.fadeOutText : "Lade...";
