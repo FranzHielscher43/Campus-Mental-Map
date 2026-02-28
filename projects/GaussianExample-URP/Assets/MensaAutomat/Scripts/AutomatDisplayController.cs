@@ -78,8 +78,8 @@ public class MensaManager : MonoBehaviour
         if (cardIsGone && moneyIsGone && isProcessFinished)
         {
             isProcessFinished = false;
-            cardSocket.attachTransform = pointInCardSocket;
-            moneySocket.attachTransform = pointInMoneySocket;
+            cardSocket.attachTransform = pointOutCardSocket;
+            moneySocket.attachTransform = pointOutMoneySocket;
 
             if (moneySocket != null)
             {
