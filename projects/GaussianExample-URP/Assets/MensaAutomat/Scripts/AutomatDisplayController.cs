@@ -34,6 +34,7 @@ public class MensaManager : MonoBehaviour
     private float insertedMoney = 0f;
     private bool isProcessFinished = false;
 
+
     // --- Initialize ---
     private void start()
     {
