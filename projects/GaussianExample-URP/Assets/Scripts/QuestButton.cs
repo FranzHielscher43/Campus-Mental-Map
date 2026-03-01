@@ -2,23 +2,21 @@ using UnityEngine;
 
 public class QuestButton : MonoBehaviour
 {
+    [SerializeField] private QuestManager meinManager;
     private bool wurdeGeklickt = false;
-    private QuestManager meinManager;
 
-    void Start()
+    void Awake()
     {
-        
-        meinManager = Object.FindFirstObjectByType<QuestManager>();
+        if (!meinManager)
+            Debug.LogError("QuestManager im Inspector nicht zugewiesen!");
     }
 
     public void ButtonKlickLogik()
     {
-    
-        if (!wurdeGeklickt)
-        {
-            wurdeGeklickt = true;
-            meinManager.PunktHinzufuegen();
-            
-        }
+        Debug.Log("[QuestButton] Klick: " + name);
+
+        if (wurdeGeklickt || !meinManager) return;
+        wurdeGeklickt = true;
+        meinManager.PunktHinzufuegen();
     }
 }
