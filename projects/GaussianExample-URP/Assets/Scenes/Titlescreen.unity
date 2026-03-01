@@ -1460,17 +1460,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 1582121581}
     m_Modifications:
     - target: {fileID: 670167762328748127, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: duration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 670167762328748127, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
       propertyPath: fadeText
       value: 
       objectReference: {fileID: 388691700}
     - target: {fileID: 670167762328748127, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
       propertyPath: fadeAudio
       value: 
-      objectReference: {fileID: 388691702}
+      objectReference: {fileID: 0}
     - target: {fileID: 670167762328748127, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
       propertyPath: otherAudio
       value: 
       objectReference: {fileID: 1734905202}
+    - target: {fileID: 670167762328748127, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: otherNormalVolume
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3941893888933415257, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
       propertyPath: m_Name
       value: Fader
@@ -1593,12 +1601,12 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 388691701}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7284ccaf38cc54ba3b81c6e36abd9812, type: 3}
   m_Resource: {fileID: 8300000, guid: 7284ccaf38cc54ba3b81c6e36abd9812, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
