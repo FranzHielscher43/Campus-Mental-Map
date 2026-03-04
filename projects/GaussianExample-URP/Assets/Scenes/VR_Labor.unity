@@ -919,6 +919,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 510185170}
+    - targetCorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1496234876}
     - targetCorrespondingSourceObject: {fileID: 202364688, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1582329520}
@@ -1219,6 +1222,7 @@ GameObject:
   - component: {fileID: 66713285}
   - component: {fileID: 66713284}
   - component: {fileID: 66713283}
+  - component: {fileID: 66713286}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1302,6 +1306,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 66713286}
+        m_TargetAssemblyTypeName: QuestButton, Assembly-CSharp
+        m_MethodName: ButtonKlickLogik
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &66713284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1340,6 +1356,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 66713281}
   m_CullTransparentMesh: 1
+--- !u!114 &66713286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66713281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29805a7611532942a3faffb2b4c3522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meinManager: {fileID: 2584020245900901878}
 --- !u!1 &76534491
 GameObject:
   m_ObjectHideFlags: 0
@@ -11102,6 +11131,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: 8386a3a70c0a84f72a25f045712b114c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1391411730}
+    - targetCorrespondingSourceObject: {fileID: 8771091787928289351, guid: 8386a3a70c0a84f72a25f045712b114c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1391411731}
   m_SourcePrefab: {fileID: -4161369568681901532, guid: 8386a3a70c0a84f72a25f045712b114c, type: 3}
 --- !u!1 &1391411719 stripped
 GameObject:
@@ -11247,6 +11279,18 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
+--- !u!114 &1391411731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391411719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8dcffdcbda1f8d45b5ac996ae2d6f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1394434490
 GameObject:
   m_ObjectHideFlags: 0
@@ -11873,6 +11917,11 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!224 &1496234876 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+  m_PrefabInstance: {fileID: 2584020245900901877}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1535761815
 GameObject:
   m_ObjectHideFlags: 0
@@ -15809,6 +15858,7 @@ GameObject:
   - component: {fileID: 2074353752}
   - component: {fileID: 2074353751}
   - component: {fileID: 2074353750}
+  - component: {fileID: 2074353753}
   m_Layer: 0
   m_Name: sitDownButton
   m_TagString: Untagged
@@ -15892,6 +15942,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2074353753}
+        m_TargetAssemblyTypeName: QuestButton, Assembly-CSharp
+        m_MethodName: ButtonKlickLogik
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2074353751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15930,6 +15992,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074353748}
   m_CullTransparentMesh: 1
+--- !u!114 &2074353753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074353748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29805a7611532942a3faffb2b4c3522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meinManager: {fileID: 2584020245900901878}
 --- !u!1 &2091853363
 GameObject:
   m_ObjectHideFlags: 0
@@ -17121,6 +17196,118 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4126055592456292521, guid: 8aa8eeff86da07c44bb96a67cebf9fe7, type: 3}
   m_PrefabInstance: {fileID: 2553026918368195967}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2584020245900901877
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 62877378}
+    m_Modifications:
+    - target: {fileID: 4235545000052473317, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_Name
+      value: Questliste
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9914449
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.13052624
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6557253483148548376, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+--- !u!114 &2584020245900901878 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3645923110620236977, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+  m_PrefabInstance: {fileID: 2584020245900901877}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478b091d5c220e84890d17d99af82e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2798487355972965246
 PrefabInstance:
   m_ObjectHideFlags: 0

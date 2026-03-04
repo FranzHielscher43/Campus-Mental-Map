@@ -1465,6 +1465,9 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 574712217}
+    - targetCorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 910959308}
     - targetCorrespondingSourceObject: {fileID: 202364688, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
@@ -3610,6 +3613,7 @@ GameObject:
   - component: {fileID: 326731357}
   - component: {fileID: 326731356}
   - component: {fileID: 326731355}
+  - component: {fileID: 326731358}
   m_Layer: 5
   m_Name: StartBtn
   m_TagString: Untagged
@@ -3693,6 +3697,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 326731358}
+        m_TargetAssemblyTypeName: QuestButton, Assembly-CSharp
+        m_MethodName: ButtonKlickLogik
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &326731356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3731,6 +3747,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 326731353}
   m_CullTransparentMesh: 1
+--- !u!114 &326731358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326731353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29805a7611532942a3faffb2b4c3522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meinManager: {fileID: 574712218}
 --- !u!1 &340467614
 GameObject:
   m_ObjectHideFlags: 0
@@ -4885,6 +4914,123 @@ RectTransform:
   m_AnchoredPosition: {x: 9432.132, y: 6684.331}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &574712216
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 526424464}
+    m_Modifications:
+    - target: {fileID: 4235545000052473317, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_Name
+      value: Questliste
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9914449
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.13052624
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6557253483148548376, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+--- !u!224 &574712217 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6311572868744806791, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+  m_PrefabInstance: {fileID: 574712216}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &574712218 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3645923110620236977, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+  m_PrefabInstance: {fileID: 574712216}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478b091d5c220e84890d17d99af82e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &578355974
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9472,6 +9618,7 @@ GameObject:
   - component: {fileID: 1161670898}
   - component: {fileID: 1161670897}
   - component: {fileID: 1161670896}
+  - component: {fileID: 1161670899}
   m_Layer: 0
   m_Name: sitDownButton
   m_TagString: Untagged
@@ -9555,6 +9702,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1161670899}
+        m_TargetAssemblyTypeName: QuestButton, Assembly-CSharp
+        m_MethodName: ButtonKlickLogik
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1161670897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9593,6 +9752,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1161670894}
   m_CullTransparentMesh: 1
+--- !u!114 &1161670899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161670894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29805a7611532942a3faffb2b4c3522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meinManager: {fileID: 574712218}
 --- !u!1 &1165986557
 GameObject:
   m_ObjectHideFlags: 0
@@ -12285,6 +12457,7 @@ GameObject:
   - component: {fileID: 1460480115}
   - component: {fileID: 1460480114}
   - component: {fileID: 1460480116}
+  - component: {fileID: 1460480117}
   m_Layer: 0
   m_Name: AnimationTrigger
   m_TagString: Untagged
@@ -12377,6 +12550,23 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RaycastTriggerInteraction: 2
+--- !u!114 &1460480117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460480111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &1460609974
 GameObject:
   m_ObjectHideFlags: 0
@@ -13957,6 +14147,7 @@ GameObject:
   - component: {fileID: 1713845285}
   - component: {fileID: 1713845284}
   - component: {fileID: 1713845283}
+  - component: {fileID: 1713845286}
   m_Layer: 0
   m_Name: galleryButton
   m_TagString: Untagged
@@ -14040,6 +14231,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1713845286}
+        m_TargetAssemblyTypeName: QuestButton, Assembly-CSharp
+        m_MethodName: ButtonKlickLogik
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1713845284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14078,6 +14281,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713845281}
   m_CullTransparentMesh: 1
+--- !u!114 &1713845286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713845281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29805a7611532942a3faffb2b4c3522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meinManager: {fileID: 574712218}
 --- !u!1 &1728797197
 GameObject:
   m_ObjectHideFlags: 0
@@ -14975,6 +15191,7 @@ GameObject:
   - component: {fileID: 1792499072}
   - component: {fileID: 1792499071}
   - component: {fileID: 1792499070}
+  - component: {fileID: 1792499075}
   m_Layer: 0
   m_Name: Object
   m_TagString: Untagged
@@ -15166,6 +15383,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2035568505}
   m_LocalEulerAnglesHint: {x: 0, y: 36.997, z: 0}
+--- !u!114 &1792499075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792499069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8dcffdcbda1f8d45b5ac996ae2d6f9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1807238691
 GameObject:
   m_ObjectHideFlags: 0
