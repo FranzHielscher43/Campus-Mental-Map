@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class MensaManager : MonoBehaviour
 {
@@ -35,7 +36,6 @@ public class MensaManager : MonoBehaviour
     private bool isProcessFinished = false;
 
 
-    // --- Initialize ---
     private void start()
     {
         if (moneySocket != null)
@@ -44,10 +44,10 @@ public class MensaManager : MonoBehaviour
         }
     }
 
-    // --- WORKFLOW: KARTE ---
     public void OnCardInserted()
     {
         cardSocket.attachTransform = pointInCardSocket;
+        SetObjectVisibility(cardSocket, false);
         isProcessFinished = false;
         StartCoroutine(CardLoadingSequence());
     }
@@ -81,6 +81,8 @@ public class MensaManager : MonoBehaviour
             isProcessFinished = false;
             cardSocket.attachTransform = pointOutCardSocket;
             moneySocket.attachTransform = pointOutMoneySocket;
+            SetObjectVisibility(cardSocket, true);
+            SetObjectVisibility(moneySocket, true);
 
             if (moneySocket != null)
             {
@@ -109,12 +111,13 @@ public class MensaManager : MonoBehaviour
 
         cardSocket.attachTransform = pointOutCardSocket;
         moneySocket.attachTransform = pointOutMoneySocket;
+        SetObjectVisibility(cardSocket, true);
+        SetObjectVisibility(moneySocket, true);
         insertedMoney = 0;
         currentInsertedNote = null;
         isProcessFinished = true;
     }
 
-    // --- WORKFLOW: GELD ---
     public void OnMoneySocketEntered(SelectEnterEventArgs args)
     {
         GameObject insertedObject = args.interactableObject.transform.gameObject;
@@ -131,6 +134,7 @@ public class MensaManager : MonoBehaviour
                 currentInsertedNote = insertedObject;
                 insertedMoney = note.value;
                 moneySocket.attachTransform = pointInMoneySocket;
+                SetObjectVisibility(moneySocket, false);
 
                 float newTotal = currentBalance + insertedMoney;
                 if (approveScreenOldBalanceText != null)
@@ -153,10 +157,6 @@ public class MensaManager : MonoBehaviour
 
     public void CancelTransaction()
     {
-        //if (moneySocket != null)
-        //{
-        //    moneySocket.enabled = false;
-        //}
         OnCardEjectRequested();
     }
 
@@ -172,6 +172,7 @@ public class MensaManager : MonoBehaviour
             currentInsertedNote = null;
         }
         moneySocket.attachTransform = pointInMoneySocket;
+        SetObjectVisibility(moneySocket, false);
         StartCoroutine(ConfirmApproveScreenSequence());
     }
 
@@ -200,5 +201,19 @@ public class MensaManager : MonoBehaviour
         ApproveScreen.SetActive(activePanel == ApproveScreen);
         successScreen.SetActive(activePanel == successScreen);
         ejectScreen.SetActive(activePanel == ejectScreen);
+    }
+
+    private void SetObjectVisibility(XRSocketInteractor socket, bool isVisible)
+    {
+        if (socket.hasSelection)
+        {
+            GameObject rootObject = socket.interactablesSelected[0].transform.gameObject;
+            MeshRenderer[] renderers = rootObject.GetComponentsInChildren<MeshRenderer>();
+
+            foreach (MeshRenderer ren in renderers)
+            {
+                ren.enabled = isVisible;
+            }
+        }
     }
 }
