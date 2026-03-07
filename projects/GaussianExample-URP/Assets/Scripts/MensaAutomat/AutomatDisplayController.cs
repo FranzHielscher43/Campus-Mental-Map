@@ -10,9 +10,11 @@ public class MensaManager : MonoBehaviour
     public GameObject idleScreen;
     public GameObject loadingScreen;
     public GameObject balanceScreen;
-    public GameObject ApproveScreen;
+    public GameObject approveScreen;
     public GameObject successScreen;
     public GameObject ejectScreen;
+    public GameObject balanceScreenHelp;
+    public GameObject approveScreenHelp;
 
     [Header("Text Fields")]
     public TextMeshProUGUI balanceScreenBalanceText;
@@ -30,17 +32,28 @@ public class MensaManager : MonoBehaviour
     public Transform pointInMoneySocket;
     public Transform pointOutMoneySocket;
 
+    [Header("Quest Integration")]
+    public QuestManager questManager;
+
     private GameObject currentInsertedNote;
     private float currentBalance = 0f;
     private float insertedMoney = 0f;
     private bool isProcessFinished = false;
+    private bool cardInsertQuest = false;
+    private bool moneyInsertQuest = false;
+    private bool approveQuest = false;
 
 
-    private void start()
+    private void Start()
     {
         if (moneySocket != null)
         {
             moneySocket.enabled = false;
+        }
+
+        if (questManager == null)
+        {
+            questManager = FindFirstObjectByType<QuestManager>();
         }
     }
 
@@ -49,6 +62,11 @@ public class MensaManager : MonoBehaviour
         cardSocket.attachTransform = pointInCardSocket;
         SetObjectVisibility(cardSocket, false);
         isProcessFinished = false;
+        if (questManager != null && !cardInsertQuest)
+        {
+            questManager.PunktHinzufuegen();
+            cardInsertQuest = true;
+        }
         StartCoroutine(CardLoadingSequence());
     }
 
@@ -121,6 +139,11 @@ public class MensaManager : MonoBehaviour
     public void OnMoneySocketEntered(SelectEnterEventArgs args)
     {
         GameObject insertedObject = args.interactableObject.transform.gameObject;
+        if (questManager != null && !moneyInsertQuest)
+        {
+            questManager.PunktHinzufuegen();
+            moneyInsertQuest = true;
+        }
         OnMoneyInserted(insertedObject);
     }
 
@@ -146,7 +169,7 @@ public class MensaManager : MonoBehaviour
                     approveScreenNewBalanceText.text = newTotal.ToString("F2") + " €";
                 }
 
-                ShowPanel(ApproveScreen);
+                ShowPanel(approveScreen);
             }
         }
         else
@@ -173,6 +196,11 @@ public class MensaManager : MonoBehaviour
         }
         moneySocket.attachTransform = pointInMoneySocket;
         SetObjectVisibility(moneySocket, false);
+        if (questManager != null && !approveQuest)
+        {
+            questManager.PunktHinzufuegen();
+            approveQuest = true;
+        }
         StartCoroutine(ConfirmApproveScreenSequence());
     }
 
@@ -198,9 +226,11 @@ public class MensaManager : MonoBehaviour
         idleScreen.SetActive(activePanel == idleScreen);
         loadingScreen.SetActive(activePanel == loadingScreen);
         balanceScreen.SetActive(activePanel == balanceScreen);
-        ApproveScreen.SetActive(activePanel == ApproveScreen);
+        approveScreen.SetActive(activePanel == approveScreen);
         successScreen.SetActive(activePanel == successScreen);
         ejectScreen.SetActive(activePanel == ejectScreen);
+        balanceScreenHelp.SetActive(activePanel == balanceScreenHelp);
+        approveScreenHelp.SetActive(activePanel == approveScreenHelp);
     }
 
     private void SetObjectVisibility(XRSocketInteractor socket, bool isVisible)
@@ -215,5 +245,25 @@ public class MensaManager : MonoBehaviour
                 ren.enabled = isVisible;
             }
         }
+    }
+
+    public void TriggerBalanceScreenHelp()
+    {
+        ShowPanel(balanceScreenHelp);
+    }
+
+    public void CloseBalanceScreenHelp()
+    {
+        ShowPanel(balanceScreen);
+    }
+
+    public void TriggerApproveScreenHelp()
+    {
+        ShowPanel(approveScreenHelp);
+    }
+
+    public void CloseApproveScreenHelp()
+    {
+        ShowPanel(approveScreen);
     }
 }
