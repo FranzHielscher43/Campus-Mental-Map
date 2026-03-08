@@ -502,9 +502,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   infoCanvas: {fileID: 1049554527}
   heightAboveCube: 0.6
+  distanceFromCube: 0.6
   reward_ui_1: {fileID: 2026551593}
   reward_ui_2: {fileID: 1864109109}
   reward_ui_3: {fileID: 1705749720}
+  reward_ui_4: {fileID: 0}
   fallbackText: {fileID: 1569032402}
   reward: {fileID: 32907509}
   doorTeleporter: {fileID: 671544214}
@@ -14336,8 +14338,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
