@@ -8,11 +8,13 @@ public class SpawnQuiz : MonoBehaviour
     [Header("UI & Position")]
     public GameObject infoCanvas; 
     public float heightAboveCube = 0.6f; 
+    public float distanceFromCube = 0.6f;
 
     [Header("Rewards UI")]
     public GameObject reward_ui_1;
     public GameObject reward_ui_2;
     public GameObject reward_ui_3;
+    public GameObject reward_ui_4;
     public GameObject fallbackText;
 
     [Header("Reward Object")]
@@ -41,6 +43,7 @@ public class SpawnQuiz : MonoBehaviour
             reward_ui_1.SetActive(false);
             reward_ui_2.SetActive(false);
             reward_ui_3.SetActive(false);
+            reward_ui_4.SetActive(false);
             fallbackText.SetActive(true);
             doorTeleporter.SetActive(false);
         }
@@ -49,6 +52,16 @@ public class SpawnQuiz : MonoBehaviour
             reward_ui_1.SetActive(true);
             reward_ui_2.SetActive(false);
             reward_ui_3.SetActive(false);
+            reward_ui_4.SetActive(false);
+            fallbackText.SetActive(false);
+            doorTeleporter.SetActive(false);    
+        }
+        else if (scene == "Bibliothek")
+        {
+            reward_ui_1.SetActive(true);
+            reward_ui_2.SetActive(true);
+            reward_ui_3.SetActive(false);
+            reward_ui_4.SetActive(false);
             fallbackText.SetActive(false);
             doorTeleporter.SetActive(false);    
         }
@@ -56,7 +69,8 @@ public class SpawnQuiz : MonoBehaviour
         {
             reward_ui_1.SetActive(true);
             reward_ui_2.SetActive(true);
-            reward_ui_3.SetActive(false);
+            reward_ui_3.SetActive(true);
+            reward_ui_4.SetActive(false);
             fallbackText.SetActive(false);
             doorTeleporter.SetActive(false);
         }
@@ -83,23 +97,38 @@ public class SpawnQuiz : MonoBehaviour
         if (infoCanvas == null) return;
 
         bool neuerStatus = !infoCanvas.activeSelf;
-        
-        if (neuerStatus == true) 
+
+        if (neuerStatus == true)
         {
             Vector3 spawnPos = transform.position + (Vector3.up * heightAboveCube);
+
+            if (Camera.main != null)
+            {
+                Vector3 dirToPlayer = Camera.main.transform.position - transform.position;
+                dirToPlayer.y = 0f;
+
+                if (dirToPlayer != Vector3.zero)
+                {
+                    dirToPlayer.Normalize();
+                    spawnPos += dirToPlayer * distanceFromCube;
+                }
+            }
+
             infoCanvas.transform.position = spawnPos;
 
             if (Camera.main != null)
             {
                 Vector3 directionToHead = Camera.main.transform.position - spawnPos;
-                directionToHead.y = 0; 
-                
+                directionToHead.y = 0;
+
                 if (directionToHead != Vector3.zero)
                 {
-                    infoCanvas.transform.rotation = Quaternion.LookRotation(directionToHead) * Quaternion.Euler(0f, 180f, 0f);
+                    infoCanvas.transform.rotation =
+                        Quaternion.LookRotation(directionToHead) * Quaternion.Euler(0f, 180f, 0f);
                 }
             }
         }
+
         infoCanvas.SetActive(neuerStatus);
     }
 
@@ -122,11 +151,21 @@ public class SpawnQuiz : MonoBehaviour
             fallbackText.SetActive(false);
             doorTeleporter.SetActive(true);            
         }
+        else if (scene == "Bibliothek")
+        {
+            reward_ui_1.SetActive(true);
+            reward_ui_2.SetActive(true);
+            reward_ui_3.SetActive(true);
+            reward.SetActive(false);
+            fallbackText.SetActive(false);
+            doorTeleporter.SetActive(true);            
+        }
         else if (scene == "Mensa_Automat")
         {
             reward_ui_1.SetActive(true);
             reward_ui_2.SetActive(true);
             reward_ui_3.SetActive(true);
+            reward_ui_4.SetActive(true);
             reward.SetActive(false);
             fallbackText.SetActive(false);
             doorTeleporter.SetActive(true);

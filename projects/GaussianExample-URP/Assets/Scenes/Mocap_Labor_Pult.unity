@@ -5053,7 +5053,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6557319881323677167, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
       propertyPath: targetSceneName
-      value: Mensa_Automat
+      value: Bibliothek
       objectReference: {fileID: 0}
     - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
       propertyPath: m_LocalScale.y
@@ -10292,7 +10292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableFadeIn: 0
-  fadeOutText: Betreten der Mensa...
+  fadeOutText: Betreten der Bibliothek...
   fadeInText: Betreten des Mocap Labors...
 --- !u!1 &1256086308
 GameObject:
