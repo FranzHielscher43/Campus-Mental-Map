@@ -5031,6 +5031,88 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 478b091d5c220e84890d17d99af82e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &578355974
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1473070654}
+    m_Modifications:
+    - target: {fileID: 1617580476915509358, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6557319881323677167, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: fader
+      value: 
+      objectReference: {fileID: 910959312}
+    - target: {fileID: 6557319881323677167, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: minBlackTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6557319881323677167, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: targetSceneName
+      value: Bibliothek
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.2719152
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.34881955
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.646471
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9036923
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.42818245
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -50.705
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7447147861864572283, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+      propertyPath: m_Name
+      value: DoorTrigger
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+--- !u!4 &578355975 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6716484130854712118, guid: 9c945f6f3a9176a4ab7be53e8af6d5f8, type: 3}
+  m_PrefabInstance: {fileID: 578355974}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &587704179
 GameObject:
   m_ObjectHideFlags: 0
@@ -10205,7 +10287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableFadeIn: 0
-  fadeOutText: Betreten der Mensa...
+  fadeOutText: Betreten der Bibliothek...
   fadeInText: Betreten des Mocap Labors...
 --- !u!1 &1256086308
 GameObject:
@@ -12657,6 +12739,7 @@ Transform:
   - {fileID: 1822327770}
   - {fileID: 2035568505}
   - {fileID: 1460480112}
+  - {fileID: 578355975}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1485772904
@@ -15126,9 +15209,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   infoCanvas: {fileID: 691590039}
   heightAboveCube: 0.6
+  distanceFromCube: 0.6
   reward_ui_1: {fileID: 867836108}
   reward_ui_2: {fileID: 1596912782}
   reward_ui_3: {fileID: 500147799}
+  reward_ui_4: {fileID: 0}
   fallbackText: {fileID: 54793480}
   reward: {fileID: 1792499069}
   doorTeleporter: {fileID: 7447147862435456637}
@@ -17107,6 +17192,10 @@ PrefabInstance:
       propertyPath: fader
       value: 
       objectReference: {fileID: 910959312}
+    - target: {fileID: 525151274337947807, guid: b0b55c1b997cd4009a7e60ce3d98d028, type: 3}
+      propertyPath: targetSceneName
+      value: Bibliothek
+      objectReference: {fileID: 0}
     - target: {fileID: 3490687868394902785, guid: b0b55c1b997cd4009a7e60ce3d98d028, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.2719152

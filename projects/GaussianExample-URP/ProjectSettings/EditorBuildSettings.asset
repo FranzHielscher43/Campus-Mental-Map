@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Mocap_Labor_Pult.unity
     guid: 7002cf6015083f448947f531c02d34be
   - enabled: 1
+    path: Assets/Scenes/Bibliothek.unity
+    guid: 31af5997a1e684f6e83024f5bd5d4040
+  - enabled: 1
     path: Assets/Scenes/Mensa_Automat.unity
     guid: 8726a96523b5349618191913840f707c
   m_configObjects:
