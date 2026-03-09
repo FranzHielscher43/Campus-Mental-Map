@@ -5353,8 +5353,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5375,9 +5375,9 @@ MonoBehaviour:
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 22
   m_fontSizeMax: 30
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -8923,24 +8923,25 @@ MonoBehaviour:
   timerSlider: {fileID: 2131812336}
   autoCloseDelay: 3
   allQuestions:
-  - questionText: "Wof\xFCr is das VR Labor zust\xE4ndig?"
+  - questionText: "Welches VR-Headset ist das aktuelle Standard-Ger\xE4t hier im
+      VR-Labor?"
     answers:
-    - "Vr ger\xE4te probieren"
-    - Essen
-    - Musik machen
+    - Meta Quest 3
+    - PlayStation VR
+    - 'HTC Vive Pro '
     correctAnswerIndex: 0
-  - questionText: "Wof\xFCr is das VR Labor zust\xE4ndig?"
+  - questionText: " Wof\xFCr wird das Programm \"Unity\" im VR-Labor genutzt?\r\n"
     answers:
-    - "Vr ger\xE4te probieren"
-    - Essen
-    - Musik machen
-    correctAnswerIndex: 0
-  - questionText: "Wof\xFCr is das VR Labor zust\xE4ndig?"
+    - "Um Lehrvideos f\xFCr das Studium Generale zu schneiden"
+    - Um interaktive VR-Anwendungen zu entwickeln
+    - Um das WLAN-Netzwerk im Trefftz-Bau zu konfigurieren
+    correctAnswerIndex: 1
+  - questionText: "Wof\xFCr wird die Plattform OPAL in deinem Studium genutzt?"
     answers:
-    - "Vr ger\xE4te probieren"
-    - Essen
-    - Musik machen
-    correctAnswerIndex: 0
+    - "Um 3D-Modelle f\xFCr Unity zu programmieren"
+    - Um die Meta Quest 3 mit dem WLAN zu verbinden
+    - Zur Anmeldung und Organisation deiner Kurse
+    correctAnswerIndex: 2
 --- !u!82 &1049554530
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11359,12 +11360,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 13
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 12
+  m_fontSizeMax: 13
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -14959,12 +14960,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 13
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 12
+  m_fontSizeMax: 13
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -17518,12 +17519,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 13
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 12
+  m_fontSizeMax: 13
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
