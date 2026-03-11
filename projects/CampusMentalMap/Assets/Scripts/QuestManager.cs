@@ -7,7 +7,7 @@ public class QuestManager : MonoBehaviour
     public TextMeshProUGUI questText; 
     
     [Header("Quest Einstellungen")]
-    public int zielAnzahl = 3; 
+    public int zielAnzahl = 7; 
     private int aktuellerStand = 0;
 
     void Start()

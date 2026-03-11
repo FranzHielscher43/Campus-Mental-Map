@@ -344,6 +344,7 @@ GameObject:
   - component: {fileID: 28576698}
   - component: {fileID: 28576697}
   - component: {fileID: 28576696}
+  - component: {fileID: 28576699}
   m_Layer: 0
   m_Name: Btn_anmelden
   m_TagString: Untagged
@@ -414,7 +415,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 28576697}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 28576699}
+        m_TargetAssemblyTypeName: QuestButton, Assembly-CSharp
+        m_MethodName: ButtonKlickLogik
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &28576697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,6 +466,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28576694}
   m_CullTransparentMesh: 1
+--- !u!114 &28576699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28576694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29805a7611532942a3faffb2b4c3522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meinManager: {fileID: 2584020245900901878}
 --- !u!1 &32907509
 GameObject:
   m_ObjectHideFlags: 0
@@ -8727,6 +8753,7 @@ GameObject:
   - component: {fileID: 1027695977}
   - component: {fileID: 1027695976}
   - component: {fileID: 1027695975}
+  - component: {fileID: 1027695978}
   m_Layer: 0
   m_Name: Btn_lernen
   m_TagString: Untagged
@@ -8797,7 +8824,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1027695976}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1027695978}
+        m_TargetAssemblyTypeName: QuestButton, Assembly-CSharp
+        m_MethodName: ButtonKlickLogik
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1027695976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8836,6 +8875,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1027695973}
   m_CullTransparentMesh: 1
+--- !u!114 &1027695978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027695973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29805a7611532942a3faffb2b4c3522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meinManager: {fileID: 2584020245900901878}
 --- !u!1 &1040437912
 GameObject:
   m_ObjectHideFlags: 0
@@ -9925,6 +9977,7 @@ GameObject:
   - component: {fileID: 1168964960}
   - component: {fileID: 1168964959}
   - component: {fileID: 1168964958}
+  - component: {fileID: 1168964961}
   m_Layer: 0
   m_Name: Btn_startseite
   m_TagString: Untagged
@@ -9995,7 +10048,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1168964959}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1168964961}
+        m_TargetAssemblyTypeName: QuestButton, Assembly-CSharp
+        m_MethodName: ButtonKlickLogik
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1168964959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10034,6 +10099,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168964956}
   m_CullTransparentMesh: 1
+--- !u!114 &1168964961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168964956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29805a7611532942a3faffb2b4c3522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meinManager: {fileID: 2584020245900901878}
 --- !u!1 &1172480453
 GameObject:
   m_ObjectHideFlags: 0
@@ -14489,6 +14567,7 @@ GameObject:
   - component: {fileID: 1604905687}
   - component: {fileID: 1604905686}
   - component: {fileID: 1604905685}
+  - component: {fileID: 1604905688}
   m_Layer: 0
   m_Name: Btn_kursangebote
   m_TagString: Untagged
@@ -14559,7 +14638,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1604905686}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1604905688}
+        m_TargetAssemblyTypeName: QuestButton, Assembly-CSharp
+        m_MethodName: ButtonKlickLogik
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1604905686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14598,6 +14689,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604905683}
   m_CullTransparentMesh: 1
+--- !u!114 &1604905688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604905683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29805a7611532942a3faffb2b4c3522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meinManager: {fileID: 2584020245900901878}
 --- !u!1 &1618779704
 GameObject:
   m_ObjectHideFlags: 0
@@ -18923,6 +19027,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 62877378}
     m_Modifications:
+    - target: {fileID: 3645923110620236977, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: zielAnzahl
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4235545000052473317, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
       propertyPath: m_Name
       value: Questliste
