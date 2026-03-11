@@ -2,25 +2,16 @@ import os, json, csv
 import numpy as np
 from plyfile import PlyData, PlyElement
 
-# =======================
-# SETTINGS (HQ for Quest)
-# =======================
 INPUT_PLY = "gs_VR_Room_v2.ply"
 OUT_DIR   = "hq_tiles_quest"
 
-# Tile-Grid: moderat halten (sonst explodiert die Anzahl Tiles)
-TILE_SIZE = 100.0       # 5x5m (wenn zu viele Tiles -> 8.0 nehmen)
-
-# Für HQ: KEIN Overlap, KEIN Wegwerfen (sonst Qualitätsverlust / Sort-Artefakte)
+TILE_SIZE = 100.0
 OVERLAP  = 0.0
 MIN_KEEP = 0
 
-# Chunk-Limit: Quest-friendly (nicht zu groß)
-TARGET_MAX = 20000    # 15k-20k ist ein guter Bereich
+TARGET_MAX = 50000    
 MAX_DEPTH  = 12
 MIN_EXTENT = 1e-4
-# =======================
-
 
 def write_chunk(path, verts, text):
     el = PlyElement.describe(verts, "vertex")
@@ -163,14 +154,12 @@ def main():
           sum(counts)/len(counts),
           max(counts))
 
-    # CSV für Unity
     with open(os.path.join(OUT_DIR, "tiles_meta.csv"), "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["name","tile_ix","tile_iz","count"])
         for c in meta:
             w.writerow([c["name"], c["tile_ix"], c["tile_iz"], c["count"]])
 
-    # JSON optional
     with open(os.path.join(OUT_DIR, "tiles_meta.json"), "w", encoding="utf-8") as f:
         json.dump({"tiles": meta}, f, indent=2)
 
