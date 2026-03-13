@@ -38,6 +38,9 @@ public class SimpleVRQuiz : MonoBehaviour
     [Header("Einstellungen")]
     public float autoCloseDelay = 5.0f; 
 
+    private Color themeBlue;
+    private const string themeBlueHex = "#1CA0DA";
+
     // INTERNE VARIABLEN
     private Renderer targetCubeRenderer;
     private Material originalMaterial;
@@ -55,6 +58,8 @@ public class SimpleVRQuiz : MonoBehaviour
 
     void Awake()
     {
+        ColorUtility.TryParseHtmlString(themeBlueHex, out themeBlue);
+
         SpawnQuiz foundScript = FindAnyObjectByType<SpawnQuiz>(); 
         if (foundScript != null)
         {
@@ -68,9 +73,9 @@ public class SimpleVRQuiz : MonoBehaviour
         if (shaderToUse != null)
         {
             successMaterial = new Material(shaderToUse);
-            successMaterial.color = Color.green;
+            successMaterial.color = themeBlue;
             successMaterial.EnableKeyword("_EMISSION");
-            successMaterial.SetColor("_EmissionColor", Color.green * 2.0f); 
+            successMaterial.SetColor("_EmissionColor", themeBlue * 2.0f); 
             successMaterial.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
         }
     }
@@ -250,7 +255,7 @@ public class SimpleVRQuiz : MonoBehaviour
 
         if (wrongQuestionsLog.Count == 0)
         {
-            resultText += "<color=green>Perfekt! Alles richtig.</color>";
+            resultText += "<color=#1CA0DA>Perfekt! Alles richtig. Du hast dir ein Abzeichen verdient!\n(im Menü einsehbar)</color>\n\n Wähle die Tür aus, um zum nächsten Raum zu gelangen!";
             if (targetCubeRenderer != null && successMaterial != null) targetCubeRenderer.material = successMaterial;
             if (audioSource != null && winFanfareSound != null) audioSource.PlayOneShot(winFanfareSound);
             if (spawner != null) spawner.UnlockRewardForThisScene();
