@@ -23,7 +23,6 @@ public class UniversalInteractionVR : MonoBehaviour
 
     [Header("Größen & Layout (Hier reparierst du den Overflow!)")]
     public Vector3 fixedScale = new Vector3(0.1f, 1f, 0.1f);
-    // NEU: Damit kannst du die Text-Breite manuell anpassen
     public Vector2 textAreaSize = new Vector2(5.0f, 5.0f); 
     public float slideHeight = 0.5f;    
     public float slideDuration = 0.5f; 
@@ -85,7 +84,6 @@ public class UniversalInteractionVR : MonoBehaviour
             RotatePanelToPlayer();
         }
         
-        // DEBUG-HILFE: Erlaubt dir, die Größe LIVE im Play-Mode zu ändern!
         if (isOpen && infoText != null && screenshot == null)
         {
              RectTransform textRect = infoText.GetComponent<RectTransform>();
@@ -173,7 +171,6 @@ public class UniversalInteractionVR : MonoBehaviour
                 RectTransform textRect = infoText.GetComponent<RectTransform>();
                 if (textRect != null)
                 {
-                    // HIER WIRD DEIN WERT GENUTZT
                     textRect.sizeDelta = textAreaSize; 
                 }
                 

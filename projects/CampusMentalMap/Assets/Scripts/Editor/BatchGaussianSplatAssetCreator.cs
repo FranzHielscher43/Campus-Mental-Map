@@ -5,17 +5,12 @@ using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using GaussianSplatting.Runtime; // GaussianSplatAsset
+using GaussianSplatting.Runtime; 
 
 public static class BatchGaussianSplatAssetCreator
 {
-    // ================== PATHS ==================
-    // Lege deine chunk_*.ply hier rein:
     const string InputPlyFolder = "Assets/SplatChunks/PLY";
-
-    // Hier kommen .asset + *_pos/_oth/_col/_shs/_chk.bytes hin:
     const string OutputFolder   = "Assets/SplatChunks/Assets";
-    // ===========================================
 
     [MenuItem("Tools/Gaussian Splats/Batch Create Assets (Create+Relink+Validate)")]
     public static void Run()
@@ -26,8 +21,6 @@ public static class BatchGaussianSplatAssetCreator
             return;
         }
         Directory.CreateDirectory(OutputFolder);
-
-        // Wichtig: deterministische Reihenfolge
         var plyAbsPaths = Directory.GetFiles(InputPlyFolder, "*.ply", SearchOption.TopDirectoryOnly)
                                    .Select(p => p.Replace("\\", "/"))
                                    .OrderBy(p => p, StringComparer.OrdinalIgnoreCase)
@@ -39,7 +32,6 @@ public static class BatchGaussianSplatAssetCreator
             return;
         }
 
-        // Creator finden (aras-p / GaussianSplatting package)
         var creatorType = FindType("GaussianSplatting.Editor.GaussianSplatAssetCreator");
         if (creatorType == null)
         {
@@ -69,18 +61,13 @@ public static class BatchGaussianSplatAssetCreator
 
         try
         {
-            // 0) Creator konfigurieren
             fOut.SetValue(creator, OutputFolder);
             fImportC.SetValue(creator, false);
 
-            // Qualität setzen (Enum im Package)
             object quality = Enum.Parse(fQuality.FieldType, "High");
             fQuality.SetValue(creator, quality);
-
-            // Wichtig: setzt interne Formate/Bytes-Namen passend
             mApply?.Invoke(creator, null);
 
-            // 1) Create (keine Refresh-Orgien pro Chunk)
             for (int i = 0; i < plyAbsPaths.Length; i++)
             {
                 var abs = plyAbsPaths[i];
@@ -101,12 +88,10 @@ public static class BatchGaussianSplatAssetCreator
                 created++;
             }
 
-            // 2) EINMAL synchron importieren
             EditorUtility.DisplayProgressBar("Batch Create GaussianSplatAssets", "Refreshing/Importing .bytes (sync)", 0.98f);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
 
-            // 3) Relink + Validate
             for (int i = 0; i < plyAbsPaths.Length; i++)
             {
                 var baseName = Path.GetFileNameWithoutExtension(plyAbsPaths[i]);
@@ -154,7 +139,6 @@ public static class BatchGaussianSplatAssetCreator
         bool ok = AssetExists(pPos) && AssetExists(pOth) && AssetExists(pCol) && AssetExists(pShs);
         if (!ok) return false;
 
-        // Import hier ist ok – aber wir sind bereits nach globalem Refresh, also stabil
         AssetDatabase.ImportAsset(pPos, ImportAssetOptions.ForceSynchronousImport);
         AssetDatabase.ImportAsset(pOth, ImportAssetOptions.ForceSynchronousImport);
         AssetDatabase.ImportAsset(pCol, ImportAssetOptions.ForceSynchronousImport);
@@ -175,14 +159,12 @@ public static class BatchGaussianSplatAssetCreator
         return true;
     }
 
-    // Byte-Checks: findet „not multiple of 4“ sofort
     static bool ValidateBytes(string chunkName, string outputFolderAssetsPath)
     {
         bool ok = true;
         ok &= ValidateOne($"{outputFolderAssetsPath}/{chunkName}_pos.bytes", 4);
         ok &= ValidateOne($"{outputFolderAssetsPath}/{chunkName}_oth.bytes", 4);
         ok &= ValidateOne($"{outputFolderAssetsPath}/{chunkName}_col.bytes", 4);
-        // SHS kann je nach Format 2/4, wir checken „gerade“
         ok &= ValidateOne($"{outputFolderAssetsPath}/{chunkName}_shs.bytes", 2);
 
         string chk = $"{outputFolderAssetsPath}/{chunkName}_chk.bytes";

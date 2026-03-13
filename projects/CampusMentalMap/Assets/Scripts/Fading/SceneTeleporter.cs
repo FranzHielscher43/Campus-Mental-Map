@@ -70,7 +70,7 @@ public class SceneTeleporter : MonoBehaviour
         {
             op.allowSceneActivation = false;
 
-            float timeoutAt = Time.unscaledTime + 20f; // failsafe
+            float timeoutAt = Time.unscaledTime + 20f;
             while (op.progress < 0.9f)
             {
                 if (Time.unscaledTime > timeoutAt)

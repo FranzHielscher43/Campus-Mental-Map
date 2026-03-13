@@ -69,10 +69,6 @@ public class SeatInteractable : MonoBehaviour
         }
     }
 
-    // --------------------------------------------------------
-    // Trigger
-    // --------------------------------------------------------
-
     void OnTriggerEnter(Collider other)
     {
         if (!IsPlayer(other)) return;
@@ -95,10 +91,6 @@ public class SeatInteractable : MonoBehaviour
     {
         return other.GetComponentInParent<XROrigin>() != null;
     }
-
-    // --------------------------------------------------------
-    // Button Callbacks
-    // --------------------------------------------------------
 
     public void SitDown()
     {
@@ -136,10 +128,6 @@ public class SeatInteractable : MonoBehaviour
 
         StartCoroutine(TeleportToSceneRoutine(teleportSceneName));
     }
-
-    // --------------------------------------------------------
-    // Routines
-    // --------------------------------------------------------
 
     IEnumerator SitRoutine()
     {
@@ -216,10 +204,6 @@ public class SeatInteractable : MonoBehaviour
 
         SceneManager.LoadScene(sceneName);
     }
-
-    // --------------------------------------------------------
-    // Helpers
-    // --------------------------------------------------------
 
     void SetSittingLock(bool locked)
     {

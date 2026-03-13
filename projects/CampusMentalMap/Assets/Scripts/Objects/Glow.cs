@@ -3,7 +3,7 @@ using UnityEngine;
 public class ProximityOutlineGlow : MonoBehaviour
 {
     [Header("Verknüpfung (WICHTIG)")]
-    public GameObject targetPlane; // Zieh hier dein Info-Panel rein!
+    public GameObject targetPlane;
 
     [Header("Farbe & Distanz")]
     public Color glowColor = Color.red; 
@@ -23,13 +23,11 @@ public class ProximityOutlineGlow : MonoBehaviour
 
         if (Camera.main != null) mainCam = Camera.main.transform;
 
-        // Dein Original-Code für den Shader und das schwarze Material
         Shader shader = Shader.Find("Universal Render Pipeline/Lit");
         if (shader == null) shader = Shader.Find("Standard");
         
         glowMat = new Material(shader);
         
-        // Macht das Objekt schwarz, wie du es wolltest
         glowMat.SetColor("_BaseColor", Color.black); 
         glowMat.SetColor("_Color", Color.black);
         
@@ -41,19 +39,13 @@ public class ProximityOutlineGlow : MonoBehaviour
 
     void Update()
     {
-        // --- NEU: DER STOPP-SCHALTER ---
-        // Wenn das Panel zugewiesen UND gerade sichtbar ist:
         if (targetPlane != null && targetPlane.activeInHierarchy)
         {
-            // Glow sofort ausschalten (Schwarz)
             glowMat.SetColor("_EmissionColor", Color.black);
-            return; // Update hier abbrechen, damit er nicht weiter rechnet
+            return;
         }
-        // --------------------------------
 
         if (mainCam == null) return;
-
-        // Ab hier läuft dein originaler Glow-Code weiter, wenn das Panel ZU ist:
         
         float dist = Vector3.Distance(transform.position, mainCam.position);
 

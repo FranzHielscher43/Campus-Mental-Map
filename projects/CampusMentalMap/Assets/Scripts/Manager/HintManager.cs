@@ -21,7 +21,6 @@ public class HintManager : MonoBehaviour
         ApplyImmediate(hintsEnabled);
     }
 
-    // --- UI Buttons call these ---
     public void HintsOn()  => ApplySafe(true);
     public void HintsOff() => ApplySafe(false);
 
@@ -35,7 +34,6 @@ public class HintManager : MonoBehaviour
 
     IEnumerator ApplyNextFrame(bool enabled)
     {
-        // XR-UI Click sauber abschließen lassen
         yield return null;
         yield return new WaitForEndOfFrame();
 
