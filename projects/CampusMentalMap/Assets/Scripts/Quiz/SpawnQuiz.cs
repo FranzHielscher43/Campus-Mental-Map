@@ -47,13 +47,14 @@ public class SpawnQuiz : MonoBehaviour
             fallbackText.SetActive(true);
             doorTeleporter.SetActive(false);
         }
-        else if (scene == "Mocap_Labor")
+        else if (scene == "Mocap_Labor_Pult")
         {
             reward_ui_1.SetActive(true);
             reward_ui_2.SetActive(false);
             reward_ui_3.SetActive(false);
             reward_ui_4.SetActive(false);
             fallbackText.SetActive(false);
+            Debug.Log("Teleporter deaktiviert!");
             doorTeleporter.SetActive(false);    
         }
         else if (scene == "Bibliothek")
@@ -143,7 +144,7 @@ public class SpawnQuiz : MonoBehaviour
             fallbackText.SetActive(false);
             doorTeleporter.SetActive(true);
         }
-        else if (scene == "Mocap_Labor")
+        else if (scene == "Mocap_Labor_Pult")
         {
             reward_ui_1.SetActive(true);
             reward_ui_2.SetActive(true);
