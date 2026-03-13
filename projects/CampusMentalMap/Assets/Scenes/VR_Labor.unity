@@ -4208,6 +4208,54 @@ PrefabInstance:
       propertyPath: otherAudio
       value: 
       objectReference: {fileID: 138165515970168233}
+    - target: {fileID: 670167762328748127, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: loadingSymbolGroup
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 670167762328748127, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: loadingSymbolFadeOutDelay
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 670167762328748127, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: loadingSymbolFadeInDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 670167762328748127, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: loadingSymbolFadeOutDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2351267291926494529, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: 501c197e33e6d420db727bb0c4b2e7e4, type: 3}
+    - target: {fileID: 2351267291926494529, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: m_ControlledAudioTrackCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2351267291926494529, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: m_DirectAudioMutes.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2351267291926494529, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: m_DirectAudioVolumes.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2351267291926494529, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: m_EnabledAudioTracks.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2351267291926494529, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: m_TargetAudioSources.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2351267291926494529, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: 'm_DirectAudioVolumes.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2351267291926494529, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: 'm_EnabledAudioTracks.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3941893888933415257, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
       propertyPath: m_Name
       value: Fader
@@ -9241,7 +9289,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
