@@ -23,7 +23,11 @@ public class QuestManager : MonoBehaviour
         if (aktuellerStand >= zielAnzahl)
         {
             questText.text = "Quest abgeschlossen!";
-            questText.color = Color.green;
+            Color finishColor;
+            if(ColorUtility.TryParseHtmlString("#1CA0DA", out finishColor))
+            {
+                questText.color = finishColor;
+            }
         }
     }
 

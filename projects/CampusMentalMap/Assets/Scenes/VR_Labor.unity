@@ -5726,7 +5726,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 350}
-  m_SizeDelta: {x: 200, y: 60}
+  m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &668235394
 PrefabInstance:
@@ -7383,8 +7383,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7401,12 +7401,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 50
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 30
+  m_fontSizeMin: 30
+  m_fontSizeMax: 50
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -7470,7 +7470,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 60}
+  m_SizeDelta: {x: 400, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &873292728
 GameObject:
@@ -9207,7 +9207,7 @@ MonoBehaviour:
   nextButtonObj: {fileID: 1172480453}
   timePerQuestion: 10
   timerSlider: {fileID: 2131812336}
-  autoCloseDelay: 3
+  autoCloseDelay: 5
   allQuestions:
   - questionText: "Welches VR-Headset ist das aktuelle Standard-Ger\xE4t hier im
       VR-Labor?"
@@ -11310,6 +11310,7 @@ GameObject:
   - component: {fileID: 1296152434}
   - component: {fileID: 1296152433}
   - component: {fileID: 1296152432}
+  - component: {fileID: 1296152436}
   m_Layer: 5
   m_Name: "Schlie\xDFen"
   m_TagString: Untagged
@@ -11364,6 +11365,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1946333591}
         m_TargetAssemblyTypeName: StartSceneIntroManager, Assembly-CSharp
         m_MethodName: CloseIntro
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1296152436}
+        m_TargetAssemblyTypeName: QuestButton, Assembly-CSharp
+        m_MethodName: ButtonKlickLogik
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11430,6 +11443,19 @@ RectTransform:
   m_AnchoredPosition: {x: 52.5, y: 85}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1296152436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296152431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29805a7611532942a3faffb2b4c3522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meinManager: {fileID: 2584020245900901878}
 --- !u!1 &1298234063
 GameObject:
   m_ObjectHideFlags: 0
@@ -15634,8 +15660,8 @@ RectTransform:
   m_GameObject: {fileID: 1830030271}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 526149556}
   - {fileID: 920468588}
@@ -15644,7 +15670,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1836202897
@@ -16285,7 +16311,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1938741608}
   m_LocalRotation: {x: 0.021398334, y: 0.0028167432, z: -0.0056722555, w: -0.99975103}
-  m_LocalPosition: {x: 0, y: 0, z: 1.1858081}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.0034302934, y: 0.002320285, z: 0.007760008}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16293,7 +16319,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 764.4055, y: 98894.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1938741610
@@ -16326,7 +16352,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -18182,8 +18208,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -18923,6 +18949,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 62877378}
     m_Modifications:
+    - target: {fileID: 3645923110620236977, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: zielAnzahl
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3740635496153300118, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
+      propertyPath: m_Color.a
+      value: 0.29411766
+      objectReference: {fileID: 0}
     - target: {fileID: 4235545000052473317, guid: 382f3fc65d90d40b499c6595d6246dae, type: 3}
       propertyPath: m_Name
       value: Questliste
