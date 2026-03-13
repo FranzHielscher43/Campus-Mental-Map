@@ -26,13 +26,11 @@ public class OpalScreenFlow : MonoBehaviour
 
     private void Awake()
     {
-        // Czyścimy stare listenery (bezpieczne przy prefabach / restartach play mode)
         if (btnAnmelden) btnAnmelden.onClick.RemoveAllListeners();
         if (btnStartseite) btnStartseite.onClick.RemoveAllListeners();
         if (btnLernen) btnLernen.onClick.RemoveAllListeners();
         if (btnKursangebote) btnKursangebote.onClick.RemoveAllListeners();
 
-        // Podpinamy
         if (btnAnmelden) btnAnmelden.onClick.AddListener(OnClickAnmelden);
         if (btnStartseite) btnStartseite.onClick.AddListener(OnClickStartseite);
         if (btnLernen) btnLernen.onClick.AddListener(OnClickLernen);

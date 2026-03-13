@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI; // Wichtig für Button-Referenzen
+using UnityEngine.UI; 
 
 public class StartSceneIntroButtonsOnly : MonoBehaviour
 {
@@ -22,8 +22,8 @@ public class StartSceneIntroButtonsOnly : MonoBehaviour
     public float slideDuration = 0.5f; 
 
     [Header("Anti-Doppelklick (WICHTIG)")]
-    public float clickCooldown = 0.5f; // Wartezeit nach Klick
-    private float lastClickTime = 0f;  // Wann wurde zuletzt geklickt?
+    public float clickCooldown = 0.5f;
+    private float lastClickTime = 0f;
 
     private bool isOpen = false;
     private int currentSlideIndex = 0;
@@ -32,7 +32,6 @@ public class StartSceneIntroButtonsOnly : MonoBehaviour
     {
         if (targetPanels != null && targetPanels.Length > 0)
         {
-            // Alle Panels initial verstecken
             for (int i = 0; i < targetPanels.Length; i++) {
                 targetPanels[i].anchoredPosition = hiddenOffset;
                 targetPanels[i].gameObject.SetActive(false);
@@ -51,24 +50,18 @@ public class StartSceneIntroButtonsOnly : MonoBehaviour
         if (!isOpen) OpenIntro();
     }
 
-    // --- NAVIGATION MIT COOLDOWN ---
-
     public void NextSlide()
     {
-        // 1. NEU: Prüfen, ob wir warten müssen
         if (Time.time - lastClickTime < clickCooldown) return;
-        lastClickTime = Time.time; // Zeit merken
-
+        lastClickTime = Time.time;
         Debug.Log("<color=green>Nav:</color> Nächster Slide");
         
-        // Normale Logik weiter...
         if (!isOpen || currentSlideIndex >= targetPanels.Length - 1) return;
         StartCoroutine(SwitchRoutine(currentSlideIndex + 1));
     }
 
     public void PreviousSlide()
     {
-        // 1. NEU: Auch hier die Bremse rein
         if (Time.time - lastClickTime < clickCooldown) return;
         lastClickTime = Time.time;
 
@@ -80,7 +73,6 @@ public class StartSceneIntroButtonsOnly : MonoBehaviour
 
     public void CloseIntro()
     {
-        // Auch beim Schließen kurz warten, damit man nicht aus Versehen was dahinter anklickt
         if (Time.time - lastClickTime < clickCooldown) return;
         lastClickTime = Time.time;
 
@@ -88,11 +80,9 @@ public class StartSceneIntroButtonsOnly : MonoBehaviour
         if (!isOpen) return;
         isOpen = false;
 
-        // Intro schließen Animation
         StartCoroutine(SlideRoutine(currentSlideIndex, false));
         if (navigationParent != null) navigationParent.SetActive(false);
 
-        // --- NEU: HIER SUCHEN WIR DEN MANAGER UND STARTEN DAS SPIEL ---
         TitleScreenManager manager = FindObjectOfType<TitleScreenManager>();
         if (manager != null)
         {
@@ -102,17 +92,13 @@ public class StartSceneIntroButtonsOnly : MonoBehaviour
         {
             Debug.LogError("Fehler: Kein TitleScreenManager in der Szene gefunden!");
         }
-        // -------------------------------------------------------------
     }
 
     IEnumerator SwitchRoutine(int newIndex)
     {
-        // Altes Panel raus
         StartCoroutine(SlideRoutine(currentSlideIndex, false));
         
         currentSlideIndex = newIndex;
-        
-        // Neues Panel rein
         yield return StartCoroutine(SlideRoutine(currentSlideIndex, true));
         
         UpdateNavigationButtons();
@@ -137,8 +123,6 @@ public class StartSceneIntroButtonsOnly : MonoBehaviour
         StartCoroutine(SlideRoutine(currentSlideIndex, true));
         UpdateNavigationButtons();
     }
-
-    // --- ANIMATION ---
 
     IEnumerator SlideRoutine(int index, bool show)
     {

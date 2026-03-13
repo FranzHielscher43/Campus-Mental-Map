@@ -21,7 +21,7 @@ public class SplatChunkManager : MonoBehaviour
     public int subDiv = 4;
 
     [Header("Streaming")]
-    public int visibleChunks = 5;         // MAIN tiles
+    public int visibleChunks = 5;
     public float maxDistance = 35f;
     public float keepAliveSeconds = 1.0f;
     public bool loadNeighborRing = true;
@@ -37,25 +37,18 @@ public class SplatChunkManager : MonoBehaviour
         public Bounds boundsWorld;
         public Vector3 centerWorld;
 
-        // coarse
         public int gx, gz;
-        // sub
         public int sx, sz;
-        // global tile coords (für NeighborRing)
         public int tx, tz;
     }
 
-    // Matches:
-    // chunk_3_3_sub_2_1
-    // chunk_3_3_sub_2_1_m_0_0
-    // chunk_3_3_sub_2_1_l_1_0
     static readonly Regex rx = new Regex(
         @"chunk_(\d+)_(\d+)_sub_(\d+)_(\d+)",
         RegexOptions.Compiled
     );
 
     readonly List<Chunk> chunks = new();
-    readonly Dictionary<(int,int), Chunk> byTile = new(); // key = (tx,tz)
+    readonly Dictionary<(int,int), Chunk> byTile = new();
     readonly Dictionary<Chunk, float> keepAlive = new();
 
     bool loggedStats = false;

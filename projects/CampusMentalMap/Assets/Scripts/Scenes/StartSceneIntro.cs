@@ -106,7 +106,6 @@ public class StartSceneIntro : MonoBehaviour
             }
             else
             {
-                // ÄNDERUNG HIER: Klick außerhalb schließt nur, wenn wir beim letzten Slide sind
                 if (!hitPlaneOnDown && currentSlideIndex == targetPlanes.Length - 1) 
                 {
                     ClosePlane(); 

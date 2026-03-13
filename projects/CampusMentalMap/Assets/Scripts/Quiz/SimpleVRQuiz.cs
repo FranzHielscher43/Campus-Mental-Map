@@ -41,7 +41,6 @@ public class SimpleVRQuiz : MonoBehaviour
     private Color themeBlue;
     private const string themeBlueHex = "#1CA0DA";
 
-    // INTERNE VARIABLEN
     private Renderer targetCubeRenderer;
     private Material originalMaterial;
     private Material successMaterial; 
@@ -95,11 +94,9 @@ public class SimpleVRQuiz : MonoBehaviour
         if (targetCubeRenderer != null && originalMaterial != null)
             targetCubeRenderer.material = originalMaterial;
 
-        // UI Reset
         if (questionDisplay != null) questionDisplay.gameObject.SetActive(true); 
         if (resultDisplay != null) resultDisplay.gameObject.SetActive(false);   
 
-        // --- NEU: SLIDER WIEDER SICHTBAR MACHEN ---
         if (timerSlider != null) timerSlider.gameObject.SetActive(true);
 
         ShuffleQuestions(); 
@@ -119,7 +116,6 @@ public class SimpleVRQuiz : MonoBehaviour
             {
                 timerSlider.value = currentTimer;
                 
-                // Farbe ändern (Grün -> Rot)
                 if (timerSlider.fillRect != null)
                 {
                     Image fillImage = timerSlider.fillRect.GetComponent<Image>();
@@ -244,11 +240,9 @@ public class SimpleVRQuiz : MonoBehaviour
         nextButtonObj.SetActive(false);
         feedbackDisplay.text = "";
 
-        // UI Umschalten
         if (questionDisplay != null) questionDisplay.gameObject.SetActive(false);
         if (resultDisplay != null) resultDisplay.gameObject.SetActive(true);
 
-        // --- NEU: SLIDER VERSTECKEN ---
         if (timerSlider != null) timerSlider.gameObject.SetActive(false);
 
         string resultText = "<b>Quiz beendet!</b>\n\n";

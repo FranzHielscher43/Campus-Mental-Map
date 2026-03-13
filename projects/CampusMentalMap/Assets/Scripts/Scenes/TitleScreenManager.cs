@@ -47,29 +47,19 @@ public class TitleScreenManager : MonoBehaviour
     {
         Debug.Log("Start gedrückt");
 
-        // 1. Menü ausblenden
         if (titlescreenPanel) titlescreenPanel.SetActive(false);
 
-        // --- HIER IST DIE LOGIK FÜR "NUR 1x ANZEIGEN" ---
-        
-        // Wenn wir ein Intro haben UND es noch NICHT gesehen haben:
         if (introCanvas != null && !hasSeenIntro)
         {
-            // Merken, dass wir es jetzt sehen
             hasSeenIntro = true;
-
-            // Intro Canvas anschalten -> Das aktiviert automatisch den Timer im anderen Skript
             introCanvas.SetActive(true);
         }
         else 
         {
-            // Wenn wir es schon gesehen haben (oder keins da ist):
-            // Sofort starten!
             FinalStartGame();
         }
     }
 
-    // Wird vom Intro-Skript (beim Schließen) ODER direkt von oben aufgerufen
     public void FinalStartGame()
     {
         if (busy) return;
@@ -88,7 +78,6 @@ public class TitleScreenManager : MonoBehaviour
         SceneManager.LoadScene(nextScene);
     }
 
-    // --- Standard UI ---
     public void AboutUs()
     {
         if (!titlescreenPanel || !aboutUsPanel) return;

@@ -11,13 +11,11 @@ using GaussianSplatting.Runtime;
 
 public static class BuildChunksFromCsv
 {
-    // === ANPASSEN ===
-    const string MetaCsvPath   = "Assets/SplatChunks/chunks_meta.csv"; // name,minx,miny,minz,maxx,maxy,maxz,count
-    const string AssetsFolder  = "Assets/SplatChunks/Assets";          // hier liegen die chunk_*.asset
+    const string MetaCsvPath   = "Assets/SplatChunks/chunks_meta.csv";
+    const string AssetsFolder  = "Assets/SplatChunks/Assets";
     const string RootName      = "GS_Chunks";
     const bool   AddBoxCollider = true;
-    const bool   MoveWrapperToBoundsCenter = true; // wichtig!
-    // =================
+    const bool   MoveWrapperToBoundsCenter = true; 
 
     [MenuItem("Tools/Gaussian Splats/Build Chunks From CSV (Fixed)")]
     public static void Build()
@@ -46,7 +44,6 @@ public static class BuildChunksFromCsv
             return;
         }
 
-        // Assets indexieren: key = Dateiname ohne Extension (stabiler als a.name)
         var guids = AssetDatabase.FindAssets("t:GaussianSplatAsset", new[] { AssetsFolder });
         var assetByKey = new Dictionary<string, GaussianSplatAsset>(StringComparer.Ordinal);
         foreach (var g in guids)
@@ -55,7 +52,7 @@ public static class BuildChunksFromCsv
             var asset = AssetDatabase.LoadAssetAtPath<GaussianSplatAsset>(path);
             if (!asset) continue;
 
-            var key = Path.GetFileNameWithoutExtension(path); // z.B. tile_0_0_a_b
+            var key = Path.GetFileNameWithoutExtension(path);
             if (!assetByKey.ContainsKey(key))
                 assetByKey[key] = asset;
         }
@@ -98,7 +95,6 @@ public static class BuildChunksFromCsv
             Vector3 center = (bmin + bmax) * 0.5f;
             Vector3 size   = (bmax - bmin);
 
-            // Wrapper
             var wrapperT = root.transform.Find(name);
             GameObject wrapper;
             if (!wrapperT)
@@ -109,7 +105,6 @@ public static class BuildChunksFromCsv
             }
             else wrapper = wrapperT.gameObject;
 
-            // Wrapper zentrieren (Collider lokal korrekt)
             if (MoveWrapperToBoundsCenter)
                 wrapper.transform.localPosition = center;
 
@@ -122,11 +117,8 @@ public static class BuildChunksFromCsv
                 bc.size   = size;
             }
 
-            // Asset finden: exakter key = name
             if (!assetByKey.TryGetValue(name, out var asset))
             {
-                // fallback: manche Assets heißen leicht anders (z.B. name + ".asset" ist egal, aber key ist ohne ext)
-                // optional: Contains match
                 var hit = assetByKey.Keys.FirstOrDefault(k => k.Equals(name, StringComparison.Ordinal));
                 if (hit == null)
                 {
@@ -141,7 +133,6 @@ public static class BuildChunksFromCsv
                 asset = assetByKey[hit];
             }
 
-            // Child mit Renderer
             var child = wrapper.transform.Find("Splat");
             if (!child)
             {
