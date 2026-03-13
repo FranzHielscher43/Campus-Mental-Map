@@ -3088,6 +3088,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1249505553}
     m_Modifications:
+    - target: {fileID: 136038547777619990, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 136038547777619990, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 136038547777619990, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 136038547777619990, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
     - target: {fileID: 670167762328748127, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
       propertyPath: fadeText
       value: 
@@ -4368,7 +4384,7 @@ MonoBehaviour:
   rewardsPanel: {fileID: 1178600896}
   head: {fileID: 1249505553}
   distance: 1
-  heightOffset: 0.2
+  heightOffset: 0
   pauseTime: 1
   toggleCooldown: 0.25
 --- !u!4 &601519081
