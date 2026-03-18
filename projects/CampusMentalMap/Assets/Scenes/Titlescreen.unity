@@ -1529,7 +1529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6093121616375818508, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
       propertyPath: m_Alpha
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6093121616375818508, guid: 5c6f716f825a94ba2beffd07498930da, type: 3}
       propertyPath: m_Interactable
